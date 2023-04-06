@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.pojo.User">
+            <id property="id" column="u_id" jdbcType="INTEGER"/>
+            <result property="name" column="u_name" jdbcType="VARCHAR"/>
+            <result property="email" column="u_email" jdbcType="VARCHAR"/>
+            <result property="type" column="u_type" jdbcType="TINYINT"/>
+            <result property="password" column="u_password" jdbcType="VARCHAR"/>
+            <result property="icon" column="u_icon" jdbcType="VARCHAR"/>
+            <result property="campus" column="u_campus" jdbcType="VARCHAR"/>
+            <result property="grade" column="u_grade" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        u_id,u_name,u_email,
+        u_type,u_password,u_icon,
+        u_campus,u_grade
+    </sql>
+    <insert id="insertAll">
+        insert into user
+        (u_id, u_name, u_email,
+         u_type, u_password, u_icon,
+         u_campus, u_grade)
+        values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+                #{type,jdbcType=NUMERIC}, #{password,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR},
+                #{campus,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR})
+
+    </insert>
+</mapper>
