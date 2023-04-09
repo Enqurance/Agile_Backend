@@ -1,11 +1,10 @@
 package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.backend.pojo.User;
+import com.example.backend.domain.User;
 import com.example.backend.service.UserService;
 import com.example.backend.mapper.UserMapper;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

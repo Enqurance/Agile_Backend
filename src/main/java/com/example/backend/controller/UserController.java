@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
-import com.example.backend.pojo.User;
+import com.example.backend.domain.User;
+import com.example.backend.result.CommonResult;
 import com.example.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public int login(@RequestBody User user) {
-        int result = userService.insertUser(user);
-        return result;
+    public CommonResult login(@RequestBody User user) {
+        return CommonResult.success(0);
     }
 }

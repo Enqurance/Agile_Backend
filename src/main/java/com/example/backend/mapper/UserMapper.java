@@ -1,7 +1,6 @@
 package com.example.backend.mapper;
-import org.apache.ibatis.annotations.Param;
 
-import com.example.backend.pojo.User;
+import com.example.backend.domain.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
