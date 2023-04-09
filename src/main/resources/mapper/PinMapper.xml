@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.PinMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Pin">
+            <id property="pId" column="p_id" jdbcType="INTEGER"/>
+            <result property="pName" column="p_name" jdbcType="VARCHAR"/>
+            <result property="pPos" column="p_pos" jdbcType="VARCHAR"/>
+            <result property="pBrief" column="p_brief" jdbcType="VARCHAR"/>
+            <result property="pTag" column="p_tag" jdbcType="VARCHAR"/>
+            <result property="pOpentime" column="p_openTime" jdbcType="VARCHAR"/>
+            <result property="pPhone" column="p_phone" jdbcType="VARCHAR"/>
+            <result property="uId" column="u_id" jdbcType="INTEGER"/>
+            <result property="phId" column="ph_id" jdbcType="INTEGER"/>
+            <result property="fId" column="f_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        p_id,p_name,p_pos,
+        p_brief,p_tag,p_openTime,
+        p_phone,u_id,ph_id,
+        f_id
+    </sql>
+    <insert id="insertAll">
+        insert into pin
+        (p_id,p_name,p_pos,
+         p_brief,p_tag,p_openTime,
+         p_phone,u_id,ph_id,
+         f_id)
+        values (#{pId,jdbcType=NUMERIC}, #{pName,jdbcType=VARCHAR}, #{pPos,jdbcType=VARCHAR},
+                #{pBrief,jdbcType=VARCHAR}, #{pTag,jdbcType=VARCHAR}, #{pOpentime,jdbcType=VARCHAR},
+                #{pPhone,jdbcType=VARCHAR}, #{uId,jdbcType=NUMERIC}, #{phId,jdbcType=NUMERIC},
+                #{fId,jdbcType=NUMERIC})
+    </insert>
+</mapper>
