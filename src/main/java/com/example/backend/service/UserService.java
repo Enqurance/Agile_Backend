@@ -1,6 +1,6 @@
 package com.example.backend.service;
 
-import com.example.backend.pojo.User;
+import com.example.backend.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,5 +10,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UserService extends IService<User> {
 
-    public int insertUser(User user);
+    int insertUser(User user);
 }
