@@ -7,3 +7,13 @@ spring:
     username: root
     password: h!bLs_wKZW(pU8@T
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  mail:
+    username: buaamap
+    email: buaamap@163.com
+    password: GAPMTNFCBMBNBXJU
+    host: smtp.163.com
+    port: 465
+
+code:
+  expiration: 300
