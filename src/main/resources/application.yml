@@ -7,13 +7,28 @@ spring:
     username: root
     password: h!bLs_wKZW(pU8@T
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   mail:
-    username: buaamap
+    username: buaamap@163.com
     email: buaamap@163.com
-    password: GAPMTNFCBMBNBXJU
+    password: DYZOTKPKUSBXOCVN
     host: smtp.163.com
-    port: 465
+    port: 25
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+          ssl:
+            enable: true
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+        #表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
+        debug: true
+  data:
+    redis:
+      host: 43.143.148.116
+      port: 6379
+      password: buaaMapRedis
 
 code:
   expiration: 300

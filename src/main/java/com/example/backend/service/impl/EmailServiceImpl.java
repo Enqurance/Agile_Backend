@@ -3,40 +3,47 @@ package com.example.backend.service.impl;
 import cn.hutool.extra.mail.Mail;
 import cn.hutool.extra.mail.MailAccount;
 import com.example.backend.domain.Email;
+import com.example.backend.service.EmailService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
-public class EmailServiceImpl {
+@Service
+public class EmailServiceImpl implements EmailService {
     @Value("${spring.mail.email}")
-    private static String email;
+    private String email;
     @Value("${spring.mail.host}")
-    private static String host;
+    private String host;
     @Value("${spring.mail.port}")
-    private static String port;
+    private String port;
     @Value("${spring.mail.username}")
-    private static String username;
+    private String username;
     @Value("${spring.mail.password}")
-    private static String password;
+    private String password;
 
     public void send(Email email) {
-        if (email == null || host == null || port == null || username == null || password == null) {
+        if (this.email == null
+                || this.host == null
+                || this.port == null
+                || this.username == null
+                || this.password == null) {
             throw new RuntimeException("邮箱配置异常");
         }
 
         // 设置
         MailAccount account = new MailAccount();
-        account.setHost(host);
-        account.setPort(Integer.parseInt(port));
+        account.setHost(this.host);
+        account.setPort(Integer.parseInt(this.port));
         // 设置发送人邮箱
-        account.setFrom(username + "<" + email + ">");
+        account.setFrom(this.email);
         // 设置发送人名称
-        account.setUser(username);
+        account.setUser(this.username);
         // 设置发送授权码
-        account.setPass(password);
+        account.setPass(this.password);
         account.setAuth(true);
         // ssl方式发送
-        account.setSslEnable(true);
-        // 使用安全连接
-        account.setStarttlsEnable(true);
+//        account.setSslEnable(true);
+//        // 使用安全连接
+//        account.setStarttlsEnable(true);
 
         try {
             int size = email.getTos().size();

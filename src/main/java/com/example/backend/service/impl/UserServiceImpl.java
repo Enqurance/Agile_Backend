@@ -8,6 +8,8 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author DELL
 * @description 针对表【user】的数据库操作Service实现
@@ -19,20 +21,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Resource
     UserMapper userMapper;
 
-    @Value("${code.expiration}")
-    private Long expiration;
-
-    @Override
-    public void sendEmailCode(String email) {
-        // TODO email exists
-
-
-    }
-
     @Override
     public int insertUser(User user) {
         int result = userMapper.insertAll(user);
         return result;
+    }
+
+    @Override
+    public List<User> findUserByEmail(String email) {
+        return userMapper.findAllByEmail(email);
     }
 }
 
