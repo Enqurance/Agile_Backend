@@ -84,6 +84,86 @@ public class Pin implements Serializable {
         this.fId = fId;
     }
 
+    public Integer getpId() {
+        return pId;
+    }
+
+    public String getpName() {
+        return pName;
+    }
+
+    public String getpPos() {
+        return pPos;
+    }
+
+    public String getpBrief() {
+        return pBrief;
+    }
+
+    public String getpTag() {
+        return pTag;
+    }
+
+    public String getpOpentime() {
+        return pOpentime;
+    }
+
+    public String getpPhone() {
+        return pPhone;
+    }
+
+    public Integer getuId() {
+        return uId;
+    }
+
+    public Integer getPhId() {
+        return phId;
+    }
+
+    public Integer getfId() {
+        return fId;
+    }
+
+    public void setpId(Integer pId) {
+        this.pId = pId;
+    }
+
+    public void setpName(String pName) {
+        this.pName = pName;
+    }
+
+    public void setpPos(String pPos) {
+        this.pPos = pPos;
+    }
+
+    public void setpBrief(String pBrief) {
+        this.pBrief = pBrief;
+    }
+
+    public void setpTag(String pTag) {
+        this.pTag = pTag;
+    }
+
+    public void setpOpentime(String pOpentime) {
+        this.pOpentime = pOpentime;
+    }
+
+    public void setpPhone(String pPhone) {
+        this.pPhone = pPhone;
+    }
+
+    public void setuId(Integer uId) {
+        this.uId = uId;
+    }
+
+    public void setPhId(Integer phId) {
+        this.phId = phId;
+    }
+
+    public void setfId(Integer fId) {
+        this.fId = fId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

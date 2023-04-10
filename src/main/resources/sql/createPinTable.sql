@@ -11,7 +11,8 @@ CREATE TABLE `buaa_map`.`pin` (
     `ph_id` INT NOT NULL COMMENT '地图钉相关照片组id' ,
     `f_id` INT NOT NULL COMMENT '地图钉相关论坛id' ,
     PRIMARY KEY (`p_id`) ,
-    FOREIGN KEY (`u_id`) REFERENCES user(u_id) ,
-    FOREIGN KEY (`ph_id`) REFERENCES photo(ph_id) ,
-    FOREIGN KEY (`f_id`) REFERENCES forum(f_id)
-                          ) ENGINE = InnoDB;
+#     FOREIGN KEY (`u_id`) REFERENCES user(u_id) ,
+#     FOREIGN KEY (`ph_id`) REFERENCES photo(ph_id) ,
+#     FOREIGN KEY (`f_id`) REFERENCES forum(f_id) ,
+    FULLTEXT KEY `pin_index` (`p_name`, `p_brief`) WITH PARSER `ngram`
+                          ) ENGINE = InnoDB DEFAULT CHARSET=utf8;

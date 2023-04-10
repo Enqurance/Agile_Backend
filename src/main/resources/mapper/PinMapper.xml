@@ -25,13 +25,17 @@
     </sql>
     <insert id="insertAll">
         insert into pin
-        (p_id,p_name,p_pos,
-         p_brief,p_tag,p_openTime,
-         p_phone,u_id,ph_id,
-         f_id)
+        (p_id,p_name,p_pos,p_brief,p_tag,p_openTime,p_phone,u_id,ph_id,f_id)
         values (#{pId,jdbcType=NUMERIC}, #{pName,jdbcType=VARCHAR}, #{pPos,jdbcType=VARCHAR},
                 #{pBrief,jdbcType=VARCHAR}, #{pTag,jdbcType=VARCHAR}, #{pOpentime,jdbcType=VARCHAR},
                 #{pPhone,jdbcType=VARCHAR}, #{uId,jdbcType=NUMERIC}, #{phId,jdbcType=NUMERIC},
                 #{fId,jdbcType=NUMERIC})
     </insert>
+    <select id="searchAll" resultType="com.example.backend.domain.Pin">
+        select * from pin where 1 = 1
+        <if test='searchContext != "null" and searchContext != " "'>
+            and p_name like '%${searchContext}%' or p_brief like '%${searchContext}%'
+        </if>
+--         select * from pin where p_name like "%合一%"
+    </select>
 </mapper>

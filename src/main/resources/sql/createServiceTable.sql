@@ -6,4 +6,4 @@ CREATE TABLE `buaa_map`.`service` (
     `ph_id` INT NOT NULL COMMENT '服务相关照片组id' ,
     PRIMARY KEY (`s_id`) ,
     FOREIGN KEY (`ph_id`) REFERENCES photo(ph_id)
-                          ) ENGINE = InnoDB;
+                          ) ENGINE = InnoDB DEFAULT CHARSET=utf8;

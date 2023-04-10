@@ -3,6 +3,8 @@ package com.example.backend.service;
 import com.example.backend.domain.Pin;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author Sisyphus
 * @description 针对表【pin】的数据库操作Service
@@ -11,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface PinService extends IService<Pin> {
 
     int insertPin(Pin pin);
+
+    List<Pin> searchPin(String searchContext);
 }
