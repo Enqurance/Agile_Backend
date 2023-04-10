@@ -1,8 +1,10 @@
-package com.example.backend.util;
+package com.example.backend.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedisUtils {
@@ -20,10 +22,10 @@ public class RedisUtils {
     /**
      * 写入缓存
      */
-    public boolean set(final String key, String value) {
+    public boolean set(final String key, String value, long expiration) {
         boolean result = false;
         try {
-            redisTemplate.opsForValue().set(key, value);
+            redisTemplate.opsForValue().set(key, value, expiration, TimeUnit.SECONDS);
             result = true;
         } catch (Exception e) {
             e.printStackTrace();

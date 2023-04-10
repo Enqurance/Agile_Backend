@@ -21,7 +21,7 @@
         u_campus,u_grade
     </sql>
     <insert id="insertAll">
-        insert into pin
+        insert into user
         (u_id, u_name, u_email,
          u_type, u_password, u_icon,
          u_campus, u_grade)
@@ -30,4 +30,11 @@
                 #{campus,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR})
 
     </insert>
+    <select id="findAllByEmail" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where
+        u_email = #{email,jdbcType=VARCHAR}
+    </select>
 </mapper>
