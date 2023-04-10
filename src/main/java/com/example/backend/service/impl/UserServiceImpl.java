@@ -5,6 +5,7 @@ import com.example.backend.domain.User;
 import com.example.backend.service.UserService;
 import com.example.backend.mapper.UserMapper;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,6 +18,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
     @Resource
     UserMapper userMapper;
+
+    @Value("${code.expiration}")
+    private Long expiration;
+
+    @Override
+    public void sendEmailCode(String email) {
+        // TODO email exists
+
+
+    }
 
     @Override
     public int insertUser(User user) {

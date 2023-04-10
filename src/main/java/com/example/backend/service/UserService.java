@@ -9,6 +9,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-04-06 08:40:06
 */
 public interface UserService extends IService<User> {
-
+    void sendEmailCode(String email);
     int insertUser(User user);
 }
