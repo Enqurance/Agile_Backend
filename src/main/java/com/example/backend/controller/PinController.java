@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.domain.Pin;
+import com.example.backend.entity.PinGroup;
 import com.example.backend.entity.Text;
 import com.example.backend.service.PinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +27,10 @@ public class PinController {
         List<Pin> pins = pinService.searchPin(text.getSearchContext());
         return pins;
     }
+
+    @RequestMapping("/pin/getPinInfoById")
+    public PinGroup getPinInfoById() {
+        return null;
+    }
+
 }
