@@ -7,6 +7,8 @@ import com.example.backend.mapper.PinMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author Sisyphus
 * @description 针对表【pin】的数据库操作Service实现
@@ -22,6 +24,12 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
     public int insertPin(Pin pin) {
         int result = pinMapper.insertAll(pin);
         return result;
+    }
+
+    @Override
+    public List<Pin> searchPin(String searchContext) {
+        List<Pin> pins = pinMapper.searchAll(searchContext);
+        return pins;
     }
 }
 

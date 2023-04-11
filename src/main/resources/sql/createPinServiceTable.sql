@@ -6,4 +6,4 @@ CREATE TABLE `buaa_map`.`pin_service` (
     PRIMARY KEY (`p_s_id`) ,
     FOREIGN KEY (`p_id`) REFERENCES pin(p_id) ,
     FOREIGN KEY (`s_id`) REFERENCES service(s_id)
-                      ) ENGINE = InnoDB;
+                      ) ENGINE = InnoDB DEFAULT CHARSET=utf8;

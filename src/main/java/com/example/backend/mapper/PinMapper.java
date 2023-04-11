@@ -2,7 +2,8 @@ package com.example.backend.mapper;
 
 import com.example.backend.domain.Pin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.backend.domain.User;
+
+import java.util.List;
 
 /**
 * @author Sisyphus
@@ -12,6 +13,8 @@ import com.example.backend.domain.User;
 */
 public interface PinMapper extends BaseMapper<Pin> {
     int insertAll(Pin pin);
+
+    List<Pin> searchAll(String searchContext);
 }
 
 

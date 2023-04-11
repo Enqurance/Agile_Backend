@@ -9,4 +9,4 @@ CREATE TABLE `buaa_map`.`user` (
     `u_campus` VARCHAR(100) NOT NULL COMMENT '用户校区' ,
     `u_grade` VARCHAR(100) NOT NULL COMMENT '用户年级' ,
     PRIMARY KEY (`u_id`)
-                         ) ENGINE = InnoDB;
+                         ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
