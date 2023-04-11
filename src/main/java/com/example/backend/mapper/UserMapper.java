@@ -1,5 +1,6 @@
 package com.example.backend.mapper;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.example.backend.domain.User;
@@ -12,6 +13,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.example.backend.domain.User
 */
 public interface UserMapper extends BaseMapper<User> {
+    int insertAll(User user);
+
+    int getUserTypeById(Integer id);
+
     List<User> findAllByEmail(@Param("email") String email);
 }
 

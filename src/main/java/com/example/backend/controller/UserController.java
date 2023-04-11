@@ -14,9 +14,10 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/test")
-    public String hello() {
-        return "test";
+    @RequestMapping("/user/insert")
+    public int insertPin(@RequestBody User user) {
+        int ret = userService.insertUser(user);
+        return ret;
     }
 
     @PostMapping("/login")

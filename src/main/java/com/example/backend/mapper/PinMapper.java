@@ -15,6 +15,10 @@ public interface PinMapper extends BaseMapper<Pin> {
     int insertAll(Pin pin);
 
     List<Pin> searchAll(String searchContext);
+
+    int updateAll(Pin pin);
+
+    Pin getPinById(Integer id);
 }
 
 

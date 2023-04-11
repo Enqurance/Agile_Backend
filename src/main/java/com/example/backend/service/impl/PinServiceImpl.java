@@ -31,6 +31,17 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
         List<Pin> pins = pinMapper.searchAll(searchContext);
         return pins;
     }
+
+    @Override
+    public int updatePin(Pin pin) {
+        int result = pinMapper.updateAll(pin);
+        return result;
+    }
+
+    @Override
+    public Pin getPinById(Integer id) {
+        return pinMapper.getPinById(id);
+    }
 }
 
 

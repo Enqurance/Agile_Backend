@@ -11,5 +11,9 @@ import java.util.List;
 * @createDate 2023-04-11 09:17:21
 */
 public interface UserService extends IService<User> {
+    int insertUser(User user);
+
+    int getUserTypeById(Integer id);
+
     List<User> findUserByEmail(String email);
 }

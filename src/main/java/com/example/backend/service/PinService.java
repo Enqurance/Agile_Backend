@@ -15,4 +15,8 @@ public interface PinService extends IService<Pin> {
     int insertPin(Pin pin);
 
     List<Pin> searchPin(String searchContext);
+
+    int updatePin(Pin pin);
+
+    Pin getPinById(Integer id);
 }

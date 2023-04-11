@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.PinServiceRelMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.PinServiceRel">
+            <id property="id" column="p_s_id" jdbcType="INTEGER"/>
+            <result property="pin_id" column="p_id" jdbcType="INTEGER"/>
+            <result property="service_id" column="s_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        p_s_id,p_id,s_id
+    </sql>
+    <insert id="insertAll">
+        insert into pin_service (p_s_id, p_id, s_id)
+        values (#{id,jdbcType=NUMERIC}, #{pin_id,jdbcType=NUMERIC},
+                #{service_id,jdbcType=NUMERIC})
+    </insert>
+    <select id="getServiceIdByPinId" resultType="java.lang.Integer">
+        select s_id from pin_service where 1 = 0
+        <if test='pinId > 0'>
+            or p_id = #{pinId}
+        </if>
+    </select>
+
+</mapper>
