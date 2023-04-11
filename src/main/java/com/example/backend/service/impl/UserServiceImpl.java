@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.User;
 import com.example.backend.service.UserService;
 import com.example.backend.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author DELL
@@ -15,6 +18,12 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
 
+    @Autowired
+    private UserMapper userMapper;
+    @Override
+    public List<User> findUserByEmail(String email) {
+        return userMapper.findAllByEmail(email);
+    }
 }
 
 

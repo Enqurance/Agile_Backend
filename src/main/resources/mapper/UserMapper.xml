@@ -23,4 +23,11 @@
         u_campus,u_grade,u_gender,
         u_description
     </sql>
+    <select id="findAllByEmail" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where
+        u_email = #{email,jdbcType=VARCHAR}
+    </select>
 </mapper>

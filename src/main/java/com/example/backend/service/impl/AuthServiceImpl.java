@@ -4,8 +4,8 @@ import cn.hutool.core.util.RandomUtil;
 import com.example.backend.domain.User;
 import com.example.backend.service.AuthService;
 import com.example.backend.service.UserService;
-import com.example.backend.utils.EmailUtils;
-import com.example.backend.utils.RedisUtils;
+import com.example.backend.utils.EmailUtil;
+import com.example.backend.utils.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,8 +19,8 @@ public class AuthServiceImpl implements AuthService {
     @Value("${code.expiration}")
     private Long expiration;
 
-    private final RedisUtils redisUtils;
-    private final EmailUtils emailUtils;
+    private final RedisUtil redisUtils;
+    private final EmailUtil emailUtils;
     private final UserService userService;
     @Override
     public void sendMailCode(String email) {
