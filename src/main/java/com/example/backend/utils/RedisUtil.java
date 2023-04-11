@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class RedisUtils {
+public class RedisUtil {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;

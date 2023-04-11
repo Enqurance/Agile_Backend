@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 
 @Component
-public class EmailUtils {
+public class EmailUtil {
     @Autowired
     private EmailService emailService;
 
