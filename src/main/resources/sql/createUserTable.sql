@@ -8,5 +8,7 @@ CREATE TABLE `buaa_map`.`user` (
     `u_icon` VARCHAR(200) NOT NULL COMMENT '头像路径' ,
     `u_campus` VARCHAR(100) NOT NULL COMMENT '用户校区' ,
     `u_grade` VARCHAR(100) NOT NULL COMMENT '用户年级' ,
+    `u_gender` INT NOT NULL COMMENT '用户性别',
+    `u_description` VARCHAR(200) NOT NULL COMMENT '个人简介',
     PRIMARY KEY (`u_id`)
                          ) ENGINE = InnoDB;
