@@ -13,28 +13,14 @@
             <result property="icon" column="u_icon" jdbcType="VARCHAR"/>
             <result property="campus" column="u_campus" jdbcType="VARCHAR"/>
             <result property="grade" column="u_grade" jdbcType="VARCHAR"/>
+            <result property="gender" column="u_gender" jdbcType="INTEGER"/>
+            <result property="description" column="u_description" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         u_id,u_name,u_email,
         u_type,u_password,u_icon,
-        u_campus,u_grade
+        u_campus,u_grade,u_gender,
+        u_description
     </sql>
-    <insert id="insertAll">
-        insert into user
-        (u_id, u_name, u_email,
-         u_type, u_password, u_icon,
-         u_campus, u_grade)
-        values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
-                #{type,jdbcType=NUMERIC}, #{password,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR},
-                #{campus,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR})
-
-    </insert>
-    <select id="findAllByEmail" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from user
-        where
-        u_email = #{email,jdbcType=VARCHAR}
-    </select>
 </mapper>
