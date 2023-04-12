@@ -14,7 +14,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/email")
+    @GetMapping("/email")
     public CommonResult sendEmailCode(@RequestParam(name = "email") String email) {
 //        try {
 //            authService.sendMailCode(email);
