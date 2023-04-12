@@ -13,10 +13,8 @@ class BackendApplicationTests {
 
 	@Test
 	void contextLoads() {
-		String username = stringEncryptor.encrypt("");
-		String password = stringEncryptor.encrypt("buaaMapRedis");
+		String username = stringEncryptor.encrypt("agileToken3916HsOKl");
 		System.out.println(username);
-		System.out.println(password);
 	}
 
 }

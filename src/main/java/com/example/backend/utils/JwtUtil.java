@@ -8,6 +8,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.backend.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -21,7 +22,8 @@ public class JwtUtil {
     /**
      * 密钥
      */
-    private final String SECRET = "my_secret";
+    @Value("${jwt.key}")
+    private String SECRET;
 
     /**
      * 过期时间
