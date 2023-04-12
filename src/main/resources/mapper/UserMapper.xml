@@ -30,4 +30,16 @@
         where
         u_email = #{email,jdbcType=VARCHAR}
     </select>
+    <insert id="insertAll">
+        insert into user
+        (u_id, u_name, u_email,
+         u_type, u_password, u_icon,
+         u_campus, u_grade, u_gender,
+         u_description)
+        values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+                #{type,jdbcType=NUMERIC}, #{password,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR},
+                #{campus,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, #{gender,jdbcType=NUMERIC},
+                #{description,jdbcType=VARCHAR})
+
+    </insert>
 </mapper>

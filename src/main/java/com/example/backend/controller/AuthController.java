@@ -1,12 +1,10 @@
 package com.example.backend.controller;
 
+import com.example.backend.domain.RegisterInfo;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("/auth")
@@ -23,5 +21,20 @@ public class AuthController {
             return CommonResult.failed(e.getMessage());
         }
         return CommonResult.success(null);
+    }
+
+    @PostMapping("/register")
+    public CommonResult register(@RequestBody RegisterInfo info) {
+        boolean result;
+        try {
+            result = authService.register(info);
+        } catch (RuntimeException e) {
+            return CommonResult.failed(e.getMessage());
+        }
+        if (result) {
+            return CommonResult.success(null);
+        } else {
+            return CommonResult.failed("用户注册失败，请联系管理员");
+        }
     }
 }
