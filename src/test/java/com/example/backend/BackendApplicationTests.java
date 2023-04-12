@@ -13,7 +13,7 @@ class BackendApplicationTests {
 
 	@Test
 	void contextLoads() {
-		String username = stringEncryptor.encrypt("agileToken3916HsOKl");
+		String username = stringEncryptor.encrypt("");
 		System.out.println(username);
 	}
 
