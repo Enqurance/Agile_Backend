@@ -27,7 +27,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public int getUserTypeById(Integer id) {
+    public Integer getUserTypeById(Integer id) {
         return userMapper.getUserTypeById(id);
     }
 

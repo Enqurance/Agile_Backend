@@ -20,6 +20,6 @@
         select ph_url from photo where 1 = 0
         <if test='id > 0'>
             or ph_id = #{id}
-        </if>>
+        </if>
     </select>
 </mapper>

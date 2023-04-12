@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 
@@ -38,7 +40,7 @@ public class Pin implements Serializable {
     /**
      * 地图钉Tag
      */
-    private String type;
+    private Integer type;
 
     /**
      * 地点开放时间
@@ -70,21 +72,6 @@ public class Pin implements Serializable {
 
     public Pin() {}
 
-    public Pin(Integer id, String name, String position, String brief,
-               String type, String openTime, String phone, Integer user_id,
-               Integer photo_id, Integer forum_id) {
-        this.id = id;
-        this.name = name;
-        this.position = position;
-        this.brief = brief;
-        this.type = type;
-        this.openTime = openTime;
-        this.phone = phone;
-        this.user_id = user_id;
-        this.photo_id = photo_id;
-        this.forum_id = forum_id;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -101,11 +88,11 @@ public class Pin implements Serializable {
         return brief;
     }
 
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public String getpOpentime() {
+    public String getOpenTime() {
         return openTime;
     }
 
@@ -141,12 +128,12 @@ public class Pin implements Serializable {
         this.brief = brief;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public void setpOpentime(String pOpentime) {
-        this.openTime = pOpentime;
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
     }
 
     public void setPhone(String phone) {
@@ -169,19 +156,17 @@ public class Pin implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", pId=").append(id);
-        sb.append(", pName=").append(name);
-        sb.append(", pPos=").append(position);
-        sb.append(", pBrief=").append(brief);
-        sb.append(", pTag=").append(type);
-        sb.append(", pOpentime=").append(openTime);
-        sb.append(", pPhone=").append(phone);
-        sb.append(", uId=").append(user_id);
-        sb.append(", phId=").append(photo_id);
-        sb.append(", fId=").append(forum_id);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("[");
+        sb.append("id=").append(id);
+        sb.append(", name=").append(name);
+        sb.append(", position=").append(position);
+        sb.append(", brief=").append(brief);
+        sb.append(", type=").append(type);
+        sb.append(", openTime=").append(openTime);
+        sb.append(", phone=").append(phone);
+        sb.append(", user_id=").append(user_id);
+        sb.append(", photo_id=").append(photo_id);
+        sb.append(", forum_id=").append(forum_id);
         sb.append("]");
         return sb.toString();
     }

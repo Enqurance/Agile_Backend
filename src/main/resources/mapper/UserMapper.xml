@@ -27,10 +27,12 @@
         insert into user
         (u_id, u_name, u_email,
          u_type, u_password, u_icon,
-         u_campus, u_grade)
+         u_campus, u_grade,
+         u_gender, u_description)
         values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
                 #{type,jdbcType=NUMERIC}, #{password,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR},
-                #{campus,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR})
+                #{campus,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR},
+                #{gender,jdbcType=NUMERIC}, #{description,jdbcType=VARCHAR})
     </insert>
     <select id="findAllByEmail" resultMap="BaseResultMap">
         select
@@ -40,9 +42,9 @@
         u_email = #{email,jdbcType=VARCHAR}
     </select>
     <select id="getUserTypeById" resultType="java.lang.Integer">
-        select u_type from user where 1 = 0
+        select u_type from `user` where 1 = 0
         <if test='id > 0'>
             or u_id = #{id}
-        </if>>
+        </if>
     </select>
 </mapper>

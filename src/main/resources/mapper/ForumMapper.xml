@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.ForumMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Forum">
+            <id property="id" column="f_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        f_id
+    </sql>
+    <insert id="insertAll">
+        insert into forum (f_id) values (#{id,jdbcType=NUMERIC})
+    </insert>
+</mapper>
