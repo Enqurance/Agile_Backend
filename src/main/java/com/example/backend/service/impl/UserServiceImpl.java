@@ -35,11 +35,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public List<User> findUserByEmail(String email) {
         return userMapper.findAllByEmail(email);
     }
-
-    @Override
-    public int insertUser(User user) {
-        return userMapper.insertAll(user);
-    }
 }
 
 
