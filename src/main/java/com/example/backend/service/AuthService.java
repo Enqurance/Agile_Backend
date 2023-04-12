@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.domain.RegisterInfo;
 import com.example.backend.domain.User;
 
 public interface AuthService {
@@ -13,8 +14,15 @@ public interface AuthService {
     /**
      * 注册
      *
-     * @param user 认证用户请求信息
+     * @param info 认证用户请求信息
      * @return 是否成功
      */
-    boolean register(User user);
+    boolean register(RegisterInfo info);
+
+    /**
+     * 登录
+     * @param user
+     * @return token
+     */
+    String login(User user);
 }

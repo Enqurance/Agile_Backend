@@ -31,3 +31,9 @@ spring:
 
 code:
   expiration: 300
+
+info:
+  default_description: "阳光开朗大男孩"
+
+jwt:
+  key: ENC(jCoJj4mmCaHXorPnhbkGb4SPNeYwNNLAVv16Jfa8O03egFbGj9W3DYl8s7atDDXtY0cUh0q9B1CLUbEPNWRGVg==)
