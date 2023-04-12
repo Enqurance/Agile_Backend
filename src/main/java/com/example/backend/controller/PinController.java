@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.domain.BuaaService;
 import com.example.backend.domain.Pin;
+import com.example.backend.entity.IdWrap;
 import com.example.backend.entity.PinGroup;
 import com.example.backend.entity.SearchInfo;
 import com.example.backend.entity.Text;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/map")
@@ -48,7 +48,8 @@ public class PinController {
     }
 
     @RequestMapping("/pin/getPinInfoById")
-    public CommonResult getPinInfoById(@RequestBody Integer id) {
+    public CommonResult getPinInfoById(@RequestBody IdWrap idWrap) {
+        int id = idWrap.getId();
         PinGroup pinGroup = new PinGroup();
         Pin pin = pinService.getPinById(id);
         if (pin == null)
@@ -78,7 +79,8 @@ public class PinController {
     }
 
     @RequestMapping("/pin/getPinPermission")
-    public CommonResult getPinPermission(@RequestBody Integer id) {
+    public CommonResult getPinPermission(@RequestBody IdWrap idWrap) {
+        int id = idWrap.getId();
         Integer user_type = userService.getUserTypeById(id);
         if (user_type == null)
             return CommonResult.failed("数据库中不存在id = " + id + "的user");
