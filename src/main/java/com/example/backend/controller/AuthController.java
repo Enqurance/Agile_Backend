@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.domain.RegisterInfo;
+import com.example.backend.domain.User;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,16 @@ public class AuthController {
         } else {
             return CommonResult.failed("用户注册失败，请联系管理员");
         }
+    }
+
+    @PostMapping("/login")
+    public CommonResult login(@RequestBody User user) {
+        String token;
+        try {
+            token = authService.login(user);
+        } catch (RuntimeException e) {
+            return CommonResult.failed(e.getMessage());
+        }
+        return CommonResult.success(token);
     }
 }
