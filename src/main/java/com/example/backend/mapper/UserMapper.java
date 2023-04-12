@@ -18,8 +18,6 @@ public interface UserMapper extends BaseMapper<User> {
     Integer getUserTypeById(Integer id);
 
     List<User> findAllByEmail(@Param("email") String email);
-
-    int insertAll(User user);
 }
 
 
