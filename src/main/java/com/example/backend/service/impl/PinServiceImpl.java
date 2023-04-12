@@ -7,7 +7,7 @@ import com.example.backend.mapper.PinMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
 * @author Sisyphus
@@ -27,9 +27,20 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
     }
 
     @Override
-    public List<Pin> searchPin(String searchContext) {
-        List<Pin> pins = pinMapper.searchAll(searchContext);
+    public ArrayList<Pin> searchPin(String searchContext) {
+        ArrayList<Pin> pins = pinMapper.searchAll(searchContext);
         return pins;
+    }
+
+    @Override
+    public int updatePin(Pin pin) {
+        int result = pinMapper.updateAll(pin);
+        return result;
+    }
+
+    @Override
+    public Pin getPinById(Integer id) {
+        return pinMapper.getPinById(id);
     }
 }
 

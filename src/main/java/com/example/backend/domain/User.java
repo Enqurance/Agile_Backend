@@ -76,4 +76,84 @@ public class User implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public String getCampus() {
+        return campus;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

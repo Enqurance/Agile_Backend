@@ -3,7 +3,7 @@ package com.example.backend.service;
 import com.example.backend.domain.Pin;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
 * @author Sisyphus
@@ -14,5 +14,9 @@ public interface PinService extends IService<Pin> {
 
     int insertPin(Pin pin);
 
-    List<Pin> searchPin(String searchContext);
+    ArrayList<Pin> searchPin(String searchContext);
+
+    int updatePin(Pin pin);
+
+    Pin getPinById(Integer id);
 }

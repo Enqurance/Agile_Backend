@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.PhotoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Photo">
+            <id property="id" column="ph_id" jdbcType="INTEGER"/>
+            <result property="url" column="ph_url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ph_id,ph_url
+    </sql>
+    <insert id="insertAll">
+        insert into photo (ph_id, ph_url)
+        values (#{id,jdbcType=NUMERIC}, #{url,jdbcType=VARCHAR})
+    </insert>
+    <select id="getPhotoUrlById" resultType="java.lang.String">
+        select ph_url from photo where 1 = 0
+        <if test='id > 0'>
+            or ph_id = #{id}
+        </if>
+    </select>
+</mapper>

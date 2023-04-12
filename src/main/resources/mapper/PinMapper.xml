@@ -5,37 +5,48 @@
 <mapper namespace="com.example.backend.mapper.PinMapper">
 
     <resultMap id="BaseResultMap" type="com.example.backend.domain.Pin">
-            <id property="pId" column="p_id" jdbcType="INTEGER"/>
-            <result property="pName" column="p_name" jdbcType="VARCHAR"/>
-            <result property="pPos" column="p_pos" jdbcType="VARCHAR"/>
-            <result property="pBrief" column="p_brief" jdbcType="VARCHAR"/>
-            <result property="pTag" column="p_tag" jdbcType="VARCHAR"/>
-            <result property="pOpentime" column="p_openTime" jdbcType="VARCHAR"/>
-            <result property="pPhone" column="p_phone" jdbcType="VARCHAR"/>
-            <result property="uId" column="u_id" jdbcType="INTEGER"/>
-            <result property="phId" column="ph_id" jdbcType="INTEGER"/>
-            <result property="fId" column="f_id" jdbcType="INTEGER"/>
+            <id property="id" column="p_id" jdbcType="INTEGER"/>
+            <result property="name" column="p_name" jdbcType="VARCHAR"/>
+            <result property="position" column="p_pos" jdbcType="VARCHAR"/>
+            <result property="brief" column="p_brief" jdbcType="VARCHAR"/>
+            <result property="type" column="p_type" jdbcType="INTEGER"/>
+            <result property="openTime" column="p_openTime" jdbcType="VARCHAR"/>
+            <result property="phone" column="p_phone" jdbcType="VARCHAR"/>
+            <result property="user_id" column="u_id" jdbcType="INTEGER"/>
+            <result property="photo_id" column="ph_id" jdbcType="INTEGER"/>
+            <result property="forum_id" column="f_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         p_id,p_name,p_pos,
-        p_brief,p_tag,p_openTime,
+        p_brief,p_type,p_openTime,
         p_phone,u_id,ph_id,
         f_id
     </sql>
     <insert id="insertAll">
         insert into pin
-        (p_id,p_name,p_pos,p_brief,p_tag,p_openTime,p_phone,u_id,ph_id,f_id)
-        values (#{pId,jdbcType=NUMERIC}, #{pName,jdbcType=VARCHAR}, #{pPos,jdbcType=VARCHAR},
-                #{pBrief,jdbcType=VARCHAR}, #{pTag,jdbcType=VARCHAR}, #{pOpentime,jdbcType=VARCHAR},
-                #{pPhone,jdbcType=VARCHAR}, #{uId,jdbcType=NUMERIC}, #{phId,jdbcType=NUMERIC},
-                #{fId,jdbcType=NUMERIC})
+        (p_id,p_name,p_pos,p_brief,p_type,p_openTime,p_phone,u_id,ph_id,f_id)
+        values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR},
+                #{brief,jdbcType=VARCHAR}, #{type,jdbcType=NUMERIC}, #{openTime,jdbcType=VARCHAR},
+                #{phone,jdbcType=VARCHAR}, #{user_id,jdbcType=NUMERIC}, #{photo_id,jdbcType=NUMERIC},
+                #{forum_id,jdbcType=NUMERIC})
     </insert>
-    <select id="searchAll" resultType="com.example.backend.domain.Pin">
-        select * from pin where 1 = 1
-        <if test='searchContext != "null" and searchContext != " "'>
-            and p_name like '%${searchContext}%' or p_brief like '%${searchContext}%'
+    <update id="updateAll">
+        update pin
+        set p_name=#{name}, p_pos=#{position}, p_brief=#{brief},
+            p_type=#{type}, p_openTime=#{openTime}, p_phone=#{phone}
+        where p_id=#{id}
+    </update>
+    <select id="searchAll" resultType="com.example.backend.domain.Pin" resultMap="BaseResultMap">
+        select * from pin where 1 = 0
+        <if test='searchContext != "null" and searchContext != ""'>
+            or p_name like '%${searchContext}%' or p_brief like '%${searchContext}%'
         </if>
---         select * from pin where p_name like "%合一%"
+    </select>
+    <select id="getPinById" resultType="com.example.backend.domain.Pin" resultMap="BaseResultMap">
+        select * from pin where 1 = 0
+        <if test='id > 0'>
+            or p_id = #{id}
+        </if>
     </select>
 </mapper>

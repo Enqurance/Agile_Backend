@@ -14,9 +14,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/test")
-    public String hello() {
-        return "test";
+    @RequestMapping("/user/insert")
+    public CommonResult insertPin(@RequestBody User user) {
+        int ret = userService.insertUser(user);
+        if (ret == 0)
+            return CommonResult.failed("user数据插入失败");
+        else
+            return CommonResult.success(null);
     }
 
     @PostMapping("/login")

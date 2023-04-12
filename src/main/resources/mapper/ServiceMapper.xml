@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.ServiceMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.BuaaService">
+            <id property="id" column="s_id" jdbcType="INTEGER"/>
+            <result property="name" column="s_name" jdbcType="VARCHAR"/>
+            <result property="brief" column="s_brief" jdbcType="VARCHAR"/>
+            <result property="photo_id" column="ph_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        s_id,s_name,s_brief,
+        ph_id
+    </sql>
+    <insert id="insertAll">
+        insert into service (s_id, s_name, s_brief, ph_id)
+        values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR},
+                #{brief,jdbcType=VARCHAR}, #{photo_id,jdbcType=NUMERIC})
+    </insert>
+    <select id="getServiceById" resultType="com.example.backend.domain.BuaaService" resultMap="BaseResultMap">
+        select * from service where 1 = 0
+        <if test='id > 0'>
+            or s_id = #{id}
+        </if>
+    </select>
+</mapper>
