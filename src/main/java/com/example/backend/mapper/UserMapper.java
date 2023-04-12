@@ -13,6 +13,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface UserMapper extends BaseMapper<User> {
     List<User> findAllByEmail(@Param("email") String email);
+
+    int insertAll(User user);
 }
 
 

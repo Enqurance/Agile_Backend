@@ -1,7 +1,7 @@
 package com.example.backend.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
-import com.example.backend.domain.User;
+import com.example.backend.domain.RegisterInfo;
 import com.example.backend.service.AuthService;
 import com.example.backend.service.UserService;
 import com.example.backend.utils.EmailUtil;
@@ -22,6 +22,9 @@ public class AuthServiceImpl implements AuthService {
     private final RedisUtil redisUtils;
     private final EmailUtil emailUtils;
     private final UserService userService;
+
+    @Value("${info.default_description}")
+    private String description;
     @Override
     public void sendMailCode(String email) {
         if (userService.findUserByEmail(email).size() != 0) {
@@ -43,7 +46,21 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean register(User user) {
-        return false;
+    public boolean register(RegisterInfo info) {
+        if (userService.findUserByEmail(info.getEmail()).size() != 0) {
+            throw new RuntimeException("邮箱已被注册");
+        }
+        String actualCode = redisUtils.get(info.getEmail());
+        if (actualCode == null) {
+            throw new RuntimeException("验证码不存在");
+        }
+        if (!actualCode.equals(info.getEmailCode())) {
+            throw new RuntimeException("邮箱验证码错误");
+        }
+
+        info.setType(0);
+        info.setIcon("default");
+        info.setDescription(description);
+        return userService.insertUser(info) == 1;
     }
 }

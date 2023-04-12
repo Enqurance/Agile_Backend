@@ -31,3 +31,6 @@ spring:
 
 code:
   expiration: 300
+
+info:
+  default_description: "阳光开朗大男孩"
