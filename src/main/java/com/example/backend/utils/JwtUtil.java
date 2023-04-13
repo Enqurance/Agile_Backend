@@ -28,7 +28,8 @@ public class JwtUtil {
     /**
      * 过期时间
      */
-    private final long EXPIRATION = 1800L;//单位为秒
+    @Value("${jwt.expiration}")
+    private long EXPIRATION;//单位为秒
 
     /**
      * 生成用户token,设置token超时时间
