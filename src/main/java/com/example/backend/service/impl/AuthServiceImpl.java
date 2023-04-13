@@ -3,6 +3,7 @@ package com.example.backend.service.impl;
 import cn.hutool.core.util.RandomUtil;
 import com.example.backend.domain.RegisterInfo;
 import com.example.backend.domain.User;
+import com.example.backend.entity.LoginResult;
 import com.example.backend.service.AuthService;
 import com.example.backend.service.UserService;
 import com.example.backend.utils.EmailUtil;
@@ -77,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(User user) {
+    public LoginResult login(User user) {
         List<User> userWithEmail = userService.findUserByEmail(user.getEmail());
         if (userWithEmail.size() == 0) {
             throw new RuntimeException("邮箱未注册");
@@ -88,6 +89,6 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String token = jwtUtil.createToken(user);
-        return token;
+        return new LoginResult(token, userWithEmail.get(0).getType());
     }
 }
