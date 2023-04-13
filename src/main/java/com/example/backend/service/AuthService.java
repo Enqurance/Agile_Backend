@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.domain.RegisterInfo;
 import com.example.backend.domain.User;
+import com.example.backend.entity.LoginResult;
 
 public interface AuthService {
     /**
@@ -24,5 +25,5 @@ public interface AuthService {
      * @param user
      * @return token
      */
-    String login(User user);
+    LoginResult login(User user);
 }
