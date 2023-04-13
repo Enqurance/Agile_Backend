@@ -13,7 +13,7 @@ import java.util.List;
 public interface UserService extends IService<User> {
     int insertUser(User user);
 
-    Integer getUserTypeById(Integer id);
-
     List<User> findUserByEmail(String email);
+
+    List<User> findUserById(Integer id);
 }

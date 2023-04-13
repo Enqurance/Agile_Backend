@@ -78,12 +78,12 @@ public class PinController {
             return CommonResult.failed("数据库中不存在id = " + pin.getId() + "的pin");
     }
 
-    @RequestMapping("/pin/getPinPermission")
-    public CommonResult getPinPermission(@RequestBody IdWrap idWrap) {
-        int id = idWrap.getId();
-        Integer user_type = userService.getUserTypeById(id);
-        if (user_type == null)
-            return CommonResult.failed("数据库中不存在id = " + id + "的user");
-        return CommonResult.success(user_type);
-    }
+//    @RequestMapping("/pin/getPinPermission")
+//    public CommonResult getPinPermission(@RequestBody IdWrap idWrap) {
+//        int id = idWrap.getId();
+//        Integer user_type = userService.getUserTypeById(id);
+//        if (user_type == null)
+//            return CommonResult.failed("数据库中不存在id = " + id + "的user");
+//        return CommonResult.success(user_type);
+//    }
 }

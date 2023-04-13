@@ -22,18 +22,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public int insertUser(User user) {
-        int result = userMapper.insertAll(user);
-        return result;
-    }
-
-    @Override
-    public Integer getUserTypeById(Integer id) {
-        return userMapper.getUserTypeById(id);
+        return userMapper.insertAll(user);
     }
 
     @Override
     public List<User> findUserByEmail(String email) {
         return userMapper.findAllByEmail(email);
+    }
+
+    @Override
+    public List<User> findUserById(Integer id) {
+        return userMapper.findAllById(id);
     }
 }
 

@@ -68,12 +68,12 @@ public class JwtUtil {
     }
 
     @Value("${jwt.key}")
-    public static void setSECRET(String SECRET) {
+    public void setSECRET(String SECRET) {
         JwtUtil.SECRET = SECRET;
     }
 
     @Value("${jwt.expiration}")
-    public static void setEXPIRATION(long EXPIRATION) {
+    public void setEXPIRATION(long EXPIRATION) {
         JwtUtil.EXPIRATION = EXPIRATION;
     }
 }

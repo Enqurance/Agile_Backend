@@ -1,56 +1,72 @@
 package com.example.backend.filter;
 
-import com.auth0.jwt.interfaces.Claim;
+import com.example.backend.domain.LoginUser;
+import com.example.backend.domain.User;
+import com.example.backend.service.UserService;
 import com.example.backend.utils.JwtUtil;
-import lombok.extern.slf4j.Slf4j;
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.example.backend.utils.ParameterRequestWrapper;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import org.springframework.web.filter.OncePerRequestFilter;
+
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
 /**
- * JWT过滤器，拦截 /secure的请求
+ * JWT过滤器，处理header里可能存在的token
  */
-@Slf4j
-@WebFilter(filterName = "JwtFilter", urlPatterns = "/user/*")
-public class JwtFilter implements Filter
-{
+@Component
+@RequiredArgsConstructor
+public class JwtFilter extends OncePerRequestFilter {
+    private final UserService userService;
+
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        final HttpServletRequest request = (HttpServletRequest) req;
-        final HttpServletResponse response = (HttpServletResponse) res;
-
-        response.setCharacterEncoding("UTF-8");
-        //获取 header里的token
-        final String token = request.getHeader("authorization");
-
-        if ("OPTIONS".equals(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
-            chain.doFilter(request, response);
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain) throws ServletException, IOException {
+        String token = request.getHeader("token");
+        if (!StringUtils.hasLength(token)) {
+            filterChain.doFilter(request, response);
+            return;
         }
-        // Except OPTIONS, other request should be checked by JWT
-        else {
 
-            if (token == null) {
-                response.getWriter().write("没有token！");
-                return;
+        Integer id = JwtUtil.verifyToken(token).get("id").asInt();
+        if (id != null) {
+            List<User> users = userService.findUserById(id);
+            if (users.size() == 0) {
+                throw new RuntimeException("无效的token");
             }
 
-            Map<String, Claim> userData = JwtUtil.verifyToken(token);
-            if (userData == null) {
-                response.getWriter().write("token不合法！");
-                return;
-            }
-            Integer id = userData.get("id").asInt();
-            String userName = userData.get("userName").asString();
-            String password= userData.get("password").asString();
-            //拦截器 拿到用户信息，放到request中
-            request.setAttribute("id", id);
-            request.setAttribute("userName", userName);
-            request.setAttribute("password", password);
-            chain.doFilter(req, res);
+//            Map<String, String[]> parameterMap = request.getParameterMap();
+//            Method method;
+//            try {
+//                method = parameterMap.getClass().getMethod("setLocked",
+//                        boolean.class);
+//                //打开锁
+//                method.invoke(parameterMap, false);
+//                parameterMap.put("id", new String[] {String.valueOf(id)});
+//                //关锁
+//                method.invoke(parameterMap, true);
+//            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+//                throw new RuntimeException(e);
+//            }
+
+            LoginUser loginUser = new LoginUser(users.get(0));
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+            ParameterRequestWrapper wrapper = new ParameterRequestWrapper(request);
+            wrapper.addParameter("id", id);
+            filterChain.doFilter(wrapper, response);
         }
     }
 }
