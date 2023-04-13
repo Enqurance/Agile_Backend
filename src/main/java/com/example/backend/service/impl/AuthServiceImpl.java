@@ -11,6 +11,7 @@ import com.example.backend.utils.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class AuthServiceImpl implements AuthService {
     private final EmailUtil emailUtil;
     private final JwtUtil jwtUtil;
     private final UserService userService;
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
     @Value("${info.default_description}")
     private String description;
@@ -63,6 +65,9 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("邮箱验证码错误");
         }
 
+        String encodedPass = encoder.encode(info.getPassword());
+        info.setPassword(encodedPass);
+
         info.setType(0);
         info.setIcon("default");
         info.setDescription(description);
@@ -77,8 +82,8 @@ public class AuthServiceImpl implements AuthService {
         if (userWithEmail.size() == 0) {
             throw new RuntimeException("邮箱未注册");
         }
-        String password = userWithEmail.get(0).getPassword();
-        if (!password.equals(user.getPassword())) {
+        String dbPassword = userWithEmail.get(0).getPassword();
+        if (!encoder.matches(user.getPassword(), dbPassword)) {
             throw new RuntimeException("输入密码错误");
         }
 
