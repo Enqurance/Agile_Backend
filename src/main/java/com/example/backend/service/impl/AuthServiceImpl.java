@@ -27,7 +27,6 @@ public class AuthServiceImpl implements AuthService {
 
     private final RedisUtil redisUtil;
     private final EmailUtil emailUtil;
-    private final JwtUtil jwtUtil;
     private final UserService userService;
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
@@ -88,7 +87,7 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("输入密码错误");
         }
 
-        String token = jwtUtil.createToken(user);
+        String token = JwtUtil.createToken(user);
         return new LoginResult(token, userWithEmail.get(0).getType());
     }
 }
