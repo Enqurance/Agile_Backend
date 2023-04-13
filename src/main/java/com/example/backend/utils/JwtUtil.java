@@ -18,23 +18,21 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
     /**
      * 密钥
      */
-    @Value("${jwt.key}")
-    private String SECRET;
+    private static String SECRET;
 
     /**
      * 过期时间
      */
-    @Value("${jwt.expiration}")
-    private long EXPIRATION;//单位为秒
+    private static long EXPIRATION;//单位为秒
 
     /**
      * 生成用户token,设置token超时时间
      */
-    public String createToken(User user) {
+    public static String createToken(User user) {
         //过期时间
         Date expireDate = new Date(System.currentTimeMillis() + EXPIRATION * 1000);
         Map<String, Object> map = new HashMap<>();
@@ -55,7 +53,7 @@ public class JwtUtil {
     /**
      * 校验token并解析token
      */
-    public Map<String, Claim> verifyToken(String token) {
+    public static Map<String, Claim> verifyToken(String token) {
         DecodedJWT jwt;
         try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
@@ -67,5 +65,15 @@ public class JwtUtil {
             throw new RuntimeException("token解码异常");
         }
         return jwt.getClaims();
+    }
+
+    @Value("${jwt.key}")
+    public static void setSECRET(String SECRET) {
+        JwtUtil.SECRET = SECRET;
+    }
+
+    @Value("${jwt.expiration}")
+    public static void setEXPIRATION(long EXPIRATION) {
+        JwtUtil.EXPIRATION = EXPIRATION;
     }
 }
