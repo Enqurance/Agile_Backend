@@ -27,8 +27,8 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
     }
 
     @Override
-    public ArrayList<Pin> searchPin(String searchContext) {
-        ArrayList<Pin> pins = pinMapper.searchAll(searchContext);
+    public ArrayList<Pin> searchPin(String searchContext, Integer id) {
+        ArrayList<Pin> pins = pinMapper.searchAll(searchContext, id);
         return pins;
     }
 

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public interface PinMapper extends BaseMapper<Pin> {
     int insertAll(Pin pin);
 
-    ArrayList<Pin> searchAll(String searchContext);
+    ArrayList<Pin> searchAll(String searchContext, Integer id);
 
     int updateAll(Pin pin);
 

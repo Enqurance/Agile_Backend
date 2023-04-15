@@ -37,8 +37,8 @@ public class PinController {
     }
 
     @RequestMapping("/pin_search")
-    public CommonResult searchPin(@RequestBody Text text) {
-        ArrayList<Pin> pins = pinService.searchPin(text.getSearchContext());
+    public CommonResult searchPin(@RequestBody Text text, @RequestParam(name = "id") Integer id) {
+        ArrayList<Pin> pins = pinService.searchPin(text.getSearchContext(), id);
         if (pins == null || pins.size() == 0)
             return CommonResult.failed("搜索不到包含字段 '" + text.getSearchContext() + "' 的数据");
         SearchInfo searchInfo = new SearchInfo();
