@@ -16,4 +16,6 @@ public interface UserService extends IService<User> {
     List<User> findUserByEmail(String email);
 
     List<User> findUserById(Integer id);
+
+    int updateBasicInfo(User user);
 }

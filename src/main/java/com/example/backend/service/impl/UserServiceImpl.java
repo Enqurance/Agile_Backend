@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
-* @author DELL
-* @description 针对表【user】的数据库操作Service实现
-* @createDate 2023-04-11 09:17:21
-*/
+ * @author DELL
+ * @description 针对表【user】的数据库操作Service实现
+ * @createDate 2023-04-11 09:17:21
+ */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
-    implements UserService{
+        implements UserService {
     @Resource
     private UserMapper userMapper;
 
@@ -33,6 +33,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public List<User> findUserById(Integer id) {
         return userMapper.findAllById(id);
+    }
+
+    @Override
+    public int updateBasicInfo(User user) {
+        return userMapper.updateNameAndCampusAndGradeAndGenderAndDescriptionById(
+                user.getName(),
+                user.getCampus(),
+                user.getGrade(),
+                user.getGender(),
+                user.getDescription(),
+                user.getId()
+        );
     }
 }
 
