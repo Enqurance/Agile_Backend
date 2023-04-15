@@ -46,6 +46,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
                 user.getId()
         );
     }
+
+    @Override
+    public int updateIcon(User user) {
+        return userMapper.updateIcon(user.getIcon(), user.getId());
+    }
 }
 
 

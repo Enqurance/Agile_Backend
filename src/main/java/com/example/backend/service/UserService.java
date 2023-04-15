@@ -18,4 +18,6 @@ public interface UserService extends IService<User> {
     List<User> findUserById(Integer id);
 
     int updateBasicInfo(User user);
+
+    int updateIcon(User user);
 }
