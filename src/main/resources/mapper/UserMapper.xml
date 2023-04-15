@@ -48,4 +48,13 @@
         where
         u_id = #{id,jdbcType=NUMERIC}
     </select>
+    <update id="updateNameAndCampusAndGradeAndGenderAndDescriptionById">
+        update user
+        set u_name        = #{name,jdbcType=VARCHAR},
+            u_campus      = #{campus,jdbcType=VARCHAR},
+            u_grade       = #{grade,jdbcType=VARCHAR},
+            u_gender      = #{gender,jdbcType=NUMERIC},
+            u_description = #{description,jdbcType=VARCHAR}
+        where u_id = #{id,jdbcType=NUMERIC}
+    </update>
 </mapper>
