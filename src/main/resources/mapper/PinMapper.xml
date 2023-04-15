@@ -12,6 +12,7 @@
             <result property="type" column="p_type" jdbcType="INTEGER"/>
             <result property="openTime" column="p_openTime" jdbcType="VARCHAR"/>
             <result property="phone" column="p_phone" jdbcType="VARCHAR"/>
+            <result property="visibility" column="p_visibility" jdbcType="INTEGER"/>
             <result property="user_id" column="u_id" jdbcType="INTEGER"/>
             <result property="photo_id" column="ph_id" jdbcType="INTEGER"/>
             <result property="forum_id" column="f_id" jdbcType="INTEGER"/>
@@ -20,27 +21,31 @@
     <sql id="Base_Column_List">
         p_id,p_name,p_pos,
         p_brief,p_type,p_openTime,
-        p_phone,u_id,ph_id,
+        p_visibility,p_phone,u_id,ph_id,
         f_id
     </sql>
     <insert id="insertAll">
         insert into pin
-        (p_id,p_name,p_pos,p_brief,p_type,p_openTime,p_phone,u_id,ph_id,f_id)
+        (p_id,p_name,p_pos,p_brief,p_type,p_openTime,p_phone,p_visibility,u_id,ph_id,f_id)
         values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR},
                 #{brief,jdbcType=VARCHAR}, #{type,jdbcType=NUMERIC}, #{openTime,jdbcType=VARCHAR},
-                #{phone,jdbcType=VARCHAR}, #{user_id,jdbcType=NUMERIC}, #{photo_id,jdbcType=NUMERIC},
-                #{forum_id,jdbcType=NUMERIC})
+                #{phone,jdbcType=VARCHAR}, #{visibility,jdbcType=NUMERIC}, #{user_id,jdbcType=NUMERIC},
+                #{photo_id,jdbcType=NUMERIC}, #{forum_id,jdbcType=NUMERIC})
     </insert>
     <update id="updateAll">
         update pin
         set p_name=#{name}, p_pos=#{position}, p_brief=#{brief},
-            p_type=#{type}, p_openTime=#{openTime}, p_phone=#{phone}
+            p_type=#{type}, p_openTime=#{openTime}, p_phone=#{phone},
+            p_visibility=#{visibility}
         where p_id=#{id}
     </update>
     <select id="searchAll" resultType="com.example.backend.domain.Pin" resultMap="BaseResultMap">
         select * from pin where 1 = 0
         <if test='searchContext != "null" and searchContext != ""'>
-            or p_name like '%${searchContext}%' or p_brief like '%${searchContext}%'
+            or p_name like '%${searchContext}%' and p_visibility = 1
+            or p_brief like '%${searchContext}%' and p_visibility = 1
+            or p_name like '%${searchContext}%' and u_id = #{id}
+            or p_brief like '%${searchContext}%' and u_id = #{id}
         </if>
     </select>
     <select id="getPinById" resultType="com.example.backend.domain.Pin" resultMap="BaseResultMap">

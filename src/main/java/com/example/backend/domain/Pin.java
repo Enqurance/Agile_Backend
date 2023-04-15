@@ -53,6 +53,11 @@ public class Pin implements Serializable {
     private String phone;
 
     /**
+     * 地点联系电话
+     */
+    private String visibility;
+
+    /**
      * 用户id，个人用户创建pin为私有的，管理员创建pin为公开的
      */
     private Integer user_id;
@@ -100,6 +105,10 @@ public class Pin implements Serializable {
         return phone;
     }
 
+    public String getVisibility() {
+        return visibility;
+    }
+
     public Integer getUser_id() {
         return user_id;
     }
@@ -138,6 +147,10 @@ public class Pin implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
     }
 
     public void setUser_id(Integer user_id) {

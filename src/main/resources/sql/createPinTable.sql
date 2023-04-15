@@ -7,6 +7,7 @@ CREATE TABLE `buaa_map`.`pin` (
     `p_type` INT NOT NULL COMMENT '地图钉Tag' ,
     `p_openTime` VARCHAR(100) NOT NULL COMMENT '地点开放时间' ,
     `p_phone` VARCHAR(100) NOT NULL COMMENT '地点联系电话' ,
+    `p_visibility` INT NOT NULL COMMENT '0代表私人，1代表公开' ,
     `u_id` INT NOT NULL COMMENT '用户id，个人用户创建pin为私有的，管理员创建pin为公开的' ,
     `ph_id` INT NOT NULL COMMENT '地图钉相关照片组id' ,
     `f_id` INT NOT NULL COMMENT '地图钉相关论坛id' ,

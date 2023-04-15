@@ -26,7 +26,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 // 设置白名单
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**")
+                .requestMatchers("/auth/**", "/map/**", "/service/**",
+                        "/forum/**", "/photo/**", "/ps-rel/**", "/user/**")
                 .permitAll()
                 // 保护剩余请求
                 .anyRequest()
