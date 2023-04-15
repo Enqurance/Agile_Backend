@@ -57,4 +57,9 @@
             u_description = #{description,jdbcType=VARCHAR}
         where u_id = #{id,jdbcType=NUMERIC}
     </update>
+    <update id="updateIcon">
+        update user
+        set u_icon = #{icon,jdbcType=VARCHAR}
+        where u_id = #{id,jdbcType=NUMERIC}
+    </update>
 </mapper>

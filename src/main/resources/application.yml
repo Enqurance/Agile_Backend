@@ -38,5 +38,3 @@ info:
 jwt:
   key: ENC(jCoJj4mmCaHXorPnhbkGb4SPNeYwNNLAVv16Jfa8O03egFbGj9W3DYl8s7atDDXtY0cUh0q9B1CLUbEPNWRGVg==)
   expiration: 1000
-
-file:

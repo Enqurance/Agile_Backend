@@ -2,6 +2,8 @@ package com.example.backend.service;
 
 import com.example.backend.domain.Photo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.backend.result.CommonResult;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
@@ -16,4 +18,6 @@ public interface PhotoService extends IService<Photo> {
     ArrayList<String> getPhotoUrlById(Integer id);
 
     String getUrlStrById(Integer id);
+
+    CommonResult uploadPhoto(MultipartFile pic, String picPath);
 }
