@@ -42,6 +42,16 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
     public Pin getPinById(Integer id) {
         return pinMapper.getPinById(id);
     }
+
+    @Override
+    public int findMaxId() {
+        return pinMapper.findMaxId();
+    }
+
+    @Override
+    public int deletePinById(Integer id) {
+        return pinMapper.deletePinById(id);
+    }
 }
 
 

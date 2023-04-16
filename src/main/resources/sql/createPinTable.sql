@@ -2,6 +2,7 @@
 CREATE TABLE `buaa_map`.`pin` (
     `p_id` INT NOT NULL AUTO_INCREMENT COMMENT '地图钉id，系统自动生成' ,
     `p_name` VARCHAR(100) NOT NULL COMMENT '地图钉名' ,
+    `p_lnglat` VARCHAR(100) NOT NULL COMMENT '地图钉坐标' ,
     `p_pos` VARCHAR(100) NOT NULL COMMENT '地图钉位置' ,
     `p_brief` VARCHAR(2000) NOT NULL COMMENT '地图钉相关介绍' ,
     `p_type` INT NOT NULL COMMENT '地图钉Tag' ,

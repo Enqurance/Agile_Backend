@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.domain.BuaaService;
 import com.example.backend.domain.Pin;
+import com.example.backend.domain.User;
 import com.example.backend.entity.IdWrap;
 import com.example.backend.entity.PinGroup;
 import com.example.backend.entity.SearchInfo;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/map")
@@ -27,11 +29,30 @@ public class PinController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/insert")
-    public CommonResult insertPin(@RequestBody Pin pin) {
+    @RequestMapping("/pin/addPinByCoords")
+    public CommonResult addPinByCoords(@RequestBody Pin pin, @RequestParam(name = "id") Integer id) {
+        List<User> users = userService.findUserById(id);
+        if (users.size() == 0)
+            return CommonResult.failed("不存在id = " + id + "的user");
+        if (users.get(0).getType() == 0)
+            pin.setVisibility(0);
+        else if (users.get(0).getType() == 1)
+            pin.setVisibility(1);
+        pin.setUser_id(id);
+        pin.setForum_id(1);
+        pin.setPhoto_id(1);
         int ret = pinService.insertPin(pin);
         if (ret == 0)
             return CommonResult.failed("pin数据插入失败");
+        else
+            return CommonResult.success(pinService.findMaxId());
+    }
+
+    @DeleteMapping("/pin/deletePin/{pin_id}")
+    public CommonResult deletePinById(@PathVariable(value = "pin_id", required = false) Integer pin_id) {
+        int ret = pinService.deletePinById(pin_id);
+        if (ret == 0)
+            return CommonResult.failed("删除id = " + pin_id + "的pin失败");
         else
             return CommonResult.success(null);
     }
