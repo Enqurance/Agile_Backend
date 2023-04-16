@@ -12,7 +12,7 @@ spring:
     email: buaamap@163.com
     password: ENC(CtG7TZIdZYeYucZGVX1mwMIWPH2jWxgxGeUZjmxqTdoMnGUWnrM1nMGjRHM7RmfcsyRQaZMwqyW6oM2XO4YsHw==)
     host: smtp.163.com
-    port: 25
+    port: 465
     properties:
       mail:
         smtp:

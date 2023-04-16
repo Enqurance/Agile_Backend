@@ -41,9 +41,9 @@ public class EmailServiceImpl implements EmailService {
         account.setPass(this.password);
         account.setAuth(true);
         // ssl方式发送
-//        account.setSslEnable(true);
-//        // 使用安全连接
-//        account.setStarttlsEnable(true);
+        account.setSslEnable(true);
+        // 使用安全连接
+        account.setStarttlsEnable(true);
 
         try {
             int size = email.getTos().size();
