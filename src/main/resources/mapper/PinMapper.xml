@@ -7,6 +7,7 @@
     <resultMap id="BaseResultMap" type="com.example.backend.domain.Pin">
             <id property="id" column="p_id" jdbcType="INTEGER"/>
             <result property="name" column="p_name" jdbcType="VARCHAR"/>
+            <result property="lnglat" column="p_lnglat" jdbcType="VARCHAR"/>
             <result property="position" column="p_pos" jdbcType="VARCHAR"/>
             <result property="brief" column="p_brief" jdbcType="VARCHAR"/>
             <result property="type" column="p_type" jdbcType="INTEGER"/>
@@ -19,18 +20,18 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        p_id,p_name,p_pos,
+        p_id,p_name,p_lnglat,p_pos,
         p_brief,p_type,p_openTime,
         p_visibility,p_phone,u_id,ph_id,
         f_id
     </sql>
     <insert id="insertAll">
         insert into pin
-        (p_id,p_name,p_pos,p_brief,p_type,p_openTime,p_phone,p_visibility,u_id,ph_id,f_id)
-        values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR},
-                #{brief,jdbcType=VARCHAR}, #{type,jdbcType=NUMERIC}, #{openTime,jdbcType=VARCHAR},
-                #{phone,jdbcType=VARCHAR}, #{visibility,jdbcType=NUMERIC}, #{user_id,jdbcType=NUMERIC},
-                #{photo_id,jdbcType=NUMERIC}, #{forum_id,jdbcType=NUMERIC})
+        (p_id,p_name,p_lnglat,p_pos,p_brief,p_type,p_openTime,p_phone,p_visibility,u_id,ph_id,f_id)
+        values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{lnglat,jdbcType=VARCHAR},
+                #{position,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR}, #{type,jdbcType=NUMERIC},
+                #{openTime,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{visibility,jdbcType=NUMERIC},
+                #{user_id,jdbcType=NUMERIC}, #{photo_id,jdbcType=NUMERIC}, #{forum_id,jdbcType=NUMERIC})
     </insert>
     <update id="updateAll">
         update pin
@@ -39,6 +40,9 @@
             p_visibility=#{visibility}
         where p_id=#{id}
     </update>
+    <delete id="deletePinById">
+        delete from pin where p_id = #{id}
+    </delete>
     <select id="searchAll" resultType="com.example.backend.domain.Pin" resultMap="BaseResultMap">
         select * from pin where 1 = 0
         <if test='searchContext != "null" and searchContext != ""'>
@@ -53,5 +57,8 @@
         <if test='id > 0'>
             or p_id = #{id}
         </if>
+    </select>
+    <select id="findMaxId" resultType="java.lang.Integer">
+        select max(p_id) from pin
     </select>
 </mapper>

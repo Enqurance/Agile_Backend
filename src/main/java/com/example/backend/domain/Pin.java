@@ -28,6 +28,11 @@ public class Pin implements Serializable {
     private String name;
 
     /**
+     * 地图钉坐标
+     */
+    private String lnglat;
+
+    /**
      * 地图钉位置
      */
     private String position;
@@ -55,7 +60,7 @@ public class Pin implements Serializable {
     /**
      * 地点联系电话
      */
-    private String visibility;
+    private Integer visibility;
 
     /**
      * 用户id，个人用户创建pin为私有的，管理员创建pin为公开的
@@ -85,6 +90,10 @@ public class Pin implements Serializable {
         return name;
     }
 
+    public String getLnglat() {
+        return lnglat;
+    }
+
     public String getPosition() {
         return position;
     }
@@ -105,7 +114,7 @@ public class Pin implements Serializable {
         return phone;
     }
 
-    public String getVisibility() {
+    public Integer getVisibility() {
         return visibility;
     }
 
@@ -129,6 +138,10 @@ public class Pin implements Serializable {
         this.name = name;
     }
 
+    public void setLnglat(String lnglat) {
+        this.lnglat = lnglat;
+    }
+
     public void setPosition(String position) {
         this.position = position;
     }
@@ -149,7 +162,7 @@ public class Pin implements Serializable {
         this.phone = phone;
     }
 
-    public void setVisibility(String visibility) {
+    public void setVisibility(Integer visibility) {
         this.visibility = visibility;
     }
 

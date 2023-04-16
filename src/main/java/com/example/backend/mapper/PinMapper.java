@@ -19,6 +19,10 @@ public interface PinMapper extends BaseMapper<Pin> {
     int updateAll(Pin pin);
 
     Pin getPinById(Integer id);
+
+    int findMaxId();
+
+    int deletePinById(Integer id);
 }
 
 

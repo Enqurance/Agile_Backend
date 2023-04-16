@@ -19,4 +19,8 @@ public interface PinService extends IService<Pin> {
     int updatePin(Pin pin);
 
     Pin getPinById(Integer id);
+
+    int findMaxId();
+
+    int deletePinById(Integer id);
 }
