@@ -89,12 +89,19 @@ public class PinController {
     }
 
     @RequestMapping("/pin/changePinInfoById")
-    public CommonResult changePinInfoById(@RequestBody Pin pin) {
+    public CommonResult changePinInfoById(@RequestBody Pin pin, @RequestParam(name = "id") Integer id) {
+        List<User> users = userService.findUserById(id);
+        if (users.size() == 0)
+            return CommonResult.failed("不存在id = " + id + "的user");
+        if (users.get(0).getType() == 0)
+            pin.setVisibility(0);
+        else if (users.get(0).getType() == 1)
+            pin.setVisibility(1);
         int ret = pinService.updatePin(pin);
         if (ret == 1)
             return CommonResult.success(null);
         else
-            return CommonResult.failed("数据库中不存在id = " + pin.getId() + "的pin");
+            return CommonResult.failed("数据库不存在id = " + pin.getId() + "的pin");
     }
 
 //    @RequestMapping("/pin/getPinPermission")
