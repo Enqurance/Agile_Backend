@@ -25,5 +25,5 @@ public interface PinService extends IService<Pin> {
 
     int deletePinById(Integer id);
 
-    List<Pin> getUserAllBriefPin(Integer u_id);
+    List<Pin> getUserAllBriefPin(Integer u_id, Integer visibility);
 }

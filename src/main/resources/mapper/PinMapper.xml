@@ -68,4 +68,12 @@
         where
         u_id = #{user_id,jdbcType=NUMERIC}
     </select>
+    <select id="getAllByUser_idOrVisibility" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pin
+        where
+        u_id = #{user_id,jdbcType=NUMERIC}
+        OR p_visibility = #{visibility,jdbcType=NUMERIC}
+    </select>
 </mapper>
