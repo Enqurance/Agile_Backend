@@ -107,7 +107,7 @@ public class PinController {
 //    }
 
     @GetMapping("/getUserAllBriefPin")
-    public CommonResult getUserAllBriefPin(@RequestParam(value = "id") Integer id) {
+    public CommonResult getUserAllBriefPin(@RequestParam(name = "id") Integer id) {
         List<PinBriefInfo> briefInfos = new ArrayList<>();
         for (Pin pin : pinService.getUserAllBriefPin(id)) {
             briefInfos.add(new PinBriefInfo(
