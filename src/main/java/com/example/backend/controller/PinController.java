@@ -3,16 +3,14 @@ package com.example.backend.controller;
 import com.example.backend.domain.BuaaService;
 import com.example.backend.domain.Pin;
 import com.example.backend.domain.User;
-import com.example.backend.entity.IdWrap;
-import com.example.backend.entity.PinGroup;
-import com.example.backend.entity.SearchInfo;
-import com.example.backend.entity.Text;
+import com.example.backend.entity.*;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -107,4 +105,21 @@ public class PinController {
 //            return CommonResult.failed("数据库中不存在id = " + id + "的user");
 //        return CommonResult.success(user_type);
 //    }
+
+    @GetMapping("/getUserAllBriefPin")
+    public CommonResult getUserAllBriefPin(@RequestParam(value = "id") Integer id) {
+        List<PinBriefInfo> briefInfos = new ArrayList<>();
+        for (Pin pin : pinService.getUserAllBriefPin(id)) {
+            briefInfos.add(new PinBriefInfo(
+                    pin.getId(),
+                    pin.getName(),
+                    pin.getType(),
+                    pin.getVisibility(),
+                    Arrays.stream(pin.getLnglat().split(";"))
+                            .map(Double::parseDouble)
+                            .toArray(Double[]::new)
+            ));
+        }
+        return CommonResult.success(briefInfos);
+    }
 }

@@ -8,6 +8,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
 * @author Sisyphus
@@ -51,6 +52,11 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
     @Override
     public int deletePinById(Integer id) {
         return pinMapper.deletePinById(id);
+    }
+
+    @Override
+    public List<Pin> getUserAllBriefPin(Integer u_id) {
+        return pinMapper.getAllByUser_id(u_id);
     }
 }
 

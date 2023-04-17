@@ -61,4 +61,11 @@
     <select id="findMaxId" resultType="java.lang.Integer">
         select max(p_id) from pin
     </select>
+    <select id="getAllByUser_id" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pin
+        where
+        u_id = #{user_id,jdbcType=NUMERIC}
+    </select>
 </mapper>

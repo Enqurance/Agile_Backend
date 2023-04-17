@@ -1,9 +1,11 @@
 package com.example.backend.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.backend.domain.Pin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
 * @author Sisyphus
@@ -23,6 +25,8 @@ public interface PinMapper extends BaseMapper<Pin> {
     int findMaxId();
 
     int deletePinById(Integer id);
+
+    List<Pin> getAllByUser_id(@Param("user_id") Integer user_id);
 }
 
 
