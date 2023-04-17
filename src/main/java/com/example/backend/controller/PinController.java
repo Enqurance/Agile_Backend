@@ -101,7 +101,7 @@ public class PinController {
         if (ret == 1)
             return CommonResult.success(null);
         else
-            return CommonResult.failed("数据库中不存在id = " + pin.getId() + "的pin");
+            return CommonResult.failed("数据库不存在id = " + pin.getId() + "的pin");
     }
 
 //    @RequestMapping("/pin/getPinPermission")
