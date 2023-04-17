@@ -26,7 +26,8 @@ public interface PinMapper extends BaseMapper<Pin> {
 
     int deletePinById(Integer id);
 
-    List<Pin> getAllByUser_id(@Param("user_id") Integer user_id);
+    List<Pin> getAllByUser_idOrVisibility(@Param("user_id") Integer user_id,
+                                          @Param("visibility") Integer visibility);
 }
 
 
