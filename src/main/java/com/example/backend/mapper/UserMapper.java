@@ -29,6 +29,8 @@ public interface UserMapper extends BaseMapper<User> {
             @Param("id") Integer id);
 
     int updateIcon(@Param("icon") String icon, @Param("id") Integer id);
+
+    int updatePasswordById(@Param("password") String password, @Param("id") Integer id);
 }
 
 

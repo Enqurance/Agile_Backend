@@ -1,7 +1,7 @@
 package com.example.backend.controller;
 
-import com.example.backend.domain.Photo;
 import com.example.backend.domain.User;
+import com.example.backend.entity.Password;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @ResponseBody
-    @GetMapping("getUserByToken")
+    @GetMapping("/getUserByToken")
     public CommonResult getUserById(@RequestParam(name = "id") Integer id) {
         List<User> users = userService.findUserById(id);
         if (users.size() == 0) {
@@ -30,8 +29,7 @@ public class UserController {
         return CommonResult.success(users.get(0));
     }
 
-    @ResponseBody
-    @PostMapping("changeUserBasicByToken")
+    @PostMapping("/changeUserBasicByToken")
     public CommonResult changeUserById(@RequestBody User user,
                                        @RequestParam(name = "id") Integer id) {
         user.setId(id);
@@ -42,7 +40,6 @@ public class UserController {
         return CommonResult.success(null);
     }
 
-    @ResponseBody
     @PostMapping("/uploadIcon")
     public CommonResult uploadIcon(MultipartFile pic, @RequestParam(name = "id") Integer id) {
         String picName = pic.getOriginalFilename();
@@ -64,7 +61,6 @@ public class UserController {
         return CommonResult.success(null);
     }
 
-    @ResponseBody
     @PostMapping("/getIcon")
     public CommonResult getIcon(@RequestParam(name = "id") Integer id) {
         List<User> users = userService.findUserById(id);
@@ -76,5 +72,14 @@ public class UserController {
             return CommonResult.failed("icon 为 null");
         else
             return CommonResult.success(iconUrl);
+    }
+
+    @PostMapping("/changePasswordByToken")
+    public CommonResult changePasswordByToken(@RequestBody Password password, @RequestParam(name = "id") Integer id) {
+        int result = userService.updatePassword(password.getPassword(), id);
+        if (result != 1) {
+            return CommonResult.failed("修改密码失败");
+        }
+        return CommonResult.success(null);
     }
 }

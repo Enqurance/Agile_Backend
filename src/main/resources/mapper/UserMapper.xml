@@ -62,4 +62,9 @@
         set u_icon = #{icon,jdbcType=VARCHAR}
         where u_id = #{id,jdbcType=NUMERIC}
     </update>
+    <update id="updatePasswordById">
+        update user
+        set u_password = #{password,jdbcType=VARCHAR}
+        where u_id = #{id,jdbcType=NUMERIC}
+    </update>
 </mapper>

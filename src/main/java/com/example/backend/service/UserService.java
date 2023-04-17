@@ -20,4 +20,6 @@ public interface UserService extends IService<User> {
     int updateBasicInfo(User user);
 
     int updateIcon(User user);
+
+    int updatePassword(String password, Integer id);
 }
