@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.domain.BuaaService;
+import com.example.backend.domain.Forum;
 import com.example.backend.domain.Pin;
 import com.example.backend.domain.User;
 import com.example.backend.entity.*;
@@ -26,6 +27,8 @@ public class PinController {
     ServiceService serviceService;
     @Autowired
     UserService userService;
+    @Autowired
+    ForumService forumService;
 
     @RequestMapping("/pin/addPinByCoords")
     public CommonResult addPinByCoords(@RequestBody Pin pin, @RequestParam(name = "id") Integer id) {
@@ -37,8 +40,9 @@ public class PinController {
         else if (users.get(0).getType() == 1)
             pin.setVisibility(1);
         pin.setUser_id(id);
-        pin.setForum_id(1);
-        pin.setPhoto_id(1);
+        Forum forum = new Forum();
+        forumService.insertForum(forum);
+        pin.setForum_id(forumService.findMaxId());
         int ret = pinService.insertPin(pin);
         if (ret == 0)
             return CommonResult.failed("pin数据插入失败");
@@ -73,7 +77,7 @@ public class PinController {
         Pin pin = pinService.getPinById(id);
         if (pin == null)
             return CommonResult.failed("数据库中不存在id = " + id + "的pin");
-        ArrayList<String> photos = photoService.getPhotoUrlById(pin.getPhoto_id());
+        ArrayList<String> photos = photoService.getPhotoUrlById(pin.getId());
         ArrayList<Integer> serviceId = pinServiceRelService.getServiceIdByPinId(id);
         ArrayList<BuaaService> services = new ArrayList<>();
         for (Integer sId : serviceId) {

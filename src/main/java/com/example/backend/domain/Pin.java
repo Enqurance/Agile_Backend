@@ -68,11 +68,6 @@ public class Pin implements Serializable {
     private Integer user_id;
 
     /**
-     * 地图钉相关照片组id
-     */
-    private Integer photo_id;
-
-    /**
      * 地图钉相关论坛id
      */
     private Integer forum_id;
@@ -122,10 +117,6 @@ public class Pin implements Serializable {
         return user_id;
     }
 
-    public Integer getPhoto_id() {
-        return photo_id;
-    }
-
     public Integer getForum_id() {
         return forum_id;
     }
@@ -170,10 +161,6 @@ public class Pin implements Serializable {
         this.user_id = user_id;
     }
 
-    public void setPhoto_id(Integer photo_id) {
-        this.photo_id = photo_id;
-    }
-
     public void setForum_id(Integer forum_id) {
         this.forum_id = forum_id;
     }
@@ -191,7 +178,6 @@ public class Pin implements Serializable {
         sb.append(", openTime=").append(openTime);
         sb.append(", phone=").append(phone);
         sb.append(", user_id=").append(user_id);
-        sb.append(", photo_id=").append(photo_id);
         sb.append(", forum_id=").append(forum_id);
         sb.append("]");
         return sb.toString();

@@ -10,4 +10,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ForumService extends IService<Forum> {
     int insertForum(Forum forum);
+
+    int findMaxId();
 }

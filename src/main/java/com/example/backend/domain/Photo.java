@@ -25,6 +25,11 @@ public class Photo implements Serializable {
      */
     private String url;
 
+    /**
+     * 地图钉id
+     */
+    private String pin_id;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -36,12 +41,20 @@ public class Photo implements Serializable {
         return url;
     }
 
+    public String getPin_id() {
+        return pin_id;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public void setPin_id(String pin_id) {
+        this.pin_id = pin_id;
     }
 
     @Override

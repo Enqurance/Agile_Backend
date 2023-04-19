@@ -7,19 +7,20 @@
     <resultMap id="BaseResultMap" type="com.example.backend.domain.Photo">
             <id property="id" column="ph_id" jdbcType="INTEGER"/>
             <result property="url" column="ph_url" jdbcType="VARCHAR"/>
+            <result property="pin_id" column="p_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        ph_id,ph_url
+        ph_id,ph_url,p_id
     </sql>
     <insert id="insertAll">
-        insert into photo (ph_id, ph_url)
-        values (#{id,jdbcType=NUMERIC}, #{url,jdbcType=VARCHAR})
+        insert into photo (ph_id, ph_url, p_id)
+        values (#{id,jdbcType=NUMERIC}, #{url,jdbcType=VARCHAR}, #{pin_id,jdbcType=NUMERIC})
     </insert>
     <select id="getPhotoUrlById" resultType="java.lang.String">
         select ph_url from photo where 1 = 0
         <if test='id > 0'>
-            or ph_id = #{id}
+            or p_id = #{id}
         </if>
     </select>
 </mapper>
