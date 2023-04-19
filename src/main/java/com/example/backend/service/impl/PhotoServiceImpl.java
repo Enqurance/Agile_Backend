@@ -33,14 +33,13 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo>
 
     @Override
     public ArrayList<String> getPhotoUrlById(Integer id) {
-        String urls = photoMapper.getPhotoUrlById(id);
-        String[] arrayUrl = urls.trim().split(";");
-        return new ArrayList<>(List.of(arrayUrl));
+        ArrayList<String> arrayUrl = photoMapper.getPhotoUrlById(id);
+        return arrayUrl;
     }
 
     @Override
     public String getUrlStrById(Integer id) {
-        return photoMapper.getPhotoUrlById(id).trim();
+        return photoMapper.getPhotoUrlById(id).get(0);
     }
 
     @Override

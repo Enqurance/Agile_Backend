@@ -3,6 +3,8 @@ package com.example.backend.mapper;
 import com.example.backend.domain.Photo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.ArrayList;
+
 /**
 * @author Sisyphus
 * @description 针对表【photo】的数据库操作Mapper
@@ -12,7 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface PhotoMapper extends BaseMapper<Photo> {
     int insertAll(Photo photo);
 
-    String getPhotoUrlById(Integer id);
+    ArrayList<String> getPhotoUrlById(Integer id);
 }
 
 

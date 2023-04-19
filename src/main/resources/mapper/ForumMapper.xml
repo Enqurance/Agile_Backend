@@ -14,4 +14,7 @@
     <insert id="insertAll">
         insert into forum (f_id) values (#{id,jdbcType=NUMERIC})
     </insert>
+    <select id="findMaxId" resultType="java.lang.Integer">
+        select max(f_id) from forum
+    </select>
 </mapper>

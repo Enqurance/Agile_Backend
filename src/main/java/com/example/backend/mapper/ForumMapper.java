@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface ForumMapper extends BaseMapper<Forum> {
     int insertAll(Forum forum);
+
+    int findMaxId();
 }
 
 

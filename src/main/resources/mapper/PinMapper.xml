@@ -15,23 +15,21 @@
             <result property="phone" column="p_phone" jdbcType="VARCHAR"/>
             <result property="visibility" column="p_visibility" jdbcType="INTEGER"/>
             <result property="user_id" column="u_id" jdbcType="INTEGER"/>
-            <result property="photo_id" column="ph_id" jdbcType="INTEGER"/>
             <result property="forum_id" column="f_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         p_id,p_name,p_lnglat,p_pos,
         p_brief,p_type,p_openTime,
-        p_visibility,p_phone,u_id,ph_id,
-        f_id
+        p_visibility,p_phone,u_id,f_id
     </sql>
     <insert id="insertAll">
         insert into pin
-        (p_id,p_name,p_lnglat,p_pos,p_brief,p_type,p_openTime,p_phone,p_visibility,u_id,ph_id,f_id)
+        (p_id,p_name,p_lnglat,p_pos,p_brief,p_type,p_openTime,p_phone,p_visibility,u_id,f_id)
         values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{lnglat,jdbcType=VARCHAR},
                 #{position,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR}, #{type,jdbcType=NUMERIC},
                 #{openTime,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{visibility,jdbcType=NUMERIC},
-                #{user_id,jdbcType=NUMERIC}, #{photo_id,jdbcType=NUMERIC}, #{forum_id,jdbcType=NUMERIC})
+                #{user_id,jdbcType=NUMERIC}, #{forum_id,jdbcType=NUMERIC})
     </insert>
     <update id="updateAll">
         update pin

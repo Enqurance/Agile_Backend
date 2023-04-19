@@ -23,6 +23,11 @@ public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum>
         int ret = forumMapper.insertAll(forum);
         return ret;
     }
+
+    @Override
+    public int findMaxId() {
+        return forumMapper.findMaxId();
+    }
 }
 
 
