@@ -5,7 +5,7 @@ import com.example.backend.filter.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,10 +15,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity
 public class SecurityConfig {
     private final JwtFilter jwtFilter;
 
+    private final RestAuthorizationEntryPoint restAuthorizationEntryPoint;
+    private final RestAccessDeniedHandler restAccessDeniedHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -26,7 +28,7 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .csrf().disable()
-                // 设置白名单
+                // 设置白名单，对应路径放行
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**", "/map/**", "/service/**",
                         "/forum/**", "/photo/**", "/ps-rel/**", "/user/**")
@@ -39,7 +41,10 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
 //                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint(restAuthorizationEntryPoint)
+                .accessDeniedHandler(restAccessDeniedHandler);
 
         return http.build();
     }
