@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -33,7 +32,7 @@ public class JwtFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader("token");
-        if (!StringUtils.hasLength(token)) {
+        if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -44,20 +43,6 @@ public class JwtFilter extends OncePerRequestFilter {
             if (users.size() == 0) {
                 throw new RuntimeException("无效的token");
             }
-
-//            Map<String, String[]> parameterMap = request.getParameterMap();
-//            Method method;
-//            try {
-//                method = parameterMap.getClass().getMethod("setLocked",
-//                        boolean.class);
-//                //打开锁
-//                method.invoke(parameterMap, false);
-//                parameterMap.put("id", new String[] {String.valueOf(id)});
-//                //关锁
-//                method.invoke(parameterMap, true);
-//            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-//                throw new RuntimeException(e);
-//            }
 
             LoginUser loginUser = new LoginUser(users.get(0));
             UsernamePasswordAuthenticationToken authenticationToken =

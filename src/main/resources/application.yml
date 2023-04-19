@@ -29,12 +29,16 @@ spring:
       port: 6379
       password: ENC(LamOVZqZQDZM0dXAUIYKxZlGe96rZ9MY6VLa6YOMpJoSirLILfVzLAJpN7KLxKDP)
 
+# 验证码
 code:
   expiration: 300
 
+# 用户默认信息
 info:
   default_description: "阳光开朗大男孩"
 
+# token相关
 jwt:
   key: ENC(jCoJj4mmCaHXorPnhbkGb4SPNeYwNNLAVv16Jfa8O03egFbGj9W3DYl8s7atDDXtY0cUh0q9B1CLUbEPNWRGVg==)
-  expiration: 1000
+  # token有效时间为一小时
+  expiration: 3600
