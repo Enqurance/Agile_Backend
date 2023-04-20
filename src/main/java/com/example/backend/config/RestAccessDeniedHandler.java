@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 
 /**
  * @className: RestAccessDeniedHandler
- * @Description: 请求不具备所需权限时，在response里添加403状态码。
+ * @Description: 请求不具备所需权限时，在code里添加403状态码。
  *               目前AccessDeniedException提前被全局异常捕获器捕获，该类未发挥作用。
  * @author: WAN
  * @date: 2023/4/19 10:29
@@ -28,6 +28,9 @@ public class RestAccessDeniedHandler implements AccessDeniedHandler {
         response.setCharacterEncoding("UTF-8");
 
         response.setContentType("application/json");
+
+        response.setStatus((int) ResultCode.SUCCESS.getCode());
+
         PrintWriter out = response.getWriter();
 
         out.write(new ObjectMapper().writeValueAsString(CommonResult.failed(ResultCode.FORBIDDEN)));

@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 
 /**
  * @author WAN
- * @Description: 用户未登录或者token失效时，在response里添加401状态码
+ * @Description: 用户未登录或者token失效时，在code里添加401状态码
  */
 @Configuration
 public class RestAuthorizationEntryPoint implements AuthenticationEntryPoint {
@@ -25,6 +25,9 @@ public class RestAuthorizationEntryPoint implements AuthenticationEntryPoint {
         response.setCharacterEncoding("UTF-8");
 
         response.setContentType("application/json");
+
+        response.setStatus((int) ResultCode.SUCCESS.getCode());
+
         PrintWriter out = response.getWriter();
 
         out.write(new ObjectMapper().writeValueAsString(CommonResult.failed(ResultCode.UNAUTHORIZED)));
