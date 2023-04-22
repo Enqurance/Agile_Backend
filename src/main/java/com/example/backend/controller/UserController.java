@@ -79,11 +79,13 @@ public class UserController {
 
     @PostMapping("/changePasswordByToken")
     public CommonResult changePasswordById(@RequestBody Password password, @RequestParam(name = "id") Integer id) {
-        if (!authService.encryptCorrect(password.getPassword(), password.getNewPassword())) {
+        String originPassword = userService.getPassword(id);
+
+        if (!authService.encryptCorrect(password.getPassword(), originPassword)) {
             return CommonResult.failed("密码错误");
         }
 
-        int result = userService.updatePassword(password.getPassword(), id);
+        int result = userService.updatePassword(password.getNewPassword(), id);
         if (result != 1) {
             return CommonResult.failed("修改密码失败");
         }

@@ -22,4 +22,6 @@ public interface UserService extends IService<User> {
     int updateIcon(User user);
 
     int updatePassword(String password, Integer id);
+
+    String getPassword(Integer id);
 }

@@ -67,4 +67,9 @@
         set u_password = #{password,jdbcType=VARCHAR}
         where u_id = #{id,jdbcType=NUMERIC}
     </update>
+    <select id="getPasswordById" resultMap="BaseResultMap">
+        select u_password
+        from user
+        where u_id = #{id,jdbcType=NUMERIC}
+    </select>
 </mapper>

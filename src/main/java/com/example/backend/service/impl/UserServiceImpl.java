@@ -56,6 +56,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public int updatePassword(String password, Integer id) {
         return userMapper.updatePasswordById(password, id);
     }
+
+    @Override
+    public String getPassword(Integer id) {
+        List<User> users = userMapper.getPasswordById(id);
+        if (users.size() != 1) {
+            throw new RuntimeException("用户不存在，请联系管理员");
+        }
+        return users.get(0).getPassword();
+    }
 }
 
 
