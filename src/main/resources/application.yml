@@ -29,8 +29,8 @@ spring:
       port: 6379
       password: ENC(LamOVZqZQDZM0dXAUIYKxZlGe96rZ9MY6VLa6YOMpJoSirLILfVzLAJpN7KLxKDP)
   tengxun:
-    accessKey: AKIDWqxvgBf5MXZRHya0Kf0CONCm9LLXWIpA
-    secretKey: A6rPq5808FAtNV4gIk15sPwFMFuPq9F6
+    accessKey: ENC(/yxxYVe8H8qqpMPwPp9W7rRdnj5i9GpuKbjfD2ugXe/JNgUF5rWwQbdjlZGP9OsT3vyG61JAUyURB1/fFbJXgemuJ07TpMsRKw1lgA+ZJX0=)
+    secretKey: ENC(oMG76T9mpVozeD2xRS+ftnQaqEp+6VE5gSgNRB8iEcaTk0hgy45jvesfr7BXjj+QmS0n4TJxRqQ6DEFNMLNLjlp1Vz0rscZY/WfaR9OBOF0=)
     bucket: ap-beijing
     bucketName: agile-pic-1313874439
     path: https://agile-pic-1313874439.cos.ap-beijing.myqcloud.com
