@@ -83,11 +83,16 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("邮箱未注册");
         }
         String dbPassword = userWithEmail.get(0).getPassword();
-        if (!encoder.matches(user.getPassword(), dbPassword)) {
+        if (!encryptCorrect(user.getPassword(), dbPassword)) {
             throw new RuntimeException("输入密码错误");
         }
 
         String token = JwtUtil.createToken(userWithEmail.get(0));
         return new LoginResult(token, userWithEmail.get(0).getType());
+    }
+
+    @Override
+    public boolean encryptCorrect(String origin, String encrypt) {
+        return encoder.matches(origin, encrypt);
     }
 }

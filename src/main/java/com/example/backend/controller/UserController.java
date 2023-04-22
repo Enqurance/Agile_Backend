@@ -3,8 +3,9 @@ package com.example.backend.controller;
 import com.example.backend.domain.User;
 import com.example.backend.entity.Password;
 import com.example.backend.result.CommonResult;
+import com.example.backend.service.AuthService;
 import com.example.backend.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,9 +17,11 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/user")
 @PreAuthorize("hasAuthority('USER')")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    UserService userService;
+    private final AuthService authService;
+
+    private final UserService userService;
 
     @GetMapping("/getUserByToken")
     public CommonResult getUserById(@RequestParam(name = "id") Integer id) {
@@ -75,7 +78,11 @@ public class UserController {
     }
 
     @PostMapping("/changePasswordByToken")
-    public CommonResult changePasswordByToken(@RequestBody Password password, @RequestParam(name = "id") Integer id) {
+    public CommonResult changePasswordById(@RequestBody Password password, @RequestParam(name = "id") Integer id) {
+        if (!authService.encryptCorrect(password.getPassword(), password.getNewPassword())) {
+            return CommonResult.failed("密码错误");
+        }
+
         int result = userService.updatePassword(password.getPassword(), id);
         if (result != 1) {
             return CommonResult.failed("修改密码失败");
