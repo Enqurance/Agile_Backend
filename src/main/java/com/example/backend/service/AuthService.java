@@ -26,4 +26,6 @@ public interface AuthService {
      * @return token
      */
     LoginResult login(User user);
+
+    boolean encryptCorrect(String origin, String encrypt);
 }
