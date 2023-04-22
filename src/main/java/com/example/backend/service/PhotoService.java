@@ -3,6 +3,7 @@ package com.example.backend.service;
 import com.example.backend.domain.Photo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.backend.result.CommonResult;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -13,11 +14,13 @@ import java.util.ArrayList;
 * @createDate 2023-04-11 16:27:14
 */
 public interface PhotoService extends IService<Photo> {
-    int insertPhoto(Photo photo);
+    Integer insertPhoto(Photo photo);
 
     ArrayList<String> getPhotoUrlById(Integer id);
 
     String getUrlStrById(Integer id);
 
-    CommonResult uploadPhoto(MultipartFile pic, String picPath);
+    String Upload(String prefix, MultipartFile file);
+
+    void delete(String path);
 }

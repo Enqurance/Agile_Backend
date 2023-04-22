@@ -28,6 +28,12 @@ spring:
       host: 43.143.148.116
       port: 6379
       password: ENC(LamOVZqZQDZM0dXAUIYKxZlGe96rZ9MY6VLa6YOMpJoSirLILfVzLAJpN7KLxKDP)
+  tengxun:
+    accessKey: AKIDWqxvgBf5MXZRHya0Kf0CONCm9LLXWIpA
+    secretKey: A6rPq5808FAtNV4gIk15sPwFMFuPq9F6
+    bucket: ap-beijing
+    bucketName: agile-pic-1313874439
+    path: https://agile-pic-1313874439.cos.ap-beijing.myqcloud.com
 
 # 验证码
 code:

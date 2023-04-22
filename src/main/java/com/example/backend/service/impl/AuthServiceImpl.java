@@ -69,7 +69,7 @@ public class AuthServiceImpl implements AuthService {
         info.setPassword(encodedPass);
 
         info.setType(0);
-        info.setIcon("default");
+        info.setIcon("https://agile-pic-1313874439.cos.ap-beijing.myqcloud.com/agile-pic/win.jpg");
         info.setDescription(description);
         boolean result = userService.insertUser(info) == 1;
         redisUtil.delete(info.getEmail());

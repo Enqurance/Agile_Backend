@@ -2,9 +2,11 @@ package com.example.backend.entity;
 
 import com.example.backend.domain.BuaaService;
 import com.example.backend.domain.Pin;
+import lombok.Data;
 
 import java.util.ArrayList;
 
+@Data
 public class PinGroup {
     private Integer pin_id;
     private Pin pin;
