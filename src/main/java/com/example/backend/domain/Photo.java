@@ -28,7 +28,7 @@ public class Photo implements Serializable {
     /**
      * 地图钉id
      */
-    private String pin_id;
+    private Integer pin_id;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -41,7 +41,7 @@ public class Photo implements Serializable {
         return url;
     }
 
-    public String getPin_id() {
+    public Integer getPin_id() {
         return pin_id;
     }
 
@@ -53,7 +53,7 @@ public class Photo implements Serializable {
         this.url = url;
     }
 
-    public void setPin_id(String pin_id) {
+    public void setPin_id(Integer pin_id) {
         this.pin_id = pin_id;
     }
 
