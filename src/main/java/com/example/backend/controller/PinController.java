@@ -60,7 +60,7 @@ public class PinController {
     }
 
     @RequestMapping("/pin_search")
-    public CommonResult searchPin(@RequestBody Text text, @RequestParam(name = "id") Integer id) {
+    public CommonResult searchPin(@RequestBody Text text, @RequestParam(required = false, name = "id") Integer id) {
         ArrayList<Pin> pins = pinService.searchPin(text.getSearchContext(), id);
         if (pins == null || pins.size() == 0)
             return CommonResult.failed("搜索不到包含字段 '" + text.getSearchContext() + "' 的数据");
@@ -118,7 +118,7 @@ public class PinController {
 //    }
 
     @GetMapping("/getUserAllBriefPin")
-    public CommonResult getUserAllBriefPin(@RequestParam(name = "id") Integer id) {
+    public CommonResult getUserAllBriefPin(@RequestParam(required = false, name = "id") Integer id) {
         List<PinBriefInfo> briefInfos = new ArrayList<>();
         for (Pin pin : pinService.getUserAllBriefPin(id, 1)) {
             briefInfos.add(new PinBriefInfo(
