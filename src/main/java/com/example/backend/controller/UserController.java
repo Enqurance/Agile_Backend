@@ -85,7 +85,8 @@ public class UserController {
             return CommonResult.failed("密码错误");
         }
 
-        int result = userService.updatePassword(password.getNewPassword(), id);
+        int result = userService.updatePassword(
+                authService.encryptString(password.getNewPassword()), id);
         if (result != 1) {
             return CommonResult.failed("修改密码失败");
         }

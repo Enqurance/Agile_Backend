@@ -65,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("邮箱验证码错误");
         }
 
-        String encodedPass = encoder.encode(info.getPassword());
+        String encodedPass = encryptString(info.getPassword());
         info.setPassword(encodedPass);
 
         info.setType(0);
@@ -94,5 +94,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public boolean encryptCorrect(String origin, String encrypt) {
         return encoder.matches(origin, encrypt);
+    }
+
+    @Override
+    public String encryptString(String str) {
+        return encoder.encode(str);
     }
 }

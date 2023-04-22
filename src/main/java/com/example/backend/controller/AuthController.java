@@ -57,4 +57,9 @@ public class AuthController {
 //        return CommonResult.success(token);
         return CommonResult.success(authService.login(user));
     }
+
+    @GetMapping("/encrypt")
+    public CommonResult encrypt(@RequestParam(name = "str") String str) {
+        return CommonResult.success(authService.encryptString(str));
+    }
 }

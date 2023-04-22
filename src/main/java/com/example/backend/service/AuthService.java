@@ -28,4 +28,6 @@ public interface AuthService {
     LoginResult login(User user);
 
     boolean encryptCorrect(String origin, String encrypt);
+
+    String encryptString(String str);
 }
