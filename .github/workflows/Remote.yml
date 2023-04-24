@@ -23,11 +23,8 @@ jobs:
           rm -rf Agile_Backend
           git clone git@github.com:Enqurance/Agile_Backend.git
           cd Agile_Backend
-          pid=$(lsof -t -i:8080)
-          if [[ -n "$pid" ]]; then
-              echo "Killing processes using port 8080: $pid"
-              kill -9 $pid
-          else
-              echo "No processes using port 8080"
-          fi
-          nohup mvn spring-boot:run -D"spring-boot.run.jvmArguments"="-Djasypt.encryptor.password=U6M9rAJNan7j3p5MW" & > ./nohup.out
+          git checkout dev
+          cd /home/ubuntu/backend
+          ls
+          pwd
+          ./start.sh
