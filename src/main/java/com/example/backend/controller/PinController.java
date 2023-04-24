@@ -59,6 +59,12 @@ public class PinController {
             return CommonResult.success(null);
     }
 
+    @GetMapping("/pin/getPinPhotoById/{pin_id}")
+    public CommonResult getPinPhotoById(@PathVariable(value = "pin_id", required = false) Integer pin_id) {
+        List<String> urls = photoService.getPhotoUrlByPinId(pin_id);
+        return CommonResult.success(urls);
+    }
+
     @RequestMapping("/pin_search")
     public CommonResult searchPin(@RequestBody Text text, @RequestParam(required = false, name = "id") Integer id) {
         ArrayList<Pin> pins = pinService.searchPin(text.getSearchContext(), id);
@@ -77,7 +83,7 @@ public class PinController {
         Pin pin = pinService.getPinById(id);
         if (pin == null)
             return CommonResult.failed("数据库中不存在id = " + id + "的pin");
-        ArrayList<String> photos = photoService.getPhotoUrlById(pin.getId());
+        ArrayList<String> photos = photoService.getPhotoUrlByPinId(pin.getId());
         ArrayList<Integer> serviceId = pinServiceRelService.getServiceIdByPinId(id);
         ArrayList<BuaaService> services = new ArrayList<>();
         for (Integer sId : serviceId) {

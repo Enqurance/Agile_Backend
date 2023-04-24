@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.SuggestionMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Suggestion">
+            <id property="id" column="sug_id" jdbcType="INTEGER"/>
+            <result property="str" column="sug_str" jdbcType="VARCHAR"/>
+            <result property="user_id" column="u_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        sug_id,sug_str,u_id
+    </sql>
+    <insert id="insertAll">
+        insert into suggestion
+        (sug_id,sug_str,u_id)
+        values (#{id,jdbcType=NUMERIC}, #{str,jdbcType=VARCHAR}, #{user_id,jdbcType=NUMERIC})
+    </insert>
+</mapper>
