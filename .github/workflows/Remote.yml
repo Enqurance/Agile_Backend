@@ -25,6 +25,4 @@ jobs:
           cd Agile_Backend
           git checkout dev
           cd /home/ubuntu/backend
-          ls
-          pwd
-          ./start.sh
+          nohup ./start.sh & > /home/ubuntu/output.txt
