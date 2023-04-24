@@ -4,6 +4,7 @@ import com.example.backend.domain.Photo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
 * @author Sisyphus
@@ -14,7 +15,9 @@ import java.util.ArrayList;
 public interface PhotoMapper extends BaseMapper<Photo> {
     int insertAll(Photo photo);
 
-    ArrayList<String> getPhotoUrlById(Integer id);
+    ArrayList<String> getPhotoUrlByPinId(Integer id);
+
+    int deletePhotoByPinId(Integer pin_id);
 }
 
 

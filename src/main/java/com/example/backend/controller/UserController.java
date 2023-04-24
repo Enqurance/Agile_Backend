@@ -1,18 +1,17 @@
 package com.example.backend.controller;
 
 import com.example.backend.domain.User;
+import com.example.backend.domain.Suggestion;
 import com.example.backend.entity.Password;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.AuthService;
+import com.example.backend.service.SuggestionService;
 import com.example.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -22,6 +21,8 @@ public class UserController {
     private final AuthService authService;
 
     private final UserService userService;
+
+    private final SuggestionService suggestionService;
 
     @GetMapping("/getUserByToken")
     public CommonResult getUserById(@RequestParam(name = "id") Integer id) {
@@ -43,28 +44,7 @@ public class UserController {
         return CommonResult.success(null);
     }
 
-    @PostMapping("/uploadIcon")
-    public CommonResult uploadIcon(MultipartFile pic, @RequestParam(name = "id") Integer id) {
-        String picName = pic.getOriginalFilename();
-        String picPath = System.getProperty("user.dir") + "/pic/";
-        File file = new File(picPath);
-        if (!file.exists())
-            file.mkdir();
-        UUID uuid = UUID.randomUUID();
-        String url = picPath + picName.replace(".", "_" + uuid + ".");
-        User user = userService.findUserById(id).get(0);
-        user.setIcon(url);
-        try {
-            pic.transferTo(new File(url));
-            userService.updateIcon(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return CommonResult.failed("pic储存出现错误");
-        }
-        return CommonResult.success(null);
-    }
-
-    @PostMapping("/getIcon")
+    @GetMapping("/getIcon")
     public CommonResult getIcon(@RequestParam(name = "id") Integer id) {
         List<User> users = userService.findUserById(id);
         if (users.size() == 0)
@@ -91,5 +71,18 @@ public class UserController {
             return CommonResult.failed("修改密码失败");
         }
         return CommonResult.success(null);
+    }
+
+    @PostMapping("/suggestByToken")
+    public CommonResult suggestByToken(@RequestParam(name = "id") Integer id,
+                                       @RequestParam(name = "suggestion") String suggestion) {
+        Suggestion suggest = new Suggestion();
+        suggest.setUser_id(id);
+        suggest.setStr(suggestion);
+        int ret = suggestionService.insertSuggestion(suggest);
+        if (ret == 0)
+            return CommonResult.failed("suggestion数据插入失败");
+        else
+            return CommonResult.success(null);
     }
 }

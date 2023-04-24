@@ -17,7 +17,10 @@
         insert into photo (ph_id, ph_url, p_id)
         values (#{id,jdbcType=NUMERIC}, #{url,jdbcType=VARCHAR}, #{pin_id,jdbcType=NUMERIC})
     </insert>
-    <select id="getPhotoUrlById" resultType="java.lang.String">
+    <delete id="deletePhotoByPinId">
+        delete from photo where p_id = #{pin_id}
+    </delete>
+    <select id="getPhotoUrlByPinId" resultType="java.lang.String">
         select ph_url from photo where 1 = 0
         <if test='id > 0'>
             or p_id = #{id}

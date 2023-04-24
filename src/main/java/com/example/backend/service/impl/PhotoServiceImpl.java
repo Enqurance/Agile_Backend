@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -51,8 +51,8 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo>
     }
 
     @Override
-    public ArrayList<String> getPhotoUrlById(Integer id) {
-        ArrayList<String> arrayUrl = photoMapper.getPhotoUrlById(id);
+    public ArrayList<String> getPhotoUrlByPinId(Integer pin_id) {
+        ArrayList<String> arrayUrl = photoMapper.getPhotoUrlById(pin_id);
         return arrayUrl;
     }
 
@@ -103,6 +103,8 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo>
             cosClient.shutdown();
         }
     }
+
+
 
     private COSClient createCosClient() {
         // 1 初始化用户身份信息(secretId, secretKey)
