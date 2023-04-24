@@ -114,7 +114,6 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo>
         return ret;
     }
 
-
     private COSClient createCosClient() {
         // 1 初始化用户身份信息(secretId, secretKey)
         COSCredentials cred = new BasicCOSCredentials(accessKey, secretKey);
