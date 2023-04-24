@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.domain.User;
 import com.example.backend.domain.Suggestion;
 import com.example.backend.entity.Password;
+import com.example.backend.entity.SuggestWrap;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.AuthService;
 import com.example.backend.service.SuggestionService;
@@ -75,10 +76,10 @@ public class UserController {
 
     @PostMapping("/suggestByToken")
     public CommonResult suggestByToken(@RequestParam(name = "id") Integer id,
-                                       @RequestParam(name = "suggestion") String suggestion) {
+                                       @RequestBody SuggestWrap suggestion) {
         Suggestion suggest = new Suggestion();
         suggest.setUser_id(id);
-        suggest.setStr(suggestion);
+        suggest.setStr(suggestion.getSuggestion());
         int ret = suggestionService.insertSuggestion(suggest);
         if (ret == 0)
             return CommonResult.failed("suggestion数据插入失败");

@@ -18,6 +18,8 @@ public interface PhotoMapper extends BaseMapper<Photo> {
     ArrayList<String> getPhotoUrlByPinId(Integer id);
 
     int deletePhotoByPinId(Integer pin_id);
+
+    int deletePhotoByUrl(String url, Integer pin_id);
 }
 
 

@@ -23,4 +23,6 @@ public interface PhotoService extends IService<Photo> {
     void delete(String path);
 
     int deletePhotoByPinId(Integer pin_id);
+
+    int deletePhotoByUrl(String url, Integer pin_id);
 }
