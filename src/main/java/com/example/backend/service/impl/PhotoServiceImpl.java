@@ -52,13 +52,13 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo>
 
     @Override
     public ArrayList<String> getPhotoUrlByPinId(Integer pin_id) {
-        ArrayList<String> arrayUrl = photoMapper.getPhotoUrlById(pin_id);
+        ArrayList<String> arrayUrl = photoMapper.getPhotoUrlByPinId(pin_id);
         return arrayUrl;
     }
 
     @Override
     public String getUrlStrById(Integer id) {
-        return photoMapper.getPhotoUrlById(id).get(0);
+        return photoMapper.getPhotoUrlByPinId(id).get(0);
     }
 
     @Override
@@ -104,6 +104,15 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo>
         }
     }
 
+    @Override
+    public int deletePhotoByPinId(Integer pin_id) {
+        List<String> urls = photoMapper.getPhotoUrlByPinId(pin_id);
+        int ret = photoMapper.deletePhotoByPinId(pin_id);
+        for (String url : urls) {
+            delete(url.replace("https://agile-pic-1313874439.cos.ap-beijing.myqcloud.com", ""));
+        }
+        return ret;
+    }
 
 
     private COSClient createCosClient() {
