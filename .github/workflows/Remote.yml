@@ -4,9 +4,6 @@ on:
   pull_request:
     branches:
       - dev
-  push:
-    branches:
-      - feature/CICD
 
 jobs:
   deploy:
@@ -27,4 +24,5 @@ jobs:
           git clone git@github.com:Enqurance/Agile_Backend.git
           cd Agile_Backend
           git checkout dev
-          /home/ubuntu/backend/start.sh
+          cd /home/ubuntu/backend/
+          ./start.sh
