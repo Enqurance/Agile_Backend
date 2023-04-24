@@ -63,16 +63,24 @@ public class PhotoController {
             return CommonResult.failed("id = " + id + " 的user不存在");
         String urlPic = photoService.Upload(prefix, pic);
         User user = users.get(0);
-        if (!user.getIcon().equals("https://agile-pic-1313874439.cos.ap-beijing.myqcloud.com/agile-pic/win.jpg")) {
-            String path = user.getIcon().replace(
-                    "https://agile-pic-1313874439.cos.ap-beijing.myqcloud.com", "");
-            photoService.delete(path);
-        }
+        if (!user.getIcon().equals("https://agile-pic-1313874439.cos.ap-beijing.myqcloud.com/agile-pic/win.jpg"))
+            photoService.delete(user.getIcon());
         user.setIcon(urlPic);
         int ret = userService.updateIcon(user);
         if (ret == 0)
             return CommonResult.failed("icon数据插入失败");
         else
             return CommonResult.success("用户icon上传成功");
+    }
+
+    @RequestMapping("/photo/deletePinPhoto")
+    public CommonResult deletePinPhoto(@RequestBody Photo photo) {
+        int ret = photoService.deletePhotoByUrl(photo.getUrl(), photo.getPin_id());
+        if (ret == 0) {
+            return CommonResult.failed("删除图片失败或图片不存在");
+        } else {
+            photoService.delete(photo.getUrl());
+            return CommonResult.success("删除图片成功");
+        }
     }
 }

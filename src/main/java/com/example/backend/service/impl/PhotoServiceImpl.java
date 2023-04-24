@@ -94,9 +94,10 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo>
 
     @Override
     public void delete(String path) {
+        String str = path.replace("https://agile-pic-1313874439.cos.ap-beijing.myqcloud.com", "");
         COSClient cosClient = createCosClient();
         try {
-            cosClient.deleteObject(bucketName, path);
+            cosClient.deleteObject(bucketName, str);
         } catch (CosClientException e) {
             throw new RuntimeException("删除图片失败");
         } finally {
@@ -109,9 +110,14 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo>
         List<String> urls = photoMapper.getPhotoUrlByPinId(pin_id);
         int ret = photoMapper.deletePhotoByPinId(pin_id);
         for (String url : urls) {
-            delete(url.replace("https://agile-pic-1313874439.cos.ap-beijing.myqcloud.com", ""));
+            delete(url);
         }
         return ret;
+    }
+
+    @Override
+    public int deletePhotoByUrl(String url, Integer pin_id) {
+        return photoMapper.deletePhotoByUrl(url, pin_id);
     }
 
     private COSClient createCosClient() {

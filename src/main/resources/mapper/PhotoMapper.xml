@@ -20,6 +20,9 @@
     <delete id="deletePhotoByPinId">
         delete from photo where p_id = #{pin_id}
     </delete>
+    <delete id="deletePhotoByUrl">
+        delete from photo where ph_url = #{url} and p_id = #{pin_id}
+    </delete>
     <select id="getPhotoUrlByPinId" resultType="java.lang.String">
         select ph_url from photo where 1 = 0
         <if test='id > 0'>
