@@ -53,13 +53,14 @@ public class PinController {
     @DeleteMapping("/pin/deletePin/{pin_id}")
     public CommonResult deletePinById(@PathVariable(value = "pin_id", required = false) Integer pin_id) {
         int photoRet = photoService.deletePhotoByPinId(pin_id);
+        String msg = "";
         if (photoRet == 0)
-            return CommonResult.failed("删除外键p_id = " + pin_id + "的photo失败");
+            msg = ("不存在外键p_id = " + pin_id + "的photo ");
         int ret = pinService.deletePinById(pin_id);
         if (ret == 0)
-            return CommonResult.failed("删除id = " + pin_id + "的pin失败");
+            return CommonResult.failed(msg + "删除id = " + pin_id + "的pin失败");
         else
-            return CommonResult.success(null);
+            return CommonResult.success(msg);
     }
 
     @GetMapping("/pin/getPinPhotoById/{pin_id}")
