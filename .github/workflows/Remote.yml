@@ -22,8 +22,9 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_KEY }}
         script: |
-          cd Deploy
-          rm -rf Agile_Backend !(Agile_Backend/start.sh)
+          cd Deploy/Agile_Backend
+          rm -rf !(start.sh)
+          cd ..
           git clone git@github.com:Enqurance/Agile_Backend.git
           cd Agile_Backend
           git checkout dev
