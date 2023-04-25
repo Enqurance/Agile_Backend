@@ -70,7 +70,7 @@ public class PhotoController {
         if (ret == 0)
             return CommonResult.failed("icon数据插入失败");
         else
-            return CommonResult.success("用户icon上传成功");
+            return CommonResult.success(urlPic);
     }
 
     @RequestMapping("/photo/deletePinPhoto")
