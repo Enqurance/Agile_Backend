@@ -23,9 +23,4 @@ jobs:
         key: ${{ secrets.SERVER_KEY }}
         script: |
           cd Deploy
-          rm -rf Agile_Backend
-          git clone git@github.com:Enqurance/Agile_Backend.git
-          cd Agile_Backend
-          git checkout dev
-          cp ../start.sh start.sh
           nohup ./start.sh &
