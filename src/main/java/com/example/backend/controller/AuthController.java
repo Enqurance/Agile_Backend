@@ -67,6 +67,6 @@ public class AuthController {
 
     @GetMapping("/test")
     public String test() {
-        return "CICD";
+        return "CICD2";
     }
 }
