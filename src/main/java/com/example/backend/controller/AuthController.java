@@ -4,6 +4,7 @@ import com.example.backend.domain.RegisterInfo;
 import com.example.backend.domain.User;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.AuthService;
+import org.jasypt.encryption.StringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,10 +59,13 @@ public class AuthController {
         return CommonResult.success(authService.login(user));
     }
 
+//    @Autowired
+//    StringEncryptor stringEncryptor;
     @GetMapping("/encrypt")
     public void encrypt(@RequestParam(name = "str") String str) {
 //        return CommonResult.success(authService.encryptString(str));
-//        System.out.println(stringEncryptor.encrypt("AKIDugGdlgceePwDPTWUFxUuELBlqqdBVcXU"));
+
+//        System.out.println(stringEncryptor.encrypt("13zh64wk487bf5"));
 
     }
 
