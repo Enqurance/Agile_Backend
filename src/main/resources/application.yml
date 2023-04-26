@@ -1,11 +1,16 @@
 server:
   port: 8443
   ssl:
-    key-store: tomcat.keystore
-    key-alias: tomcat
     enabled: true
+    key-store: classpath:buaamapforum.cn.jks
     key-store-type: JKS
-    key-store-password: 123456
+    key-store-password: 13zh64wk487bf5
+
+condition:
+  http2https: true
+
+http:
+  port: 8080
 
 spring:
   datasource:
