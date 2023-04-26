@@ -4,7 +4,7 @@ server:
     enabled: true
     key-store: classpath:buaamapforum.cn.jks
     key-store-type: JKS
-    key-store-password: ENC(2GrpQqEscd6v46mN+8q4VAwbbkslgRcD/EE0gsAHaM59v1mFqfGyZsQ9cLrdzY5F)
+    key-store-password: ENC(AFimlFPLVzi0KrUhTGH14/lbochjLvNf9Da61U2OTxQqcttKZ/2GFaRzBeRofj9H)
 
 condition:
   http2https: true
