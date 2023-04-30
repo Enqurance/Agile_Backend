@@ -13,7 +13,7 @@
 <!--    </root>-->
 
     <root level="INFO">
-        <appender-ref ref="INFO_FILE" />
+        <appender-ref ref="DEBUG_FILE" />
     </root>
 
     <!-- 1. 日志格式和颜色渲染 -->
