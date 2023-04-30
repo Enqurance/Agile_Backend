@@ -56,7 +56,7 @@ code:
 
 # 用户默认信息
 info:
-  default_description: "阳光开朗大男/女孩"
+  default_description: "介绍一下自己吧~"
 
 # token相关
 jwt:
