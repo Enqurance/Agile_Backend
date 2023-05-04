@@ -65,7 +65,7 @@ public class AuthController {
     public void encrypt(@RequestParam(name = "str") String str) {
 //        return CommonResult.success(authService.encryptString(str));
 
-//        System.out.println(stringEncryptor.encrypt("13zh64wk487bf5"));
+//        System.out.println(stringEncryptor.encrypt(""));
 
     }
 
