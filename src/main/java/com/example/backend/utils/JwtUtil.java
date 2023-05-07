@@ -38,16 +38,13 @@ public class JwtUtil {
         Map<String, Object> map = new HashMap<>();
         map.put("alg", "HS256");
         map.put("typ", "JWT");
-        String token = JWT.create()
+        return JWT.create()
                 .withHeader(map)// 添加头部
                 //可以将基本信息放到claims中
                 .withClaim("id", user.getId())//userId
-                .withClaim("userName", user.getName())//userName
-                .withClaim("password", user.getPassword())//password
                 .withExpiresAt(expireDate) //超时设置,设置过期的日期
                 .withIssuedAt(new Date()) //签发时间
-                .sign(Algorithm.HMAC256(SECRET)); //SECRET加密
-        return token;
+                .sign(Algorithm.HMAC256(SECRET));
     }
 
     /**
