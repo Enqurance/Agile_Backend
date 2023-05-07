@@ -16,7 +16,7 @@ spring:
   datasource:
     url: jdbc:mysql://43.143.148.116:3306/buaa_map
     username: ENC(shfsyz9tI2sZv7Ij6w6pDZcgiTDxrCzGqgy9vc65IrL+nApBDFrGm6psipffDW8R)
-    password: ENC(QorDisAy731EOQ48NzZlr2oQepqFb325bakd64M5NYU9hwygS6++oSeo1uBfD1hEKBCz/GnSfoaEu8/fbOoE4A==)
+    password: ENC(GHkX3pTrfc6P2V6MAdjoRsRuq58tV3hLmhjN68dbhQgNmE1iGAybCIg52ZhbdhrJ5KpgaEZ7uX6haX48PQWmVg==)
     driver-class-name: com.mysql.cj.jdbc.Driver
   mail:
     username: buaamap@163.com
