@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
@@ -21,12 +22,6 @@ public class Message implements Serializable {
     private Integer id;
 
     /**
-     * 消息标题
-     */
-    @TableField(value = "m_title")
-    private String title;
-
-    /**
      * 消息内容
      */
     @TableField(value = "m_content")
@@ -37,12 +32,6 @@ public class Message implements Serializable {
      */
     @TableField(value = "m_status")
     private Integer status;
-
-    /**
-     * 是否可点击跳转，0为不可跳转，1为可跳转
-     */
-    @TableField(value = "m_jump")
-    private Integer jump;
 
     /**
      * 消息携带的参数
@@ -59,8 +48,14 @@ public class Message implements Serializable {
     /**
      * 消息接收用户
      */
-    @TableField(value = "u_id")
-    private Integer uId;
+    @TableField(value = "ureceive_id")
+    private Integer ureceiveId;
+
+    /**
+     * 消息生成时间
+     */
+    @TableField(value = "m_time")
+    private Date time;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
