@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author DELL
 * @description 针对表【message】的数据库操作Service实现
-* @createDate 2023-05-09 09:43:08
+* @createDate 2023-05-09 10:32:26
 */
 @Service
 public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
