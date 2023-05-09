@@ -7,6 +7,7 @@ import com.example.backend.mapper.MessageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +24,9 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
 
     @Override
     public int insertMessage(Message message) {
+        if (message.getTime() == null) {
+            message.setTime(new Date());
+        }
         return messageMapper.insertAll(message);
     }
 
