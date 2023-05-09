@@ -18,7 +18,7 @@ public class PinTaskMessage extends Message {
     public PinTaskMessage(int p_id) {
         this.setStatus(0);
         this.setPara(String.valueOf(p_id));
-        this.setType(4);
+        this.setType(5);
         this.setUreceiveId(0);  // 表示管理员接收
     }
 }

@@ -4,7 +4,7 @@ import com.example.backend.domain.Message;
 
 /**
  * @className: ApplySuccessMessage
- * @Description: 用户申请成功消息
+ * @Description: 用户成功发起地图钉公开申请消息
  * @author: WAN
  * @date: 2023/5/9 14:34
  */

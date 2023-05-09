@@ -19,7 +19,7 @@ public class PostReportMessage extends Message {
         this.setContent(reason);
         this.setStatus(0);
         this.setPara(post_id + ";" + usend_id);
-        this.setType(5);
+        this.setType(6);
         this.setUreceiveId(0);  // 表示管理员接收
     }
 }

@@ -16,7 +16,7 @@ public class ExaminePostMessage extends Message {
     public ExaminePostMessage(int texamine_id) {
         this.setStatus(0);
         this.setPara(String.valueOf(texamine_id));
-        this.setType(7);
+        this.setType(9);
         this.setUreceiveId(0);  // 表示管理员接收
     }
 }
