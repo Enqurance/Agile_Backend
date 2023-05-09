@@ -11,10 +11,44 @@
             <result property="para" column="m_para" jdbcType="VARCHAR"/>
             <result property="type" column="m_type" jdbcType="SMALLINT"/>
             <result property="ureceiveId" column="ureceive_id" jdbcType="INTEGER"/>
+            <result property="time" column="m_time" jdbcType="DATE"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         m_id,m_content,m_status,
-        m_para,m_type,ureceive_id
+        m_para,m_type,ureceive_id,
+        m_time
     </sql>
+    <insert id="insertAll">
+        insert into message
+        (m_id, m_content, m_status,
+         m_para, m_type, ureceive_id,
+         m_time)
+        values (#{id,jdbcType=NUMERIC}, #{content,jdbcType=VARCHAR}, #{status,jdbcType=NUMERIC},
+                #{para,jdbcType=VARCHAR}, #{type,jdbcType=NUMERIC}, #{ureceiveId,jdbcType=NUMERIC},
+                #{time,jdbcType=TIMESTAMP})
+
+    </insert>
+    <update id="updateStatusById">
+        update message
+        set m_status = #{status,jdbcType=NUMERIC}
+        where m_id = #{id,jdbcType=NUMERIC}
+    </update>
+    <delete id="deleteById">
+        delete from message where m_id = #{id,jdbcType=NUMERIC}
+    </delete>
+    <select id="getAllReceiveByUreceiveId" resultType="com.example.backend.domain.Message">
+        select
+        <include refid="Base_Column_List"/>
+        from message
+        where ureceive_id = #{ureceive_id,jdbcType=NUMERIC}
+        AND m_type IN (1, 2, 4, 5, 6, 7)
+    </select>
+    <select id="getAllSendByUreceiveId" resultType="com.example.backend.domain.Message">
+        select
+        <include refid="Base_Column_List"/>
+        from message
+        where ureceive_id = #{ureceive_id,jdbcType=NUMERIC}
+        AND m_type IN (3)
+    </select>
 </mapper>

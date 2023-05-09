@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
@@ -49,6 +50,12 @@ public class Message implements Serializable {
      */
     @TableField(value = "ureceive_id")
     private Integer ureceiveId;
+
+    /**
+     * 消息生成时间
+     */
+    @TableField(value = "m_time")
+    private Date time;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
