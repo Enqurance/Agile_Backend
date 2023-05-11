@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.PostMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Post">
+            <id property="postId" column="post_id" jdbcType="INTEGER"/>
+            <result property="postTitle" column="post_title" jdbcType="VARCHAR"/>
+            <result property="postContent" column="post_content" jdbcType="VARCHAR"/>
+            <result property="postVisibility" column="post_visibility" jdbcType="INTEGER"/>
+            <result property="postTag" column="post_tag" jdbcType="INTEGER"/>
+            <result property="postThumbsUp" column="post_thumbs_up" jdbcType="INTEGER"/>
+            <result property="postVisit" column="post_visit" jdbcType="INTEGER"/>
+            <result property="postFloorNum" column="post_floor_num" jdbcType="INTEGER"/>
+            <result property="pinIdStr" column="pin_id_str" jdbcType="VARCHAR"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        post_id,post_title,post_content,
+        post_visibility,post_tag,post_thumbs_up,
+        post_visit,post_floor_num,pin_id_str,
+        user_id
+    </sql>
+</mapper>
