@@ -12,4 +12,27 @@
     <sql id="Base_Column_List">
         tpin_id,p_id
     </sql>
+    <insert id="insertAll">
+        insert into tpin
+            (tpin_id, p_id)
+        values (#{id,jdbcType=NUMERIC}, #{pId,jdbcType=NUMERIC})
+
+    </insert>
+    <delete id="deleteById">
+        delete
+        from tpin
+        where tpin_id = #{id,jdbcType=NUMERIC}
+    </delete>
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tpin
+    </select>
+    <select id="findAllByPId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tpin
+        where
+        p_id = #{pId,jdbcType=NUMERIC}
+    </select>
 </mapper>
