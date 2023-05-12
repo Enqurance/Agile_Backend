@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.TcommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Tcomment">
+            <id property="id" column="tcomment_id" jdbcType="INTEGER"/>
+            <result property="commentId" column="comment_id" jdbcType="INTEGER"/>
+            <result property="reason" column="tcomment_reason" jdbcType="VARCHAR"/>
+            <result property="uId" column="u_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        tcomment_id,comment_id,tcomment_reason,
+        u_id
+    </sql>
+</mapper>

@@ -1,5 +1,5 @@
 # 创建message表的SQL语句
-CREATE TABLE `buaa_map`.`message`
+CREATE TABLE `buaa_map`.`texamine`
 (
     `texamine_id`      INT           NOT NULL AUTO_INCREMENT COMMENT '任务id，系统自动生成',
     `post_id`          INT           NOT NULL COMMENT '原帖子内容',
