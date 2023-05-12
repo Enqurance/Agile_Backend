@@ -15,4 +15,30 @@
         tpost_id,post_id,tpost_reason,
         u_id
     </sql>
+    <insert id="insertAll">
+        insert into tpost
+        (tpost_id, post_id, tpost_reason,
+         u_id)
+        values (#{id,jdbcType=NUMERIC}, #{postId,jdbcType=NUMERIC}, #{reason,jdbcType=VARCHAR},
+                #{uId,jdbcType=VARCHAR})
+
+    </insert>
+    <select id="findAllByPostId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tpost
+        where
+        post_id = #{postId,jdbcType=NUMERIC}
+    </select>
+    <update id="updateReasonAndUIdByPostId">
+        update tpost
+        set tpost_reason = #{reason,jdbcType=VARCHAR},
+            u_id         = #{uId,jdbcType=VARCHAR}
+        where post_id = #{postId,jdbcType=NUMERIC}
+    </update>
+    <delete id="deleteById">
+        delete
+        from tpost
+        where tpost_id = #{id,jdbcType=NUMERIC}
+    </delete>
 </mapper>

@@ -9,5 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-05-12 10:51:19
 */
 public interface TcommentService extends IService<Tcomment> {
+    int newReport(String reason, int comment_id, int u_id);
 
+    int finishReport(int tcomment_id);
 }

@@ -9,5 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-05-12 10:51:09
 */
 public interface TfloorService extends IService<Tfloor> {
+    int newReport(String reason, int floor_id, int u_id);
 
+    int finishReport(int tfloor_id);
 }

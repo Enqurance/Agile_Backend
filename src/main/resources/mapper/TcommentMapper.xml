@@ -15,4 +15,30 @@
         tcomment_id,comment_id,tcomment_reason,
         u_id
     </sql>
+    <insert id="insertAll">
+        insert into tcomment
+        (tcomment_id, comment_id, tcomment_reason,
+         u_id)
+        values (#{id,jdbcType=NUMERIC}, #{commentId,jdbcType=NUMERIC}, #{reason,jdbcType=VARCHAR},
+                #{uId,jdbcType=VARCHAR})
+
+    </insert>
+    <delete id="deleteById">
+        delete
+        from tcomment
+        where tcomment_id = #{id,jdbcType=NUMERIC}
+    </delete>
+    <select id="findAllByCommentId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tcomment
+        where
+        comment_id = #{commentId,jdbcType=NUMERIC}
+    </select>
+    <update id="updateReasonAndUIdByCommentId">
+        update tcomment
+        set tcomment_reason = #{reason,jdbcType=VARCHAR},
+            u_id            = #{uId,jdbcType=VARCHAR}
+        where comment_id = #{commentId,jdbcType=NUMERIC}
+    </update>
 </mapper>
