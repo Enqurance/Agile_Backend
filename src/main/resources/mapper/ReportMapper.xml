@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.ReportMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Report">
+            <id property="id" column="r_id" jdbcType="INTEGER"/>
+            <result property="oId" column="o_id" jdbcType="INTEGER"/>
+            <result property="reason" column="r_reason" jdbcType="VARCHAR"/>
+            <result property="uId" column="u_id" jdbcType="INTEGER"/>
+            <result property="type" column="r_type" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        r_id,o_id,r_reason,
+        u_id,r_type
+    </sql>
+    <insert id="insertAll">
+        insert into report
+        (r_id, o_id, r_reason,
+         u_id, r_type)
+        values (#{id,jdbcType=NUMERIC}, #{oId,jdbcType=NUMERIC}, #{reason,jdbcType=VARCHAR},
+                #{uId,jdbcType=NUMERIC}, #{type,jdbcType=NUMERIC})
+
+    </insert>
+    <delete id="deleteByOIdAndType">
+        delete
+        from report
+        where o_id = #{oId,jdbcType=NUMERIC}
+          AND r_type = #{type,jdbcType=NUMERIC}
+    </delete>
+    <select id="getAllByOIdAndType" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from report
+        where
+        o_id = #{oId,jdbcType=NUMERIC}
+        AND r_type = #{type,jdbcType=NUMERIC}
+    </select>
+</mapper>
