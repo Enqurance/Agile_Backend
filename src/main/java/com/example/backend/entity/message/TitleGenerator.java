@@ -3,8 +3,8 @@ package com.example.backend.entity.message;
 import com.example.backend.domain.Message;
 import com.example.backend.service.PinService;
 import com.example.backend.service.UserService;
-import com.example.backend.service.impl.PinServiceImpl;
-import com.example.backend.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @className: TitleGenerator
@@ -12,10 +12,11 @@ import com.example.backend.service.impl.UserServiceImpl;
  * @author: WAN
  * @date: 2023/5/9 16:16
  */
+@Component
 public class TitleGenerator {
-    private final static UserService userService = new UserServiceImpl();
+    private static UserService userService;
 
-    private final static PinService pinService = new PinServiceImpl();
+    private static PinService pinService;
 
     public static String generateTitle(Message message) {
         String title;
@@ -36,6 +37,16 @@ public class TitleGenerator {
             default -> title = "";
         }
         return title;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        TitleGenerator.userService = userService;
+    }
+
+    @Autowired
+    public void setPinService(PinService pinService) {
+        TitleGenerator.pinService = pinService;
     }
 
     private static String likeTitle(Message message) {
