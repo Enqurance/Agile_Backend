@@ -24,4 +24,6 @@ public interface UserService extends IService<User> {
     int updatePassword(String password, Integer id);
 
     String getPassword(Integer id);
+
+    int getType(Integer id);
 }

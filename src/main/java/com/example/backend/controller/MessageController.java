@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.entity.FrontendMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.MessageService;
+import com.example.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,18 +22,33 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private UserService userService;
+
 
     @GetMapping("/getReceiveMessage")
     public CommonResult getReceiveMessage(@RequestParam(name = "id") Integer id) {
         List<FrontendMessage> messages = new ArrayList<>();
-        messageService.getAllReceive(id).forEach(message -> messages.add(new FrontendMessage(message)));
+        int search_id;
+        if (userService.getType(id) == 1) {
+            search_id = 0;
+        } else {
+            search_id = id;
+        }
+        messageService.getAllReceive(search_id).forEach(message -> messages.add(new FrontendMessage(message)));
         return CommonResult.success(messages);
     }
 
     @GetMapping("/getSendMessage")
     public CommonResult getSendMessage(@RequestParam(name = "id") Integer id) {
         List<FrontendMessage> messages = new ArrayList<>();
-        messageService.getAllSend(id).forEach(message -> messages.add(new FrontendMessage(message)));
+        int search_id;
+        if (userService.getType(id) == 1) {
+            search_id = 0;
+        } else {
+            search_id = id;
+        }
+        messageService.getAllSend(search_id).forEach(message -> messages.add(new FrontendMessage(message)));
         return CommonResult.success(messages);
     }
 

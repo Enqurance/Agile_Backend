@@ -65,6 +65,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         return users.get(0).getPassword();
     }
+
+    @Override
+    public int getType(Integer id) {
+        return userMapper.getTypeById(id).get(0).getType();
+    }
 }
 
 
