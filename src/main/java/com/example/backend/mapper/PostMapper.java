@@ -11,11 +11,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.example.backend.domain.Post
 */
 public interface PostMapper extends BaseMapper<Post> {
-    int insertPost(Post Post);
+    int insertPost(Post post);
 
     Post getPostById(Integer id);
 
-    int updatePost(Post Post);
+    int updatePost(Post post);
 
     int deletePostById(Integer id);
 

@@ -18,12 +18,12 @@ public class Comment implements Serializable {
      * 回复id，系统自动生成
      */
     @TableId(type = IdType.AUTO)
-    private Integer commentId;
+    private Integer id;
 
     /**
      * 回复内容
      */
-    private String cContent;
+    private String content;
 
     /**
      * 所属楼层id，外键
@@ -45,12 +45,12 @@ public class Comment implements Serializable {
 
     public Comment() {}
 
-    public Integer getCommentId() {
-        return commentId;
+    public Integer getId() {
+        return id;
     }
 
-    public String getcContent() {
-        return cContent;
+    public String getContent() {
+        return content;
     }
 
     public Integer getFloorId() {
@@ -65,12 +65,12 @@ public class Comment implements Serializable {
         return ruserId;
     }
 
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setcContent(String cContent) {
-        this.cContent = cContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public void setFloorId(Integer floorId) {
@@ -91,8 +91,8 @@ public class Comment implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", commentId=").append(commentId);
-        sb.append(", cContent=").append(cContent);
+        sb.append(", commentId=").append(id);
+        sb.append(", cContent=").append(content);
         sb.append(", floorId=").append(floorId);
         sb.append(", cuserId=").append(cuserId);
         sb.append(", ruserId=").append(ruserId);

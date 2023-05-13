@@ -5,9 +5,9 @@
 <mapper namespace="com.example.backend.mapper.FloorMapper">
 
     <resultMap id="BaseResultMap" type="com.example.backend.domain.Floor">
-            <id property="floorId" column="floor_id" jdbcType="INTEGER"/>
-            <result property="floorContent" column="floor_content" jdbcType="VARCHAR"/>
-            <result property="floorLayers" column="floor_layers" jdbcType="INTEGER"/>
+            <id property="id" column="floor_id" jdbcType="INTEGER"/>
+            <result property="content" column="floor_content" jdbcType="VARCHAR"/>
+            <result property="layers" column="floor_layers" jdbcType="INTEGER"/>
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="postId" column="post_id" jdbcType="INTEGER"/>
     </resultMap>
@@ -16,4 +16,17 @@
         floor_id,floor_content,floor_layers,
         user_id,post_id
     </sql>
+    <insert id="insertFloor">
+        insert into floor
+        (floor_id,floor_content,
+         floor_layers,user_id,post_id)
+        values (#{id,jdbcType=NUMERIC}, #{content,jdbcType=VARCHAR},
+                #{layers,jdbcType=NUMERIC}, #{userId,jdbcType=NUMERIC}, #{postId,jdbcType=NUMERIC})
+    </insert>
+    <select id="getFloorById" resultType="com.example.backend.domain.Floor">
+        select * from floor where 1 = 0
+        <if test='id > 0'>
+            or floor_id = #{id}
+        </if>
+    </select>
 </mapper>

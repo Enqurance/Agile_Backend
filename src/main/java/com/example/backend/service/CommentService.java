@@ -9,5 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-05-11 23:35:55
 */
 public interface CommentService extends IService<Comment> {
+    int addComment(Comment comment);
 
+    Comment getCommentById(Integer id);
 }

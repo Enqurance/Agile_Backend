@@ -5,8 +5,8 @@
 <mapper namespace="com.example.backend.mapper.CommentMapper">
 
     <resultMap id="BaseResultMap" type="com.example.backend.domain.Comment">
-            <id property="commentId" column="comment_id" jdbcType="INTEGER"/>
-            <result property="cContent" column="c_content" jdbcType="VARCHAR"/>
+            <id property="id" column="comment_id" jdbcType="INTEGER"/>
+            <result property="content" column="c_content" jdbcType="VARCHAR"/>
             <result property="floorId" column="floor_id" jdbcType="INTEGER"/>
             <result property="cuserId" column="cuser_id" jdbcType="INTEGER"/>
             <result property="ruserId" column="ruser_id" jdbcType="INTEGER"/>
@@ -16,4 +16,17 @@
         comment_id,c_content,floor_id,
         cuser_id,ruser_id
     </sql>
+    <insert id="insertComment">
+        insert into comment
+        (comment_id,c_content,
+         floor_id,cuser_id,ruser_id)
+        values (#{id,jdbcType=NUMERIC}, #{content,jdbcType=VARCHAR},
+                #{floorId,jdbcType=NUMERIC}, #{cuserId,jdbcType=NUMERIC}, #{ruserId,jdbcType=NUMERIC})
+    </insert>
+    <select id="getCommentById" resultType="com.example.backend.domain.Comment">
+        select * from comment where 1 = 0
+        <if test='id > 0'>
+            or comment_id = #{id}
+        </if>
+    </select>
 </mapper>
