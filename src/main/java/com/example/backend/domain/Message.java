@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 /**
  * 
@@ -14,6 +15,7 @@ import lombok.Data;
  */
 @TableName(value ="message")
 @Data
+@Component
 public class Message implements Serializable {
     /**
      * 消息id，系统自动生成
