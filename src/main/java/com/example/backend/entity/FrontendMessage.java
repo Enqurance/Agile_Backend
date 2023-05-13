@@ -39,7 +39,9 @@ public class FrontendMessage {
             // 审核id
             case 9 -> this.examine_id = Integer.parseInt(message.getPara());
             // 评论id->楼层id
-            case 8, 13 -> this.floor_id = CommentService
+            case 8, 13 -> this.floor_id = commentService.getCommentById(
+                    Integer.parseInt(message.getPara().split(";")[0])
+            ).getFloorId();
             default -> {
             }
         }
