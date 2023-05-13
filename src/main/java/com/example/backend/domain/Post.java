@@ -18,42 +18,42 @@ public class Post implements Serializable {
      * 帖子id，系统自动生成
      */
     @TableId(type = IdType.AUTO)
-    private Integer postId;
+    private Integer id;
 
     /**
      * 帖子标题名
      */
-    private String postTitle;
+    private String title;
 
     /**
      * 帖子内容
      */
-    private String postContent;
+    private String content;
 
     /**
      * 帖子可见性
      */
-    private Integer postVisibility;
+    private Integer visibility;
 
     /**
      * 帖子对应tag
      */
-    private Integer postTag;
+    private Integer tag;
 
     /**
      * 帖子点赞数
      */
-    private Integer postThumbsUp;
+    private Integer thumbsUp;
 
     /**
      * 帖子访问量
      */
-    private Integer postVisit;
+    private Integer visit;
 
     /**
      * 帖子总楼数
      */
-    private Integer postFloorNum;
+    private Integer floorNum;
 
     /**
      * 相关地图钉id组成的字符串，id之间用;隔开
@@ -70,36 +70,36 @@ public class Post implements Serializable {
 
     public Post() {}
 
-    public Integer getPostId() {
-        return postId;
+    public Integer getId() {
+        return id;
     }
 
-    public String getPostTitle() {
-        return postTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public String getPostContent() {
-        return postContent;
+    public String getContent() {
+        return content;
     }
 
-    public Integer getPostVisibility() {
-        return postVisibility;
+    public Integer getVisibility() {
+        return visibility;
     }
 
-    public Integer getPostTag() {
-        return postTag;
+    public Integer getTag() {
+        return tag;
     }
 
-    public Integer getPostThumbsUp() {
-        return postThumbsUp;
+    public Integer getThumbsUp() {
+        return thumbsUp;
     }
 
-    public Integer getPostVisit() {
-        return postVisit;
+    public Integer getVisit() {
+        return visit;
     }
 
-    public Integer getPostFloorNum() {
-        return postFloorNum;
+    public Integer getFloorNum() {
+        return floorNum;
     }
 
     public String getPinIdStr() {
@@ -110,36 +110,36 @@ public class Post implements Serializable {
         return userId;
     }
 
-    public void setPostId(Integer postId) {
-        this.postId = postId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setPostTitle(String postTitle) {
-        this.postTitle = postTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setPostContent(String postContent) {
-        this.postContent = postContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setPostVisibility(Integer postVisibility) {
-        this.postVisibility = postVisibility;
+    public void setVisibility(Integer visibility) {
+        this.visibility = visibility;
     }
 
-    public void setPostTag(Integer postTag) {
-        this.postTag = postTag;
+    public void setTag(Integer tag) {
+        this.tag = tag;
     }
 
-    public void setPostThumbsUp(Integer postThumbsUp) {
-        this.postThumbsUp = postThumbsUp;
+    public void setThumbsUp(Integer thumbsUp) {
+        this.thumbsUp = thumbsUp;
     }
 
-    public void setPostVisit(Integer postVisit) {
-        this.postVisit = postVisit;
+    public void setVisit(Integer visit) {
+        this.visit = visit;
     }
 
-    public void setPostFloorNum(Integer postFloorNum) {
-        this.postFloorNum = postFloorNum;
+    public void setFloorNum(Integer floorNum) {
+        this.floorNum = floorNum;
     }
 
     public void setPinIdStr(String pinIdStr) {
@@ -156,14 +156,14 @@ public class Post implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", postId=").append(postId);
-        sb.append(", postTitle=").append(postTitle);
-        sb.append(", postContent=").append(postContent);
-        sb.append(", postVisibility=").append(postVisibility);
-        sb.append(", postTag=").append(postTag);
-        sb.append(", postThumbsUp=").append(postThumbsUp);
-        sb.append(", postVisit=").append(postVisit);
-        sb.append(", postFloorNum=").append(postFloorNum);
+        sb.append(", postId=").append(id);
+        sb.append(", postTitle=").append(title);
+        sb.append(", postContent=").append(content);
+        sb.append(", postVisibility=").append(visibility);
+        sb.append(", postTag=").append(tag);
+        sb.append(", postThumbsUp=").append(thumbsUp);
+        sb.append(", postVisit=").append(visit);
+        sb.append(", postFloorNum=").append(floorNum);
         sb.append(", pinIdStr=").append(pinIdStr);
         sb.append(", userId=").append(userId);
         sb.append(", serialVersionUID=").append(serialVersionUID);

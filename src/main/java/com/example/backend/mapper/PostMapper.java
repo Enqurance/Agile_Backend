@@ -1,5 +1,6 @@
 package com.example.backend.mapper;
 
+import com.example.backend.domain.Pin;
 import com.example.backend.domain.Post;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -10,7 +11,15 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.example.backend.domain.Post
 */
 public interface PostMapper extends BaseMapper<Post> {
+    int insertPost(Post Post);
 
+    Post getPostById(Integer id);
+
+    int updatePost(Post Post);
+
+    int deletePostById(Integer id);
+
+    int setPostVisById(Integer id, Integer visibility);
 }
 
 
