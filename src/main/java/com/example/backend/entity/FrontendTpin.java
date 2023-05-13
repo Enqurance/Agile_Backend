@@ -15,5 +15,6 @@ public class FrontendTpin {
     private Integer id;
     private String name;
     private Integer type;
+    private Integer visibility;
     private Double[] lnglat;
 }
