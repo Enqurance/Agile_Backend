@@ -1,10 +1,11 @@
 package com.example.backend.entity.message;
 
 import com.example.backend.domain.Message;
-import com.example.backend.service.PinService;
-import com.example.backend.service.UserService;
+import com.example.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
 
 /**
  * @className: TitleGenerator
@@ -17,6 +18,12 @@ public class TitleGenerator {
     private static UserService userService;
 
     private static PinService pinService;
+
+    private static PostService postService;
+
+    private static FloorService floorService;
+
+    private static CommentService commentService;
 
     public static String generateTitle(Message message) {
         String title;
@@ -34,7 +41,7 @@ public class TitleGenerator {
             case 11 -> title = postReportResultTitle(message);
             case 12 -> title = floorReportResultTitle(message);
             case 13 -> title = commentReportResultTitle(message);
-            default -> title = "";
+            default -> title = "错误的消息种类";
         }
         return title;
     }
@@ -49,12 +56,30 @@ public class TitleGenerator {
         TitleGenerator.pinService = pinService;
     }
 
+    @Autowired
+    public void setPostService(PostService postService) {
+        TitleGenerator.postService = postService;
+    }
+
+    @Autowired
+    public void setFloorService(FloorService floorService) {
+        TitleGenerator.floorService = floorService;
+    }
+
+    @Autowired
+    public void setCommentService(CommentService commentService) {
+        TitleGenerator.commentService = commentService;
+    }
+
     private static String likeTitle(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+
         return MESSTYPE.NOTICE.getType() +
-                userService.findUserById(Integer.parseInt(
-                        message.getPara().split(";")[1]
-                )).get(0).getName() +
-                "点赞了你的帖子"; // TODO 附加帖子标题
+                userService.findUserById(paras[1]).get(0).getName() +
+                "点赞了你的帖子" +
+                postService.getPostById(paras[0]).getTitle();
     }
 
     private static String replyTitle(Message message) {
@@ -75,9 +100,13 @@ public class TitleGenerator {
     }
 
     private static String postReleaseSuccessTitle(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+
         return MESSTYPE.NOTICE.getType() +
                 "您的帖子" +
-                "" +     // TODO 获取帖子标题
+                postService.getPostById(paras[0]).getTitle() +
                 "发布成功";
     }
 
@@ -91,30 +120,46 @@ public class TitleGenerator {
     }
 
     private static String postReportTitle(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+
         return MESSTYPE.REPORT.getType() +
                 "帖子" +
-                "" +  // TODO 获取帖子标题
+                postService.getPostById(paras[0]).getTitle() +
                 "被举报";
     }
 
     private static String floorReportTitle(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+
         return MESSTYPE.REPORT.getType() +
                 "楼层" +
-                "" +  // TODO 获取楼层内容
+                floorService.getFloorById(paras[0]).getContent() +
                 "被举报";
     }
 
     private static String commentReportTitle(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+
         return MESSTYPE.REPORT.getType() +
                 "评论" +
-                "" +      // TODO 获取评论的具体内容
+                commentService.getCommentById(paras[0]).getContent() +
                 "被举报";
     }
 
     private static String examinePostTitle(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+
         return MESSTYPE.APPLY.getType() +
                 "帖子" +
-                "" +  // TODO 获取标题
+                postService.getPostById(paras[0]).getTitle() +
                 "申请发布";
     }
 
@@ -129,26 +174,38 @@ public class TitleGenerator {
     }
 
     private static String postReportResultTitle(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+
         return MESSTYPE.NOTICE.getType() +
                 "您对帖子" +
-                "" +   // TODO 获取帖子标题
+                postService.getPostById(paras[0]).getTitle() +
                 "的举报" +
-                message.getPara().split(";")[1];
+                (paras[1] == 1 ? "成功" : "失败");
     }
 
     private static String floorReportResultTitle(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+
         return MESSTYPE.NOTICE.getType() +
                 "您对楼层" +
                 "" +   // TODO 获取楼层内容
                 "的举报" +
-                message.getPara().split(";")[1];
+                (paras[1] == 1 ? "成功" : "失败");
     }
 
     private static String commentReportResultTitle(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+
         return MESSTYPE.NOTICE.getType() +
                 "您对评论" +
                 "" +   // TODO 获取评论内容
                 "的举报" +
-                message.getPara().split(";")[1];
+                (paras[1] == 1 ? "成功" : "失败");
     }
 }
