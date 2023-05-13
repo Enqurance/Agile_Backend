@@ -13,7 +13,7 @@ public class FloorReportResultMessage extends Message {
                                     int u_id,
                                     boolean accept) {
         this.setStatus(0);
-        this.setPara(floor_id + ";" + (accept ? "成功" : "失败"));
+        this.setPara(floor_id + ";" + (accept ? 1 : 0));
         this.setType(12);
         this.setUreceiveId(u_id);
     }
