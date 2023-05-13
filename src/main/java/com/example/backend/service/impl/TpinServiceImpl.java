@@ -40,6 +40,11 @@ public class TpinServiceImpl extends ServiceImpl<TpinMapper, Tpin>
     public List<Tpin> findAllTasks() {
         return tpinMapper.findAll();
     }
+
+    @Override
+    public int pinState(int p_id) {
+        return tpinMapper.findAllByPId(p_id).size();
+    }
 }
 
 
