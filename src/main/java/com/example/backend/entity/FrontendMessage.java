@@ -26,25 +26,28 @@ public class FrontendMessage {
 
     private static CommentService commentService;
 
-    public FrontendMessage(Message message) {
-        this.id = message.getId();
-        this.title = TitleGenerator.generateTitle(message);
-        this.content = message.getContent();
-        this.read = message.getStatus() == 1;
+    public static FrontendMessage trans2FrontendMessage(Message message) {
+        FrontendMessage frontendMessage = new FrontendMessage();
+        frontendMessage.setId(message.getId());
+        frontendMessage.setTitle(TitleGenerator.generateTitle(message));
+        frontendMessage.setContent(message.getContent());
+        frontendMessage.setRead(message.getStatus() == 1);
         switch (message.getType()) {
             // 帖子id
-            case 1, 4, 6, 11 -> this.post_id = Integer.parseInt(message.getPara().split(";")[0]);
+            case 1, 4, 6, 11 -> frontendMessage.setPost_id(Integer.parseInt(message.getPara().split(";")[0]));
             // 楼层id
-            case 2, 7, 12 -> this.floor_id = Integer.parseInt(message.getPara().split(";")[0]);
+            case 2, 7, 12 -> frontendMessage.setFloor_id(Integer.parseInt(message.getPara().split(";")[0]));
             // 审核id
-            case 9 -> this.examine_id = Integer.parseInt(message.getPara());
+            case 9 -> frontendMessage.setExamine_id(Integer.parseInt(message.getPara()));
             // 评论id->楼层id
-            case 8, 13 -> this.floor_id = commentService.getCommentById(
+            case 8, 13 -> frontendMessage.setFloor_id(commentService.getCommentById(
                     Integer.parseInt(message.getPara().split(";")[0])
-            ).getFloorId();
+            ).getFloorId());
             default -> {
             }
         }
+
+        return frontendMessage;
     }
 
     @Autowired

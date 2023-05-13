@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
-import org.springframework.stereotype.Component;
 
 /**
  * 
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
  */
 @TableName(value ="message")
 @Data
-@Component
 public class Message implements Serializable {
     /**
      * 消息id，系统自动生成
