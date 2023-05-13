@@ -2,6 +2,7 @@ package com.example.backend.mapper;
 
 import com.example.backend.domain.Comment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.backend.domain.Floor;
 
 /**
 * @author Sisyphus
@@ -10,7 +11,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.example.backend.domain.Comment
 */
 public interface CommentMapper extends BaseMapper<Comment> {
+    int insertComment(Comment comment);
 
+    Comment getCommentById(Integer id);
 }
 
 

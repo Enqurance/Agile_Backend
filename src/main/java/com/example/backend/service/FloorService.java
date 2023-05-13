@@ -9,5 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-05-11 23:35:50
 */
 public interface FloorService extends IService<Floor> {
+    int addFloor(Floor floor);
 
+    Floor getFloorById(Integer id);
 }

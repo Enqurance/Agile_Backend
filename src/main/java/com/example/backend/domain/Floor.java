@@ -18,17 +18,17 @@ public class Floor implements Serializable {
      * 楼层id，系统自动生成
      */
     @TableId(type = IdType.AUTO)
-    private Integer floorId;
+    private Integer id;
 
     /**
      * 楼层内容
      */
-    private String floorContent;
+    private String content;
 
     /**
      * 帖子的第几楼
      */
-    private Integer floorLayers;
+    private Integer layers;
 
     /**
      * 用户id
@@ -45,16 +45,16 @@ public class Floor implements Serializable {
 
     public Floor() {}
 
-    public Integer getFloorId() {
-        return floorId;
+    public Integer getId() {
+        return id;
     }
 
-    public String getFloorContent() {
-        return floorContent;
+    public String getContent() {
+        return content;
     }
 
-    public Integer getFloorLayers() {
-        return floorLayers;
+    public Integer getLayers() {
+        return layers;
     }
 
     public Integer getUserId() {
@@ -65,16 +65,16 @@ public class Floor implements Serializable {
         return postId;
     }
 
-    public void setFloorId(Integer floorId) {
-        this.floorId = floorId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setFloorContent(String floorContent) {
-        this.floorContent = floorContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setFloorLayers(Integer floorLayers) {
-        this.floorLayers = floorLayers;
+    public void setLayers(Integer layers) {
+        this.layers = layers;
     }
 
     public void setUserId(Integer userId) {
@@ -91,9 +91,9 @@ public class Floor implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", floorId=").append(floorId);
-        sb.append(", floorContent=").append(floorContent);
-        sb.append(", floorLayers=").append(floorLayers);
+        sb.append(", floorId=").append(id);
+        sb.append(", floorContent=").append(content);
+        sb.append(", floorLayers=").append(layers);
         sb.append(", userId=").append(userId);
         sb.append(", postId=").append(postId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
