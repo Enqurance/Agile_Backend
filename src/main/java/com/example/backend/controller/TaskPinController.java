@@ -32,7 +32,7 @@ public class TaskPinController {
     public CommonResult getAllTaskPin() {
         List<FrontendTpin> tpins = new ArrayList<>();
         tpinService.findAllTasks().forEach(tpin -> {
-            Pin pin = pinService.getPinById(tpin.getId());
+            Pin pin = pinService.getPinById(tpin.getPId());
             tpins.add(new FrontendTpin(
                     pin.getId(),
                     pin.getName(),
