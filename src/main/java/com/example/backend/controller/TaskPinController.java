@@ -37,6 +37,7 @@ public class TaskPinController {
                     pin.getId(),
                     pin.getName(),
                     pin.getType(),
+                    pin.getVisibility(),
                     Arrays.stream(pin.getLnglat().split(";"))
                             .map(Double::parseDouble)
                             .toArray(Double[]::new)
