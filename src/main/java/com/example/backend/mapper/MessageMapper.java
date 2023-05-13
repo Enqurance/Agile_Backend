@@ -16,10 +16,10 @@ import java.util.List;
 public interface MessageMapper extends BaseMapper<Message> {
     int insertAll(Message message);
 
-    int deleteById(@Param("m_id") Integer m_id);
+    int deleteById(@Param("id") Integer m_id);
 
-    int updateStatusById(@Param("m_id") Integer m_id,
-                         @Param("m_status") Integer m_status);
+    int updateStatusById(@Param("id") Integer m_id,
+                         @Param("status") Integer m_status);
 
     List<Message> getAllReceiveByUreceiveId(@Param("ureceive_id") Integer ureceive_id);
 

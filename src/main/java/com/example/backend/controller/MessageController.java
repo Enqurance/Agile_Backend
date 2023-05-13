@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import cn.hutool.json.JSONObject;
 import com.example.backend.entity.FrontendMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.MessageService;
@@ -53,7 +54,8 @@ public class MessageController {
     }
 
     @PostMapping("/readMessageById")
-    public CommonResult readMessage(@RequestParam(name = "m_id") Integer m_id) {
+    public CommonResult readMessage(@RequestBody JSONObject object) {
+        int m_id = object.getInt("m_id");
         int result = messageService.readMessage(m_id);
         if (result != 1) {
             return CommonResult.failed();
