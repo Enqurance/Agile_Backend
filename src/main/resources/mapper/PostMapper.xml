@@ -5,14 +5,14 @@
 <mapper namespace="com.example.backend.mapper.PostMapper">
 
     <resultMap id="BaseResultMap" type="com.example.backend.domain.Post">
-            <id property="postId" column="post_id" jdbcType="INTEGER"/>
-            <result property="postTitle" column="post_title" jdbcType="VARCHAR"/>
-            <result property="postContent" column="post_content" jdbcType="VARCHAR"/>
-            <result property="postVisibility" column="post_visibility" jdbcType="INTEGER"/>
-            <result property="postTag" column="post_tag" jdbcType="INTEGER"/>
-            <result property="postThumbsUp" column="post_thumbs_up" jdbcType="INTEGER"/>
-            <result property="postVisit" column="post_visit" jdbcType="INTEGER"/>
-            <result property="postFloorNum" column="post_floor_num" jdbcType="INTEGER"/>
+            <id property="id" column="post_id" jdbcType="INTEGER"/>
+            <result property="title" column="post_title" jdbcType="VARCHAR"/>
+            <result property="content" column="post_content" jdbcType="VARCHAR"/>
+            <result property="visibility" column="post_visibility" jdbcType="INTEGER"/>
+            <result property="tag" column="post_tag" jdbcType="INTEGER"/>
+            <result property="thumbsUp" column="post_thumbs_up" jdbcType="INTEGER"/>
+            <result property="visit" column="post_visit" jdbcType="INTEGER"/>
+            <result property="floorNum" column="post_floor_num" jdbcType="INTEGER"/>
             <result property="pinIdStr" column="pin_id_str" jdbcType="VARCHAR"/>
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
     </resultMap>
@@ -23,4 +23,32 @@
         post_visit,post_floor_num,pin_id_str,
         user_id
     </sql>
+    <insert id="insertPost" >
+        insert into post
+        (post_id,post_title,post_content,
+         post_visibility,post_tag,post_thumbs_up,
+         post_visit,post_floor_num,
+         pin_id_str,user_id)
+        values (#{id,jdbcType=NUMERIC}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+                #{visibility,jdbcType=NUMERIC}, #{tag,jdbcType=NUMERIC}, #{thumbsUp,jdbcType=NUMERIC},
+                #{visit,jdbcType=NUMERIC}, #{floorNum,jdbcType=NUMERIC},
+                #{pinIdStr,jdbcType=NUMERIC}, #{userId,jdbcType=NUMERIC})
+    </insert>
+    <update id="updatePost">
+        update post
+        set post_title=#{title}, post_content=#{content}, post_tag=#{tag}, pin_id_str=#{pinIdStr}
+        where post_id = #{id}
+    </update>
+    <select id="getPostById" resultType="com.example.backend.domain.Post">
+        select * from post where 1 = 0
+        <if test='id > 0'>
+            or post_id = #{id}
+        </if>
+    </select>
+    <delete id="deletePostById">
+        delete from post where post_id = #{id}
+    </delete>
+    <insert id="setPostVisById">
+        update post set post_visibility=#{visibility} where post_id = #{id}
+    </insert>
 </mapper>

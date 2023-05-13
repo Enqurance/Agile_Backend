@@ -9,5 +9,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-05-11 23:35:30
 */
 public interface PostService extends IService<Post> {
+    int addPost(Post post);
 
+    Post getPostById(Integer id);
+
+    int updatePost(Post post);
+
+    int deletePostById(Integer id);
+
+    int setPostVisById(Integer id, Integer visibility);
 }
