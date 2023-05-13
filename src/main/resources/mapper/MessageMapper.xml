@@ -37,14 +37,14 @@
     <delete id="deleteById">
         delete from message where m_id = #{id,jdbcType=NUMERIC}
     </delete>
-    <select id="getAllReceiveByUreceiveId" resultType="com.example.backend.domain.Message">
+    <select id="getAllReceiveByUreceiveId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from message
         where ureceive_id = #{ureceive_id,jdbcType=NUMERIC}
         AND m_type IN (1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
     </select>
-    <select id="getAllSendByUreceiveId" resultType="com.example.backend.domain.Message">
+    <select id="getAllSendByUreceiveId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from message
