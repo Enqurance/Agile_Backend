@@ -36,7 +36,9 @@ public class MessageController {
         } else {
             search_id = id;
         }
-        messageService.getAllReceive(search_id).forEach(message -> messages.add(new FrontendMessage(message)));
+        messageService.getAllReceive(search_id).forEach(message -> messages.add(
+                FrontendMessage.trans2FrontendMessage(message)
+        ));
         return CommonResult.success(messages);
     }
 
@@ -49,7 +51,9 @@ public class MessageController {
         } else {
             search_id = id;
         }
-        messageService.getAllSend(search_id).forEach(message -> messages.add(new FrontendMessage(message)));
+        messageService.getAllSend(search_id).forEach(message -> messages.add(
+                FrontendMessage.trans2FrontendMessage(message)
+        ));
         return CommonResult.success(messages);
     }
 
