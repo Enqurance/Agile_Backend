@@ -30,8 +30,8 @@ public class TaskFeedbackController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/examine/get_feedback")
-    public CommonResult getFeedback(@RequestParam(name = "pin_id") int p_id) {
+    @GetMapping("/examine/get_feedback/{p_id}")
+    public CommonResult getFeedback(@PathVariable Integer p_id) {
         List<FrontendFeedback> frontendFeedbacks = new ArrayList<>();
         tfeedbackService.findAllPinFeedback(p_id).forEach(
                 tfeedback -> frontendFeedbacks.add(
