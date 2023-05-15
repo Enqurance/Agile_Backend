@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -24,6 +26,8 @@ public class Comment implements Serializable {
      * 回复内容
      */
     private String content;
+
+    private Date createTime;
 
     /**
      * 所属楼层id，外键
@@ -53,6 +57,10 @@ public class Comment implements Serializable {
         return content;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
     public Integer getFloorId() {
         return floorId;
     }
@@ -71,6 +79,10 @@ public class Comment implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public void setFloorId(Integer floorId) {
