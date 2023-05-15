@@ -17,7 +17,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/map")
-@PreAuthorize("hasAuthority('USER')")
 public class PinController {
     @Autowired
     PinService pinService;
@@ -32,6 +31,7 @@ public class PinController {
     @Autowired
     ForumService forumService;
 
+    @PreAuthorize("hasAuthority('USER')")
     @RequestMapping("/pin/addPinByCoords")
     public CommonResult addPinByCoords(@RequestBody Pin pin, @RequestParam(name = "id") Integer id) {
         List<User> users = userService.findUserById(id);
@@ -52,6 +52,7 @@ public class PinController {
             return CommonResult.success(pinService.findMaxId());
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @DeleteMapping("/pin/deletePin/{pin_id}")
     public CommonResult deletePinById(@PathVariable(value = "pin_id", required = false) Integer pin_id) {
         int photoRet = photoService.deletePhotoByPinId(pin_id);
@@ -104,6 +105,7 @@ public class PinController {
         return CommonResult.success(pinGroup);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @RequestMapping("/pin/changePinInfoById")
     public CommonResult changePinInfoById(@RequestBody Pin pin, @RequestParam(name = "id") Integer id) {
         List<User> users = userService.findUserById(id);
@@ -146,6 +148,7 @@ public class PinController {
         return CommonResult.success(briefInfos);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @RequestMapping("/switchPos")
     public CommonResult switchPos(@RequestBody Pin pin) {
         int ret = pinService.switchPos(pin);

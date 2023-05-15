@@ -18,7 +18,7 @@ import java.util.List;
  * @date: 2023/5/15 11:45
  */
 @RestController
-@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("hasAuthority('USER')")
 public class TaskFeedbackController {
     @Autowired
     private TfeedbackService tfeedbackService;
@@ -29,6 +29,7 @@ public class TaskFeedbackController {
         return CommonResult.success(tfeedbackService.hasFeedback(p_id, id));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/examine/get_feedback")
     public CommonResult getFeedback(@RequestParam(name = "pin_id") int p_id) {
         List<FrontendFeedback> frontendFeedbacks = new ArrayList<>();

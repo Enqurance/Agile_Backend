@@ -23,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/examine")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class ExamineController {
     @Autowired
     private TpinService tpinService;
@@ -33,7 +34,6 @@ public class ExamineController {
     @Autowired
     private PinService pinService;
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/get_pin")
     public CommonResult getAllTaskPin() {
         List<FrontendTpin> tpins = new ArrayList<>();
@@ -72,7 +72,6 @@ public class ExamineController {
         return CommonResult.success(tpins);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/result_of_pin/{p_id}")
     public CommonResult finishTaskPin(@PathVariable Integer p_id,
                                       @RequestBody JSONObject object) {
@@ -93,7 +92,6 @@ public class ExamineController {
         return CommonResult.success(null);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/result_of_feedback/{p_id}")
     public CommonResult finishFeedback(@PathVariable Integer p_id,
                                        @RequestBody JSONObject object) {
