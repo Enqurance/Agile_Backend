@@ -20,7 +20,7 @@ public class TaskPinController {
     @Autowired
     private TpinService tpinService;
 
-    @GetMapping("/examine/get_public_pin_state/{p_id}")
+    @GetMapping("/examine/get_pin_state/{p_id}")
     public CommonResult getPinState(@PathVariable Integer p_id) {
         return CommonResult.success(tpinService.pinState(p_id));
     }

@@ -23,7 +23,7 @@ public class TaskFeedbackController {
     @Autowired
     private TfeedbackService tfeedbackService;
 
-    @GetMapping("/examine/get_pin_state/{p_id}")
+    @GetMapping("/examine/get_public_pin_state/{p_id}")
     public CommonResult getPinState(@PathVariable Integer p_id,
                                     @RequestParam(name = "id") int id) {
         return CommonResult.success(tfeedbackService.hasFeedback(p_id, id));
