@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date: 2023/5/13 11:02
  */
 @RestController
-@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("hasAuthority('USER')")
 public class TaskPinController {
     @Autowired
     private TpinService tpinService;
