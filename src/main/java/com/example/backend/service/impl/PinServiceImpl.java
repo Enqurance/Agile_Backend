@@ -64,6 +64,11 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
     public int pinPublic(int p_id) {
         return pinMapper.updateVisibilityById(1, p_id);
     }
+
+    @Override
+    public int switchPos(Pin pin) {
+        return pinMapper.switchPos(pin.getId(), pin.getLnglat());
+    }
 }
 
 

@@ -143,4 +143,13 @@ public class PinController {
         }
         return CommonResult.success(briefInfos);
     }
+
+    @RequestMapping("/switchPos")
+    public CommonResult switchPos(@RequestBody Pin pin) {
+        int ret = pinService.switchPos(pin);
+        if (ret == 0)
+            return CommonResult.failed("修改pin位置失败");
+        else
+            return CommonResult.success("修改pin位置成功");
+    }
 }

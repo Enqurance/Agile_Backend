@@ -79,4 +79,9 @@
         set p_visibility = #{visibility,jdbcType=NUMERIC}
         where p_id = #{id,jdbcType=NUMERIC}
     </update>
+    <update id="switchPos">
+        update pin
+        set p_lnglat = #{lnglat,jdbcType=VARCHAR}
+        where p_id = #{pinId,jdbcType=NUMERIC}
+    </update>
 </mapper>

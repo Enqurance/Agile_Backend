@@ -28,4 +28,6 @@ public interface PinService extends IService<Pin> {
     List<Pin> getUserAllBriefPin(Integer u_id, Integer visibility);
 
     int pinPublic(int p_id);
+
+    int switchPos(Pin pin);
 }
