@@ -1,0 +1,1 @@
+INSERT INTO buaa_map.pin (p_id, p_name, p_lnglat, p_pos, p_brief, p_type, p_openTime, p_phone, p_visibility, u_id, f_id) VALUES (141, '妈妈驿站', '116.343442;39.98587', '', '妈妈驿站', 6, '', '', 1, 12, 165);

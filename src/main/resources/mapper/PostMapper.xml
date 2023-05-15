@@ -14,13 +14,14 @@
             <result property="visit" column="post_visit" jdbcType="INTEGER"/>
             <result property="floorNum" column="post_floor_num" jdbcType="INTEGER"/>
             <result property="pinIdStr" column="pin_id_str" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="DATE"/>
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         post_id,post_title,post_content,
         post_visibility,post_tag,post_thumbs_up,
-        post_visit,post_floor_num,pin_id_str,
+        post_visit,post_floor_num,pin_id_str,create_time,
         user_id
     </sql>
     <insert id="insertPost" >
@@ -28,11 +29,11 @@
         (post_id,post_title,post_content,
          post_visibility,post_tag,post_thumbs_up,
          post_visit,post_floor_num,
-         pin_id_str,user_id)
+         pin_id_str,create_time,user_id)
         values (#{id,jdbcType=NUMERIC}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
                 #{visibility,jdbcType=NUMERIC}, #{tag,jdbcType=NUMERIC}, #{thumbsUp,jdbcType=NUMERIC},
                 #{visit,jdbcType=NUMERIC}, #{floorNum,jdbcType=NUMERIC},
-                #{pinIdStr,jdbcType=NUMERIC}, #{userId,jdbcType=NUMERIC})
+                #{pinIdStr,jdbcType=NUMERIC}, #{createTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=NUMERIC})
     </insert>
     <update id="updatePost">
         update post

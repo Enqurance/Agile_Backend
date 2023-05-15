@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -60,6 +62,8 @@ public class Post implements Serializable {
      */
     private String pinIdStr;
 
+    private Date createTime;
+
     /**
      * 用户id
      */
@@ -106,6 +110,10 @@ public class Post implements Serializable {
         return pinIdStr;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
     public Integer getUserId() {
         return userId;
     }
@@ -144,6 +152,10 @@ public class Post implements Serializable {
 
     public void setPinIdStr(String pinIdStr) {
         this.pinIdStr = pinIdStr;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public void setUserId(Integer userId) {

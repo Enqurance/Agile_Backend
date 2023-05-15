@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/forum/post")
 public class PostController {
@@ -29,6 +31,7 @@ public class PostController {
         post.setVisit(0);
         post.setFloorNum(0);
         post.setPinIdStr(pinIdStr);
+        post.setCreateTime(new Date());
         post.setUserId(id);
         int ret = postService.addPost(post);
         if (ret == 0)
