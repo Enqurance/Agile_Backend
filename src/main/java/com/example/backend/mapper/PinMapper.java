@@ -31,6 +31,8 @@ public interface PinMapper extends BaseMapper<Pin> {
 
     int updateVisibilityById(@Param("visibility") Integer visibility,
                              @Param("id") Integer id);
+
+    int switchPos(Integer pinId, String lnglat);
 }
 
 
