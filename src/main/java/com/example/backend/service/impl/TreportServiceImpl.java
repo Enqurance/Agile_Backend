@@ -3,9 +3,9 @@ package com.example.backend.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Treport;
 import com.example.backend.entity.FORUMTYPE;
-import com.example.backend.service.TreportService;
 import com.example.backend.mapper.TreportMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.backend.service.TreportService;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TreportServiceImpl extends ServiceImpl<TreportMapper, Treport>
         implements TreportService {
-    @Autowired
+    @Resource
     private TreportMapper treportMapper;
 
     /**

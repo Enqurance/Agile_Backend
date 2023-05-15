@@ -28,6 +28,9 @@ public interface PinMapper extends BaseMapper<Pin> {
 
     List<Pin> getAllByUser_idOrVisibility(@Param("user_id") Integer user_id,
                                           @Param("visibility") Integer visibility);
+
+    int updateVisibilityById(@Param("visibility") Integer visibility,
+                             @Param("id") Integer id);
 }
 
 

@@ -2,9 +2,9 @@ package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Tpin;
-import com.example.backend.service.TpinService;
 import com.example.backend.mapper.TpinMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.backend.service.TpinService;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class TpinServiceImpl extends ServiceImpl<TpinMapper, Tpin>
         implements TpinService {
-    @Autowired
+    @Resource
     private TpinMapper tpinMapper;
 
     @Override
@@ -34,6 +34,11 @@ public class TpinServiceImpl extends ServiceImpl<TpinMapper, Tpin>
     @Override
     public int deleteTask(int id) {
         return tpinMapper.deleteById(id);
+    }
+
+    @Override
+    public int deletePin(int p_id) {
+        return tpinMapper.deleteByPId(p_id);
     }
 
     @Override

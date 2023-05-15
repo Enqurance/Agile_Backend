@@ -15,6 +15,8 @@ public interface TpinService extends IService<Tpin> {
 
     int deleteTask(int id);
 
+    int deletePin(int p_id);
+
     List<Tpin> findAllTasks();
 
     int pinState(int p_id);

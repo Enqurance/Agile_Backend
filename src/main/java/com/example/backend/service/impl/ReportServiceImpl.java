@@ -3,9 +3,9 @@ package com.example.backend.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Report;
 import com.example.backend.entity.FORUMTYPE;
-import com.example.backend.service.ReportService;
 import com.example.backend.mapper.ReportMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.backend.service.ReportService;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class ReportServiceImpl extends ServiceImpl<ReportMapper, Report>
         implements ReportService {
-    @Autowired
+    @Resource
     private ReportMapper reportMapper;
 
     @Override

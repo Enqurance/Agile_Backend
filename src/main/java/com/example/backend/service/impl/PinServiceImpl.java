@@ -59,6 +59,11 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
     public List<Pin> getUserAllBriefPin(Integer u_id, Integer visibility) {
         return pinMapper.getAllByUser_idOrVisibility(u_id, visibility);
     }
+
+    @Override
+    public int pinPublic(int p_id) {
+        return pinMapper.updateVisibilityById(1, p_id);
+    }
 }
 
 
