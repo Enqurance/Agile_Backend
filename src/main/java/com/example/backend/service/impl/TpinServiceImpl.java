@@ -37,6 +37,11 @@ public class TpinServiceImpl extends ServiceImpl<TpinMapper, Tpin>
     }
 
     @Override
+    public int deletePin(int p_id) {
+        return tpinMapper.deleteByPId(p_id);
+    }
+
+    @Override
     public List<Tpin> findAllTasks() {
         return tpinMapper.findAll();
     }

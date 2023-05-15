@@ -35,4 +35,9 @@
         where
         p_id = #{pId,jdbcType=NUMERIC}
     </select>
+    <delete id="deleteByPId">
+        delete
+        from tpin
+        where p_id = #{pId,jdbcType=NUMERIC}
+    </delete>
 </mapper>

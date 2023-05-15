@@ -74,4 +74,9 @@
         u_id = #{user_id,jdbcType=NUMERIC}
         OR p_visibility = #{visibility,jdbcType=NUMERIC}
     </select>
+    <update id="updateVisibilityById">
+        update pin
+        set p_visibility = #{visibility,jdbcType=NUMERIC}
+        where p_id = #{id,jdbcType=NUMERIC}
+    </update>
 </mapper>

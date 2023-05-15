@@ -17,6 +17,8 @@ public interface TpinMapper extends BaseMapper<Tpin> {
 
     int deleteById(@Param("id") Integer id);
 
+    int deleteByPId(@Param("pId") Integer pId);
+
     List<Tpin> findAll();
 
     List<Tpin> findAllByPId(@Param("pId") Integer pId);
