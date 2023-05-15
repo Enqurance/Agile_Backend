@@ -30,8 +30,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 // 设置白名单，对应路径放行
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**", "/map/**", "/service/**",
-                        "/forum/**", "/photo/**", "/ps-rel/**", "/user/**")
+                .requestMatchers("/auth/**", "/map/pin_search", "/map/getUserAllBriefPin",
+                        "/map/pin/getPinInfoById", "/forum/**")
                 .permitAll()
                 // 保护剩余请求
                 .anyRequest()

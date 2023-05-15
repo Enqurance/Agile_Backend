@@ -8,6 +8,7 @@ import com.example.backend.service.PinService;
 import com.example.backend.service.TfeedbackService;
 import com.example.backend.service.TpinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class ExamineController {
     @Autowired
     private PinService pinService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/get_pin")
     public CommonResult getAllTaskPin() {
         List<FrontendTpin> tpins = new ArrayList<>();
@@ -70,6 +72,7 @@ public class ExamineController {
         return CommonResult.success(tpins);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/result_of_pin/{p_id}")
     public CommonResult finishTaskPin(@PathVariable Integer p_id,
                                       @RequestBody JSONObject object) {
@@ -90,6 +93,7 @@ public class ExamineController {
         return CommonResult.success(null);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/result_of_feedback/{p_id}")
     public CommonResult finishFeedback(@PathVariable Integer p_id,
                                        @RequestBody JSONObject object) {

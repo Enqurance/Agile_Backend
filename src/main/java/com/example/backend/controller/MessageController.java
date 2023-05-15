@@ -6,6 +6,7 @@ import com.example.backend.result.CommonResult;
 import com.example.backend.service.MessageService;
 import com.example.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @RestController()
 @RequestMapping("InfoPage/MyMessage/")
+@PreAuthorize("hasAuthority('USER')")
 public class MessageController {
     @Autowired
     private MessageService messageService;

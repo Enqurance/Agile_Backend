@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.TpinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date: 2023/5/13 11:02
  */
 @RestController
+@PreAuthorize("hasAuthority('ADMIN')")
 public class TaskPinController {
     @Autowired
     private TpinService tpinService;
