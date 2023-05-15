@@ -22,7 +22,7 @@ public class PinApplyResultMessage extends Message {
                                  boolean accept) {
         this.setContent(reason);
         this.setStatus(0);
-        this.setPara(p_id + ";" + (accept ? "成功" : "失败"));
+        this.setPara(p_id + ";" + (accept ? 1 : 0));
         this.setType(10);
         this.setUreceiveId(u_id);
     }

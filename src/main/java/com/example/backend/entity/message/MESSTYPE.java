@@ -9,7 +9,8 @@ package com.example.backend.entity.message;
 public enum MESSTYPE {
     NOTICE("通知"),
     APPLY("申请"),
-    REPORT("举报");
+    REPORT("举报"),
+    FEEDBACK("反馈");
 
     private final String type;
 
