@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Tfloor;
 import com.example.backend.mapper.TfloorMapper;
 import com.example.backend.service.TfloorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class TfloorServiceImpl extends ServiceImpl<TfloorMapper, Tfloor>
     implements TfloorService{
-    @Autowired
+    @Resource
     private TfloorMapper tfloorMapper;
 
     @Override

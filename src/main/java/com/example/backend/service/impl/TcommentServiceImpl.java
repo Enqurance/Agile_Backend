@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Tcomment;
 import com.example.backend.mapper.TcommentMapper;
 import com.example.backend.service.TcommentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class TcommentServiceImpl extends ServiceImpl<TcommentMapper, Tcomment>
     implements TcommentService{
-    @Autowired
+    @Resource
     private TcommentMapper tcommentMapper;
 
     @Override

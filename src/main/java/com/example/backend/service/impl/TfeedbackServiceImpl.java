@@ -2,9 +2,9 @@ package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Tfeedback;
-import com.example.backend.service.TfeedbackService;
 import com.example.backend.mapper.TfeedbackMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.backend.service.TfeedbackService;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class TfeedbackServiceImpl extends ServiceImpl<TfeedbackMapper, Tfeedback>
         implements TfeedbackService {
-    @Autowired
+    @Resource
     private TfeedbackMapper tfeedbackMapper;
 
     @Override
@@ -48,8 +48,8 @@ public class TfeedbackServiceImpl extends ServiceImpl<TfeedbackMapper, Tfeedback
     }
 
     @Override
-    public boolean hasFeedback(int p_id, int u_id) {
-        return tfeedbackMapper.findAllByPIdAndUId(p_id, u_id).size() != 0;
+    public int hasFeedback(int p_id, int u_id) {
+        return tfeedbackMapper.findAllByPIdAndUId(p_id, u_id).size();
     }
 
     @Override

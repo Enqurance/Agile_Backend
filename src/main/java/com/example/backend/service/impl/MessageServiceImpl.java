@@ -2,9 +2,9 @@ package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Message;
-import com.example.backend.service.MessageService;
 import com.example.backend.mapper.MessageMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.backend.service.MessageService;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,7 +19,7 @@ import java.util.List;
 public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
         implements MessageService {
 
-    @Autowired
+    @Resource
     private MessageMapper messageMapper;
 
     @Override

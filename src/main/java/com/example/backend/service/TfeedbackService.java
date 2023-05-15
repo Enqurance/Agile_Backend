@@ -15,7 +15,7 @@ public interface TfeedbackService extends IService<Tfeedback> {
 
     int finishFeedbacks(List<Integer> tfeedback_id_list, String info);
 
-    boolean hasFeedback(int p_id, int u_id);
+    int hasFeedback(int p_id, int u_id);
 
     List<Tfeedback> findAllPin();
 
