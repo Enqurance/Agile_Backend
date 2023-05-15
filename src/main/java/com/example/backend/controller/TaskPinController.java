@@ -1,18 +1,11 @@
 package com.example.backend.controller;
 
-import com.example.backend.domain.Pin;
-import com.example.backend.entity.FrontendTpin;
 import com.example.backend.result.CommonResult;
-import com.example.backend.service.PinService;
 import com.example.backend.service.TpinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @className: TaskPinController
@@ -25,28 +18,7 @@ public class TaskPinController {
     @Autowired
     private TpinService tpinService;
 
-    @Autowired
-    private PinService pinService;
-
-    @GetMapping("/examine/get_pin")
-    public CommonResult getAllTaskPin() {
-        List<FrontendTpin> tpins = new ArrayList<>();
-        tpinService.findAllTasks().forEach(tpin -> {
-            Pin pin = pinService.getPinById(tpin.getPId());
-            tpins.add(new FrontendTpin(
-                    pin.getId(),
-                    pin.getName(),
-                    pin.getType(),
-                    pin.getVisibility(),
-                    Arrays.stream(pin.getLnglat().split(";"))
-                            .map(Double::parseDouble)
-                            .toArray(Double[]::new)
-            ));
-        });
-        return CommonResult.success(tpins);
-    }
-
-    @GetMapping("/examine/get_pin_state/{p_id}")
+    @GetMapping("/examine/get_public_pin_state/{p_id}")
     public CommonResult getPinState(@PathVariable Integer p_id) {
         return CommonResult.success(tpinService.pinState(p_id));
     }

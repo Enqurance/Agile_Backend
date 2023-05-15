@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.TfeedbackMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Tfeedback">
+            <id property="id" column="tfeedback_id" jdbcType="INTEGER"/>
+            <result property="pId" column="p_id" jdbcType="INTEGER"/>
+            <result property="title" column="tfeedback_title" jdbcType="VARCHAR"/>
+            <result property="content" column="tfeedback_content" jdbcType="VARCHAR"/>
+            <result property="uId" column="u_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        tfeedback_id,p_id,tfeedback_title,
+        tfeedback_content,u_id
+    </sql>
+    <insert id="insertAll">
+        insert into tfeedback
+        (tfeedback_id, p_id, tfeedback_title,
+         tfeedback_content, u_id)
+        values (#{id,jdbcType=NUMERIC}, #{pId,jdbcType=NUMERIC}, #{title,jdbcType=VARCHAR},
+                #{content,jdbcType=VARCHAR}, #{uId,jdbcType=NUMERIC})
+
+    </insert>
+    <delete id="deleteById">
+        delete
+        from tfeedback
+        where tfeedback_id = #{id,jdbcType=NUMERIC}
+    </delete>
+    <select id="findAllByPId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tfeedback
+        where
+        p_id = #{pId,jdbcType=NUMERIC}
+    </select>
+    <select id="findAllByPIdAndUId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tfeedback
+        where
+        p_id = #{pId,jdbcType=NUMERIC}
+        AND u_id = #{uId,jdbcType=NUMERIC}
+    </select>
+    <select id="findPId" resultMap="BaseResultMap">
+        select distinct p_id
+        from tfeedback
+    </select>
+</mapper>
