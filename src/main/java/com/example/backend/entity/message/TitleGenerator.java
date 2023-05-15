@@ -41,6 +41,8 @@ public class TitleGenerator {
             case 11 -> title = postReportResultTitle(message);
             case 12 -> title = floorReportResultTitle(message);
             case 13 -> title = commentReportResultTitle(message);
+            case 14 -> title = pinFeedbackSuccessTitle(message);
+            case 15 -> title = pinFeedbackResultTitle(message);
             default -> title = "错误的消息种类";
         }
         return title;
@@ -192,7 +194,7 @@ public class TitleGenerator {
 
         return MESSTYPE.NOTICE.getType() +
                 "您对楼层" +
-                "" +   // TODO 获取楼层内容
+                floorService.getFloorById(paras[0]).getContent() +
                 "的举报" +
                 (paras[1] == 1 ? "成功" : "失败");
     }
@@ -204,8 +206,27 @@ public class TitleGenerator {
 
         return MESSTYPE.NOTICE.getType() +
                 "您对评论" +
-                "" +   // TODO 获取评论内容
+                commentService.getCommentById(paras[0]).getContent() +
                 "的举报" +
+                (paras[1] == 1 ? "成功" : "失败");
+    }
+
+    private static String pinFeedbackSuccessTitle(Message message) {
+        return MESSTYPE.FEEDBACK.getType() +
+                "地图钉" +
+                pinService.getPinById(Integer.parseInt(message.getPara())).getName() +
+                "反馈成功，请等待审核";
+    }
+
+    private static String pinFeedbackResultTitle(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+
+        return MESSTYPE.NOTICE.getType() +
+                "您对地图钉" +
+                pinService.getPinById(paras[0]).getName() +
+                "反馈" +
                 (paras[1] == 1 ? "成功" : "失败");
     }
 }

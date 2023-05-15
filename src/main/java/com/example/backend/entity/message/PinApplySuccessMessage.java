@@ -12,7 +12,7 @@ public class PinApplySuccessMessage extends Message {
     /**
      *
      * @param p_id          申请为公开的地图钉id
-     * @param ureceive_id   消息接受者的id
+     * @param ureceive_id   消息接收者的id
      */
     public PinApplySuccessMessage(int p_id, int ureceive_id) {
         this.setStatus(0);
