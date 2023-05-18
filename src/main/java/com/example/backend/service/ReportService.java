@@ -16,5 +16,7 @@ public interface ReportService extends IService<Report> {
 
     int finishReport(int o_id, FORUMTYPE type);
 
+    List<Report> getAllTypeReports(FORUMTYPE type);
+
     List<Report> getAllReports(int o_id, FORUMTYPE type);
 }
