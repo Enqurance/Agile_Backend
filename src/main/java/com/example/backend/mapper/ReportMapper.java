@@ -19,6 +19,8 @@ public interface ReportMapper extends BaseMapper<Report> {
     int deleteByOIdAndType(@Param("oId") Integer oId,
                            @Param("type") Integer type);
 
+    List<Report> getAllByType(@Param("type") Integer type);
+
     List<Report> getAllByOIdAndType(@Param("oId") Integer oId,
                                     @Param("type") Integer type);
 }

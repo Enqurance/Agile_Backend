@@ -37,6 +37,11 @@ public class ReportServiceImpl extends ServiceImpl<ReportMapper, Report>
     }
 
     @Override
+    public List<Report> getAllTypeReports(FORUMTYPE type) {
+        return reportMapper.getAllByType(type.getType());
+    }
+
+    @Override
     public List<Report> getAllReports(int o_id, FORUMTYPE type) {
         return reportMapper.getAllByOIdAndType(o_id, type.getType());
     }

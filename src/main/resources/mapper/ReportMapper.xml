@@ -38,4 +38,11 @@
         o_id = #{oId,jdbcType=NUMERIC}
         AND r_type = #{type,jdbcType=NUMERIC}
     </select>
+    <select id="getAllByType" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from report
+        where
+        r_type = #{type,jdbcType=NUMERIC}
+    </select>
 </mapper>
