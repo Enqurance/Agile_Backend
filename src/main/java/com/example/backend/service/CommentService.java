@@ -12,4 +12,6 @@ public interface CommentService extends IService<Comment> {
     int addComment(Comment comment);
 
     Comment getCommentById(Integer id);
+
+    int deleteCommentById(Integer id);
 }

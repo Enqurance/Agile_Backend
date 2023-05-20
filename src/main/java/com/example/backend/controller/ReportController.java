@@ -133,6 +133,19 @@ public class ReportController {
         boolean result = jsonObject.getBool("result");
         String basis = jsonObject.getStr("basis");
 
+        if (result) {
+            // 举报成功
+            // TODO 给原用户发送被举报成功消息
+            // 删除楼层或评论
+            if (type == 0) {
+                floorService.deleteFloorById(o_id);
+            } else {
+                commentService.deleteCommentById(o_id);
+            }
+        } else {
+            // TODO 给发起举报的用户发送消息
+        }
+
         if (reportService.finishReport(o_id, type == 0 ? FORUMTYPE.FLOOR : FORUMTYPE.COMMENT) != 1) {
             throw new RuntimeException("服务器错误");
         }

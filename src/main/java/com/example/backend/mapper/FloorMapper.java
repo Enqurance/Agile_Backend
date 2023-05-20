@@ -1,4 +1,5 @@
 package com.example.backend.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.backend.domain.Floor;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -13,6 +14,8 @@ public interface FloorMapper extends BaseMapper<Floor> {
     int insertFloor(Floor floor);
 
     Floor getFloorById(Integer id);
+
+    int deleteById(@Param("id") Integer id);
 }
 
 

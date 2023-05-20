@@ -12,4 +12,6 @@ public interface FloorService extends IService<Floor> {
     int addFloor(Floor floor);
 
     Floor getFloorById(Integer id);
+
+    int deleteFloorById(Integer id);
 }
