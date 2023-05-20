@@ -23,6 +23,9 @@ public interface ReportMapper extends BaseMapper<Report> {
 
     List<Report> getAllByOIdAndType(@Param("oId") Integer oId,
                                     @Param("type") Integer type);
+
+    List<Report> findAllByTypeAndUId(@Param("type") Integer type,
+                                     @Param("uId") Integer uId);
 }
 
 

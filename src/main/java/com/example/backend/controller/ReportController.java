@@ -163,12 +163,12 @@ public class ReportController {
         List<Report> reports;
         if (type == 0) {
             reports = reportService.getAllTypeReports(FORUMTYPE.FLOOR);
-            for (Report report :reports) {
+            for (Report report : reports) {
                 MessageUtil.newMessage(new FloorReportResultMessage(report.getOId(), report.getUId(), result));
             }
         } else if (type == 1) {
             reports = reportService.getAllTypeReports(FORUMTYPE.COMMENT);
-            for (Report report :reports) {
+            for (Report report : reports) {
                 MessageUtil.newMessage(new CommentReportResultMessage(report.getOId(), report.getUId(), result));
             }
         }
@@ -177,6 +177,33 @@ public class ReportController {
         if (reportService.finishReport(o_id, type == 0 ? FORUMTYPE.FLOOR : FORUMTYPE.COMMENT) != 1) {
             throw new RuntimeException("服务器错误");
         }
+
+        return CommonResult.success(null);
+    }
+
+    @PostMapping("/forum/report/reportPost")
+    public CommonResult newPostReport(@RequestParam int id,
+                                      @RequestBody JSONObject jsonObject) {
+        int post_id = jsonObject.getInt("id");
+        String reason = jsonObject.getStr("reason");
+
+        // TODO 给用户发送举报发起成功消息
+
+        reportService.newReport(reason, post_id, FORUMTYPE.POST, id);
+
+        return CommonResult.success(null);
+    }
+
+    @PostMapping("/forum/report/reportReply")
+    public CommonResult newFloorOrCommentReport(@RequestParam int id,
+                                                @RequestBody JSONObject jsonObject) {
+        int o_id = jsonObject.getInt("id");
+        String reason = jsonObject.getStr("reason");
+        int type = jsonObject.getInt("type");
+
+        // TODO 给用户发起举报成功消息
+
+        reportService.newReport(reason, o_id, type == 0 ? FORUMTYPE.FLOOR : FORUMTYPE.COMMENT, id);
 
         return CommonResult.success(null);
     }

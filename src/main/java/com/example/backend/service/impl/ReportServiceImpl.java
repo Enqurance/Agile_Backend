@@ -23,6 +23,10 @@ public class ReportServiceImpl extends ServiceImpl<ReportMapper, Report>
 
     @Override
     public int newReport(String reason, int o_id, FORUMTYPE type, int u_id) {
+        if (reportMapper.findAllByTypeAndUId(type.getType(), u_id).size() != 0) {
+            throw new RuntimeException("已发起过举报，请耐心等待管理员审核~");
+        }
+
         Report report = new Report();
         report.setReason(reason);
         report.setOId(o_id);

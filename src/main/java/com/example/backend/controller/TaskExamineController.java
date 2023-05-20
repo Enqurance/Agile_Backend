@@ -27,7 +27,7 @@ public class TaskExamineController {
     @Autowired
     private PostService postService;
 
-    @GetMapping("/examine/rectify/get_posts/")
+    @GetMapping("/examine/rectify/get_posts")
     public CommonResult getAllTasks() {
         List<FrontendExaminePost> tasks = new ArrayList<>();
         texamineService.getAllTasks().forEach(texamine -> {
