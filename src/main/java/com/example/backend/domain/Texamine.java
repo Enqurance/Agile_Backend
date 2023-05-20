@@ -38,6 +38,12 @@ public class Texamine implements Serializable {
     @TableField(value = "texamine_content")
     private String content;
 
+    /**
+     * 审核原因
+     */
+    @TableField(value = "texamine_basis")
+    private String basis;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

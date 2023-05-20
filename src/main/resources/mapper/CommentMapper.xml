@@ -30,4 +30,9 @@
             or comment_id = #{id}
         </if>
     </select>
+    <delete id="deleteById">
+        delete
+        from comment
+        where comment_id = #{id,jdbcType=NUMERIC}
+    </delete>
 </mapper>

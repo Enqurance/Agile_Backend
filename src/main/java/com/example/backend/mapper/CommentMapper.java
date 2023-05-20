@@ -1,8 +1,8 @@
 package com.example.backend.mapper;
 
-import com.example.backend.domain.Comment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.backend.domain.Floor;
+import com.example.backend.domain.Comment;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author Sisyphus
@@ -14,6 +14,8 @@ public interface CommentMapper extends BaseMapper<Comment> {
     int insertComment(Comment comment);
 
     Comment getCommentById(Integer id);
+
+    int deleteById(@Param("id") Integer id);
 }
 
 

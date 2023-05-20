@@ -27,6 +27,11 @@ public class FloorServiceImpl extends ServiceImpl<FloorMapper, Floor>
     public Floor getFloorById(Integer id) {
         return floorMapper.getFloorById(id);
     }
+
+    @Override
+    public int deleteFloorById(Integer id) {
+        return floorMapper.deleteById(id);
+    }
 }
 
 

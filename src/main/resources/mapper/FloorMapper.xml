@@ -30,4 +30,9 @@
             or floor_id = #{id}
         </if>
     </select>
+    <delete id="deleteById">
+        delete
+        from floor
+        where floor_id = #{id,jdbcType=NUMERIC}
+    </delete>
 </mapper>

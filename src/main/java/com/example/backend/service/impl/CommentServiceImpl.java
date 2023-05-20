@@ -27,6 +27,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     public Comment getCommentById(Integer id) {
         return commentMapper.getCommentById(id);
     }
+
+    @Override
+    public int deleteCommentById(Integer id) {
+        return commentMapper.deleteById(id);
+    }
 }
 
 
