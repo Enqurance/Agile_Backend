@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import cn.hutool.json.JSONObject;
 import com.example.backend.domain.Post;
+import com.example.backend.domain.Texamine;
 import com.example.backend.entity.FrontendExaminePost;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.PostService;
@@ -37,10 +38,38 @@ public class TaskExamineController {
         return CommonResult.success(tasks);
     }
 
-    @PostMapping("/examine/rectify/result_of_rectify_post/{p_id}")
-    public CommonResult finishTask(@PathVariable Integer p_id,
+    @PostMapping("/examine/rectify/result_of_rectify_post/{post_id}")
+    public CommonResult finishTask(@PathVariable Integer post_id,
                                    @RequestBody JSONObject jsonObject) {
-        // TODO
+        int result = jsonObject.getInt("result");
+        String basis = jsonObject.getStr("basis");
+
+        Texamine texamine = texamineService.getTaskByPostId(post_id);
+
+        boolean accept = true;
+        switch (result) {
+            case 0 -> {
+                // 整改成功，修改帖子内容
+                Post post = postService.getPostById(post_id);
+                post.setTitle(texamine.getTitle());
+                post.setContent(texamine.getContent());
+                post.setVisibility(1);
+                postService.updatePost(post);
+
+                accept = false;
+            }
+            case 1 -> {
+                // 需要重新整改，将表里内容清空
+                texamineService.rectify(post_id, null, null);
+            }
+            case 2 -> {
+                // 删除该帖子
+                postService.deletePostById(post_id);
+            }
+        }
+
+        // TODO 给用户发送消息
+
         return CommonResult.success(null);
     }
 }

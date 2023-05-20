@@ -40,7 +40,6 @@ public class TfeedbackServiceImpl extends ServiceImpl<TfeedbackMapper, Tfeedback
         int result = 0;
         for (Integer id : tfeedback_id_list) {
             result += tfeedbackMapper.deleteById(id);
-            // TODO 给反馈发送者发送消息
         }
 
         // 全部正常删除返回1，否则返回0
@@ -60,6 +59,15 @@ public class TfeedbackServiceImpl extends ServiceImpl<TfeedbackMapper, Tfeedback
     @Override
     public List<Tfeedback> findAllPinFeedback(int p_id) {
         return tfeedbackMapper.findAllByPId(p_id);
+    }
+
+    @Override
+    public Tfeedback findFeedbackById(int feedback_id) {
+        List<Tfeedback> list = tfeedbackMapper.findAllById(feedback_id);
+        if (list.size() != 1) {
+            throw new RuntimeException("反馈信息不存在");
+        }
+        return list.get(0);
     }
 }
 

@@ -226,7 +226,6 @@ public class TitleGenerator {
         return MESSTYPE.NOTICE.getType() +
                 "您对地图钉" +
                 pinService.getPinById(paras[0]).getName() +
-                "反馈" +
-                (paras[1] == 1 ? "成功" : "失败");
+                "反馈已完成审核";
     }
 }

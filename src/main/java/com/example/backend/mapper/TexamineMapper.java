@@ -22,6 +22,8 @@ public interface TexamineMapper extends BaseMapper<Texamine> {
                                       @Param("postId") Integer postId);
 
     List<Texamine> findAllReadyTasks();
+
+    List<Texamine> getAllByPostId(@Param("postId") Integer postId);
 }
 
 

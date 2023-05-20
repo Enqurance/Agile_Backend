@@ -48,4 +48,11 @@
         select distinct p_id
         from tfeedback
     </select>
+    <select id="findAllById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tfeedback
+        where
+        tfeedback_id = #{id,jdbcType=NUMERIC}
+    </select>
 </mapper>

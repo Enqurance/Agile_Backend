@@ -18,4 +18,6 @@ public interface TexamineService extends IService<Texamine> {
     List<Texamine> getAllTasks();
 
     int rectify(int post_id, String title, String content);
+
+    Texamine getTaskByPostId(int post_id);
 }
