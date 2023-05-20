@@ -8,9 +8,7 @@ import com.example.backend.domain.Report;
 import com.example.backend.entity.FORUMTYPE;
 import com.example.backend.entity.FrontendReply;
 import com.example.backend.entity.FrontendReportPost;
-import com.example.backend.entity.message.CommentReportResultMessage;
-import com.example.backend.entity.message.FloorReportResultMessage;
-import com.example.backend.entity.message.PostReportResultMessage;
+import com.example.backend.entity.message.*;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.*;
 import com.example.backend.utils.MessageUtil;
@@ -90,7 +88,9 @@ public class ReportController {
                     postService.deletePostById(o_id);
         }
 
-        // TODO 给帖子作者发送帖子待整改消息
+        // 给帖子作者发送帖子待整改消息
+        MessageUtil.newMessage(new UserPostReportMessage(o_id, result, basis,
+                postService.getPostById(o_id).getUserId()));
 
         // 给所有举报者发送举报结果消息
         for (Integer u_id : u_ids) {
@@ -145,12 +145,16 @@ public class ReportController {
         if (result) {
             // 举报成功
 
-            // TODO 给原用户发送被举报成功消息
+            // 给原用户发送被举报成功消息
             // 删除楼层或评论
             if (type == 0) {
                 floorService.deleteFloorById(o_id);
+                MessageUtil.newMessage(new UserFloorReportMessage(o_id, basis,
+                        floorService.getFloorById(o_id).getUserId()));
             } else if (type == 1) {
                 commentService.deleteCommentById(o_id);
+                MessageUtil.newMessage(new UserCommentReportMessage(o_id, basis,
+                        commentService.getCommentById(o_id).getCuserId()));
             }
         }
 

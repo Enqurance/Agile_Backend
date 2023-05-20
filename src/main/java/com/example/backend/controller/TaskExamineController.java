@@ -4,9 +4,11 @@ import cn.hutool.json.JSONObject;
 import com.example.backend.domain.Post;
 import com.example.backend.domain.Texamine;
 import com.example.backend.entity.FrontendExaminePost;
+import com.example.backend.entity.message.RectifyResultMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.PostService;
 import com.example.backend.service.TexamineService;
+import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +42,8 @@ public class TaskExamineController {
 
     @PostMapping("/examine/rectify/result_of_rectify_post/{post_id}")
     public CommonResult finishTask(@PathVariable Integer post_id,
-                                   @RequestBody JSONObject jsonObject) {
+                                   @RequestBody JSONObject jsonObject,
+                                   @RequestParam int id) {
         int result = jsonObject.getInt("result");
         String basis = jsonObject.getStr("basis");
 
@@ -68,7 +71,8 @@ public class TaskExamineController {
             }
         }
 
-        // TODO 给用户发送消息
+        // 给用户发送整改结果消息
+        MessageUtil.newMessage(new RectifyResultMessage(post_id, result, basis, id));
 
         return CommonResult.success(null);
     }
