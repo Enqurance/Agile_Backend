@@ -41,4 +41,11 @@
         from texamine
         where texamine_title != null and texamine_content != null
     </select>
+    <select id="getAllByPostId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from texamine
+        where
+        post_id = #{postId,jdbcType=NUMERIC}
+    </select>
 </mapper>

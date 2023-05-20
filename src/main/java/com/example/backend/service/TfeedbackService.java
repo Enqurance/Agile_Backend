@@ -20,4 +20,6 @@ public interface TfeedbackService extends IService<Tfeedback> {
     List<Tfeedback> findAllPin();
 
     List<Tfeedback> findAllPinFeedback(int p_id);
+
+    Tfeedback findFeedbackById(int feedback_id);
 }

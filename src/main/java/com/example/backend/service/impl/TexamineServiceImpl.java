@@ -42,6 +42,11 @@ public class TexamineServiceImpl extends ServiceImpl<TexamineMapper, Texamine>
     public int rectify(int post_id, String title, String content) {
         return texamineMapper.updateTitleAndContentByPostId(title, content, post_id);
     }
+
+    @Override
+    public Texamine getTaskByPostId(int post_id) {
+        return texamineMapper.getAllByPostId(post_id).get(0);
+    }
 }
 
 

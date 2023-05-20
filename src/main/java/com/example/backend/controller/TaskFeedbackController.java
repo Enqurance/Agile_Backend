@@ -2,8 +2,10 @@ package com.example.backend.controller;
 
 import com.example.backend.domain.Tfeedback;
 import com.example.backend.entity.FrontendFeedback;
+import com.example.backend.entity.message.PinFeedbackSuccessMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.TfeedbackService;
+import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +52,10 @@ public class TaskFeedbackController {
         if (tfeedbackService.newFeedback(feedback.getTitle(), feedback.getContent(), p_id, id) != 1) {
             throw new RuntimeException("反馈失败，请联系管理员");
         }
+
+        // 给用户发送反馈申请成功发起消息
+        MessageUtil.newMessage(new PinFeedbackSuccessMessage(p_id, id));
+
         return CommonResult.success(null);
     }
 }

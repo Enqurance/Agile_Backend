@@ -8,11 +8,16 @@ import com.example.backend.domain.Report;
 import com.example.backend.entity.FORUMTYPE;
 import com.example.backend.entity.FrontendReply;
 import com.example.backend.entity.FrontendReportPost;
+import com.example.backend.entity.message.CommentReportResultMessage;
+import com.example.backend.entity.message.FloorReportResultMessage;
+import com.example.backend.entity.message.PostReportResultMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.*;
+import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,27 +72,36 @@ public class ReportController {
          */
         int result = jsonObject.getInt("result");
         String basis = jsonObject.getStr("basis");
+
+        List<Integer> u_ids = new ArrayList<>();
+        reportService.getAllTypeReports(FORUMTYPE.POST).forEach(
+                report -> u_ids.add(report.getUId()));
+
+        boolean accept = true;
         switch (result) {
-            case 0 -> {
-                // TODO 给所有举报者发送举报失败消息
-            }
+            case 0 -> accept = false;
             case 1 -> {
                 // TODO 给帖子作者发送帖子待整改消息
 
-                // TODO 往texamine表中加入该任务
+                // 往texamine表中加入该任务
                 texamineService.newTaskExamine(o_id, basis);
-                // TODO 修改该帖子的可见性
+                // 修改该帖子的可见性
                 postService.setPostVisById(o_id, 0);
-                // TODO 给所有举报者发送举报成功消息
             }
             case 2 -> {
                 // TODO 给帖子作者发送帖子待整改消息
 
-                // TODO 删除该帖子
+                // 删除该帖子
                 postService.deletePostById(o_id);
-                // TODO 给所有举报者发送举报成功消息
+
             }
         }
+
+        // 给所有举报者发送举报结果消息
+        for (Integer u_id : u_ids) {
+            MessageUtil.newMessage(new PostReportResultMessage(o_id, u_id, accept));
+        }
+
         if (reportService.finishReport(o_id, FORUMTYPE.POST) != 1) {
             throw new RuntimeException("服务器错误");
         }
@@ -135,16 +149,30 @@ public class ReportController {
 
         if (result) {
             // 举报成功
+
             // TODO 给原用户发送被举报成功消息
             // 删除楼层或评论
             if (type == 0) {
                 floorService.deleteFloorById(o_id);
-            } else {
+            } else if (type == 1) {
                 commentService.deleteCommentById(o_id);
             }
-        } else {
-            // TODO 给发起举报的用户发送消息
         }
+
+        // 给发起举报的用户发送举报结果消息
+        List<Report> reports;
+        if (type == 0) {
+            reports = reportService.getAllTypeReports(FORUMTYPE.FLOOR);
+            for (Report report :reports) {
+                MessageUtil.newMessage(new FloorReportResultMessage(report.getOId(), report.getUId(), result));
+            }
+        } else if (type == 1) {
+            reports = reportService.getAllTypeReports(FORUMTYPE.COMMENT);
+            for (Report report :reports) {
+                MessageUtil.newMessage(new CommentReportResultMessage(report.getOId(), report.getUId(), result));
+            }
+        }
+
 
         if (reportService.finishReport(o_id, type == 0 ? FORUMTYPE.FLOOR : FORUMTYPE.COMMENT) != 1) {
             throw new RuntimeException("服务器错误");

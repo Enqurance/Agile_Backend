@@ -24,6 +24,8 @@ public interface TfeedbackMapper extends BaseMapper<Tfeedback> {
                                        @Param("uId") Integer uId);
 
     List<Tfeedback> findPId();
+
+    List<Tfeedback> findAllById(@Param("id") Integer id);
 }
 
 
