@@ -3,7 +3,7 @@ package com.example.backend.entity.message;
 import com.example.backend.domain.Message;
 
 /**
- * @className: PostReplyMessage
+ * @className: PostReportMessage
  * @Description: 举报帖子消息
  * @author: WAN
  * @date: 2023/5/9 14:39

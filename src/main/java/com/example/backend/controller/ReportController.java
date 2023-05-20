@@ -81,21 +81,16 @@ public class ReportController {
         switch (result) {
             case 0 -> accept = false;
             case 1 -> {
-                // TODO 给帖子作者发送帖子待整改消息
-
                 // 往texamine表中加入该任务
                 texamineService.newTaskExamine(o_id, basis);
                 // 修改该帖子的可见性
                 postService.setPostVisById(o_id, 0);
             }
-            case 2 -> {
-                // TODO 给帖子作者发送帖子待整改消息
-
-                // 删除该帖子
-                postService.deletePostById(o_id);
-
-            }
+            case 2 -> // 删除该帖子
+                    postService.deletePostById(o_id);
         }
+
+        // TODO 给帖子作者发送帖子待整改消息
 
         // 给所有举报者发送举报结果消息
         for (Integer u_id : u_ids) {
@@ -187,8 +182,6 @@ public class ReportController {
         int post_id = jsonObject.getInt("id");
         String reason = jsonObject.getStr("reason");
 
-        // TODO 给用户发送举报发起成功消息
-
         reportService.newReport(reason, post_id, FORUMTYPE.POST, id);
 
         return CommonResult.success(null);
@@ -200,8 +193,6 @@ public class ReportController {
         int o_id = jsonObject.getInt("id");
         String reason = jsonObject.getStr("reason");
         int type = jsonObject.getInt("type");
-
-        // TODO 给用户发起举报成功消息
 
         reportService.newReport(reason, o_id, type == 0 ? FORUMTYPE.FLOOR : FORUMTYPE.COMMENT, id);
 
