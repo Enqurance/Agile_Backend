@@ -45,4 +45,12 @@
         where
         r_type = #{type,jdbcType=NUMERIC}
     </select>
+    <select id="findAllByTypeAndUId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from report
+        where
+        r_type = #{type,jdbcType=NUMERIC}
+        AND u_id = #{uId,jdbcType=NUMERIC}
+    </select>
 </mapper>
