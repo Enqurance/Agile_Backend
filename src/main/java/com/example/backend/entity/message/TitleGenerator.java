@@ -43,6 +43,10 @@ public class TitleGenerator {
             case 13 -> title = commentReportResultTitle(message);
             case 14 -> title = pinFeedbackSuccessTitle(message);
             case 15 -> title = pinFeedbackResultTitle(message);
+            case 16 -> title = userPostReportTitle(message);
+            case 17 -> title = userFloorReportTitle(message);
+            case 18 -> title = userCommentReportTitle(message);
+            case 19 -> title = rectifyResultMessage(message);
             default -> title = "错误的消息种类";
         }
         return title;
@@ -227,5 +231,54 @@ public class TitleGenerator {
                 "您对地图钉" +
                 pinService.getPinById(paras[0]).getName() +
                 "反馈已完成审核";
+    }
+
+    private static String userPostReportTitle(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+        return MESSTYPE.NOTICE.getType() +
+                "您的帖子" +
+                postService.getPostById(paras[0]) +
+                "被成功举报，" +
+                (paras[1] == 1 ? "请完成修改后提交申请" : "已被删除");
+    }
+
+    private static String userFloorReportTitle(Message message) {
+        return MESSTYPE.NOTICE.getType() +
+                "您的楼层" +
+                floorService.getFloorById(Integer.parseInt(message.getPara())).getContent() +
+                "被成功举报，已被删除";
+    }
+
+    private static String userCommentReportTitle(Message message) {
+        return MESSTYPE.NOTICE.getType() +
+                "您的评论" +
+                commentService.getCommentById(Integer.parseInt(message.getPara())).getContent() +
+                "被成功举报，已被删除";
+    }
+
+    private static String rectifyResultMessage(Message message) {
+        Integer[] paras = Arrays.stream(message.getPara().split(";"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
+        StringBuilder sb = new StringBuilder(
+                MESSTYPE.NOTICE.getType() +
+                "您的帖子" +
+                postService.getPostById(paras[0]) +
+                "整改");
+
+        if (paras[1] == 0) {
+            sb.append("通过");
+        } else {
+            sb.append("未通过，");
+            if (paras[1] == 1) {
+                sb.append("请完成修改后提交申请");
+            } else {
+                sb.append("已被删除");
+            }
+        }
+
+        return sb.toString();
     }
 }

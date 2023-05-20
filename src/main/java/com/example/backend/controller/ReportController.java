@@ -8,9 +8,7 @@ import com.example.backend.domain.Report;
 import com.example.backend.entity.FORUMTYPE;
 import com.example.backend.entity.FrontendReply;
 import com.example.backend.entity.FrontendReportPost;
-import com.example.backend.entity.message.CommentReportResultMessage;
-import com.example.backend.entity.message.FloorReportResultMessage;
-import com.example.backend.entity.message.PostReportResultMessage;
+import com.example.backend.entity.message.*;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.*;
 import com.example.backend.utils.MessageUtil;
@@ -81,21 +79,18 @@ public class ReportController {
         switch (result) {
             case 0 -> accept = false;
             case 1 -> {
-                // TODO 给帖子作者发送帖子待整改消息
-
                 // 往texamine表中加入该任务
                 texamineService.newTaskExamine(o_id, basis);
                 // 修改该帖子的可见性
                 postService.setPostVisById(o_id, 0);
             }
-            case 2 -> {
-                // TODO 给帖子作者发送帖子待整改消息
-
-                // 删除该帖子
-                postService.deletePostById(o_id);
-
-            }
+            case 2 -> // 删除该帖子
+                    postService.deletePostById(o_id);
         }
+
+        // 给帖子作者发送帖子待整改消息
+        MessageUtil.newMessage(new UserPostReportMessage(o_id, result, basis,
+                postService.getPostById(o_id).getUserId()));
 
         // 给所有举报者发送举报结果消息
         for (Integer u_id : u_ids) {
@@ -150,12 +145,16 @@ public class ReportController {
         if (result) {
             // 举报成功
 
-            // TODO 给原用户发送被举报成功消息
+            // 给原用户发送被举报成功消息
             // 删除楼层或评论
             if (type == 0) {
                 floorService.deleteFloorById(o_id);
+                MessageUtil.newMessage(new UserFloorReportMessage(o_id, basis,
+                        floorService.getFloorById(o_id).getUserId()));
             } else if (type == 1) {
                 commentService.deleteCommentById(o_id);
+                MessageUtil.newMessage(new UserCommentReportMessage(o_id, basis,
+                        commentService.getCommentById(o_id).getCuserId()));
             }
         }
 
@@ -187,8 +186,6 @@ public class ReportController {
         int post_id = jsonObject.getInt("id");
         String reason = jsonObject.getStr("reason");
 
-        // TODO 给用户发送举报发起成功消息
-
         reportService.newReport(reason, post_id, FORUMTYPE.POST, id);
 
         return CommonResult.success(null);
@@ -200,8 +197,6 @@ public class ReportController {
         int o_id = jsonObject.getInt("id");
         String reason = jsonObject.getStr("reason");
         int type = jsonObject.getInt("type");
-
-        // TODO 给用户发起举报成功消息
 
         reportService.newReport(reason, o_id, type == 0 ? FORUMTYPE.FLOOR : FORUMTYPE.COMMENT, id);
 
