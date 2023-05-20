@@ -9,10 +9,36 @@
             <result property="postId" column="post_id" jdbcType="INTEGER"/>
             <result property="title" column="texamine_title" jdbcType="VARCHAR"/>
             <result property="content" column="texamine_content" jdbcType="VARCHAR"/>
+            <result property="basis" column="texamine_basis" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         texamine_id,post_id,texamine_title,
-        texamine_content
+        texamine_content,texamine_basis
     </sql>
+    <insert id="insertAll">
+        insert into texamine
+        (texamine_id, post_id, texamine_title,
+         texamine_content, texamine_basis)
+        values (#{id,jdbcType=NUMERIC}, #{postId,jdbcType=NUMERIC}, #{title,jdbcType=VARCHAR},
+                #{content,jdbcType=VARCHAR}, #{basis,jdbcType=VARCHAR})
+
+    </insert>
+    <delete id="deleteByPostId">
+        delete
+        from texamine
+        where post_id = #{postId,jdbcType=NUMERIC}
+    </delete>
+    <update id="updateTitleAndContentByPostId">
+        update texamine
+        set texamine_title   = #{title,jdbcType=VARCHAR},
+            texamine_content = #{content,jdbcType=VARCHAR}
+        where post_id = #{postId,jdbcType=NUMERIC}
+    </update>
+    <select id="findAllReadyTasks" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from texamine
+        where texamine_title != null and texamine_content != null
+    </select>
 </mapper>

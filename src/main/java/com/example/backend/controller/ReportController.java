@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import cn.hutool.json.JSONObject;
 import com.example.backend.domain.Comment;
 import com.example.backend.domain.Floor;
 import com.example.backend.domain.Post;
@@ -8,15 +9,9 @@ import com.example.backend.entity.FORUMTYPE;
 import com.example.backend.entity.FrontendReply;
 import com.example.backend.entity.FrontendReportPost;
 import com.example.backend.result.CommonResult;
-import com.example.backend.service.CommentService;
-import com.example.backend.service.FloorService;
-import com.example.backend.service.PostService;
-import com.example.backend.service.ReportService;
+import com.example.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +37,9 @@ public class ReportController {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private TexamineService texamineService;
+
     @GetMapping("/examine/report/get_posts")
     public CommonResult getReportPosts() {
         Map<Integer, FrontendReportPost> posts = new HashMap<>();
@@ -60,7 +58,36 @@ public class ReportController {
     }
 
     @PostMapping("/examine/report/result_of_report_post/{o_id}")
-    public CommonResult finishReportPost(@PathVariable Integer o_id) {
+    public CommonResult finishReportPost(@PathVariable Integer o_id,
+                                         @RequestBody JSONObject jsonObject) {
+        /*
+         * 0: 举报失败
+         * 1: 整改帖子
+         * 2: 删除帖子
+         */
+        int result = jsonObject.getInt("result");
+        String basis = jsonObject.getStr("basis");
+        switch (result) {
+            case 0 -> {
+                // TODO 给所有举报者发送举报失败消息
+            }
+            case 1 -> {
+                // TODO 给帖子作者发送帖子待整改消息
+
+                // TODO 往texamine表中加入该任务
+                texamineService.newTaskExamine(o_id, basis);
+                // TODO 修改该帖子的可见性
+                postService.setPostVisById(o_id, 0);
+                // TODO 给所有举报者发送举报成功消息
+            }
+            case 2 -> {
+                // TODO 给帖子作者发送帖子待整改消息
+
+                // TODO 删除该帖子
+                postService.deletePostById(o_id);
+                // TODO 给所有举报者发送举报成功消息
+            }
+        }
         if (reportService.finishReport(o_id, FORUMTYPE.POST) != 1) {
             throw new RuntimeException("服务器错误");
         }
@@ -100,7 +127,12 @@ public class ReportController {
     }
 
     @PostMapping("/examine/report/result_of_report_reply/{type}/{o_id}")
-    public CommonResult finishReportFloorOrComment(@PathVariable Integer type, @PathVariable Integer o_id) {
+    public CommonResult finishReportFloorOrComment(@PathVariable Integer type,
+                                                   @PathVariable Integer o_id,
+                                                   @RequestBody JSONObject jsonObject) {
+        boolean result = jsonObject.getBool("result");
+        String basis = jsonObject.getStr("basis");
+
         if (reportService.finishReport(o_id, type == 0 ? FORUMTYPE.FLOOR : FORUMTYPE.COMMENT) != 1) {
             throw new RuntimeException("服务器错误");
         }
