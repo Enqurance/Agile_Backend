@@ -49,7 +49,6 @@ public class TaskExamineController {
 
         Texamine texamine = texamineService.getTaskByPostId(post_id);
 
-        boolean accept = true;
         switch (result) {
             case 0 -> {
                 // 整改成功，修改帖子内容
@@ -59,16 +58,11 @@ public class TaskExamineController {
                 post.setVisibility(1);
                 postService.updatePost(post);
 
-                accept = false;
             }
-            case 1 -> {
-                // 需要重新整改，将表里内容清空
-                texamineService.rectify(post_id, null, null);
-            }
-            case 2 -> {
-                // 删除该帖子
-                postService.deletePostById(post_id);
-            }
+            case 1 -> // 需要重新整改，将表里内容清空
+                    texamineService.rectify(post_id, null, null);
+            case 2 -> // 删除该帖子
+                    postService.deletePostById(post_id);
         }
 
         // 给用户发送整改结果消息
