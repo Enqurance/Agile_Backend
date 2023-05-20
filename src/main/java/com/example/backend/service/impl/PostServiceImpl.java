@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Post;
 import com.example.backend.service.PostService;
 import com.example.backend.mapper.PostMapper;
+import com.google.gson.JsonObject;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author Sisyphus
@@ -26,6 +29,17 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
     @Override
     public Post getPostById(Integer id) {
         return postMapper.getPostById(id);
+    }
+
+    @Override
+    public List<Post> getPostsOrderTime(Integer type) {
+        return postMapper.getPostsOrderTime(type);
+    }
+
+    @Override
+    public List<Post> searchPosts(String context) {
+        String sqlText = "%" + context + "%";
+        return postMapper.searchPosts(sqlText);
     }
 
     @Override

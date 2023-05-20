@@ -49,6 +49,10 @@ spring:
     multipart: #设置文件上传大小
       max-file-size: 10MB  # 最大文件大小
       max-request-size: 10MB  # 最大请求大小
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
 
 # 验证码
 code:

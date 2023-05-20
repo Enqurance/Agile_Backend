@@ -11,7 +11,7 @@
             <result property="para" column="m_para" jdbcType="VARCHAR"/>
             <result property="type" column="m_type" jdbcType="SMALLINT"/>
             <result property="ureceiveId" column="ureceive_id" jdbcType="INTEGER"/>
-            <result property="time" column="m_time" jdbcType="DATE"/>
+            <result property="time" column="m_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
