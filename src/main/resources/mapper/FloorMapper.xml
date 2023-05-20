@@ -7,7 +7,7 @@
     <resultMap id="BaseResultMap" type="com.example.backend.domain.Floor">
             <id property="id" column="floor_id" jdbcType="INTEGER"/>
             <result property="content" column="floor_content" jdbcType="VARCHAR"/>
-            <result property="createTime" column="create_time" jdbcType="DATE"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="layers" column="floor_layers" jdbcType="INTEGER"/>
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="postId" column="post_id" jdbcType="INTEGER"/>

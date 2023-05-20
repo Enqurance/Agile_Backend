@@ -7,7 +7,7 @@ CREATE TABLE `buaa_map`.`message`
     `m_para`      VARCHAR(50) COMMENT '消息携带的参数',
     `m_type`      SMALLINT NOT NULL COMMENT '消息类型',
     `ureceive_id` INT      NOT NULL COMMENT '消息接收用户',
-    `m_time`      DATE     NOT NULL COMMENT '消息生成时间',
+    `m_time`      DATETIME NOT NULL COMMENT '消息生成时间',
     PRIMARY KEY (`m_id`),
     FOREIGN KEY (`ureceive_id`) REFERENCES buaa_map.user (`u_id`)
 ) ENGINE = InnoDB

@@ -2,7 +2,7 @@
 CREATE TABLE `buaa_map`.`comment` (
     `comment_id` INT NOT NULL AUTO_INCREMENT COMMENT '回复id，系统自动生成' ,
     `c_content` VARCHAR(1000) NOT NULL COMMENT '回复内容' ,
-    `create_time` DATE NOT NULL COMMENT '创建时间',
+    `create_time` DATETIME NOT NULL COMMENT '创建时间',
     `floor_id` INT NOT NULL COMMENT '所属楼层id，外键' ,
     `cuser_id` INT NOT NULL COMMENT '创建用户id，外键' ,
     `ruser_id` INT COMMENT '回复用户id，外键，可以为空，代表没有回复' ,

@@ -9,7 +9,7 @@ CREATE TABLE `buaa_map`.`post` (
     `post_visit` INT NOT NULL COMMENT '帖子访问量' ,
     `post_floor_num` INT NOT NULL COMMENT '帖子总楼数' ,
     `pin_id_str` VARCHAR(1000) NOT NULL COMMENT '相关地图钉id组成的字符串，id之间用;隔开' ,
-    `create_time` DATE NOT NULL COMMENT '创建时间',
+    `create_time` DATETIME NOT NULL COMMENT '创建时间',
     `user_id` INT NOT NULL COMMENT '用户id' ,
     PRIMARY KEY (`post_id`) ,
     FOREIGN KEY (`user_id`) REFERENCES user(u_id)
