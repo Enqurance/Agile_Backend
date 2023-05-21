@@ -134,7 +134,10 @@ public class ReportController {
             }
         }
 
-        return CommonResult.success(floors.keySet().addAll(comments.keySet()));
+        List<FrontendReply> replies = new ArrayList<>(floors.values());
+        replies.addAll(comments.values());
+
+        return CommonResult.success(replies);
     }
 
     @PostMapping("/examine/report/result_of_report_reply/{type}/{o_id}")
