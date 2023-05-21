@@ -66,11 +66,7 @@ public class FloorController {
 
     @DeleteMapping("/deleteFloor/{floor_id}")
     public CommonResult deleteFloor(@PathVariable(value = "floor_id", required = false) Integer floor_id) {
-        int retComment = commentService.deleteCommentByFloorId(floor_id);
-        if (retComment == 0)
-            return CommonResult.failed("对应floor关联comment删除失败");
-        int retFloor = floorService.deleteFloorById(floor_id);
-        if (retFloor == 0)
+        if (floorService.deleteFloorById(floor_id) == 0)
             return CommonResult.failed("对应floor删除失败或floor不存在");
         else
             return CommonResult.success("floor楼层删除成功");
