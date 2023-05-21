@@ -1,8 +1,6 @@
 package com.example.backend.controller;
 
 import com.example.backend.domain.Pin;
-import com.example.backend.domain.Post;
-import com.example.backend.entity.MyPost;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.PinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
