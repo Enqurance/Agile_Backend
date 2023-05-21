@@ -7,6 +7,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 /**
@@ -19,20 +20,31 @@ import java.util.Arrays;
 @Component
 public class FrontendMessage {
     private int id;
+
     private String title;
+
     private String content;
+
+    private String time;
+
     private boolean read;
+
     private int post_id;
+
     private int floor_id;
+
     private int examine_id;
 
     private static CommentService commentService;
+
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static FrontendMessage trans2FrontendMessage(Message message) {
         FrontendMessage frontendMessage = new FrontendMessage();
         frontendMessage.setId(message.getId());
         frontendMessage.setTitle(TitleGenerator.generateTitle(message));
         frontendMessage.setContent(message.getContent());
+        frontendMessage.setTime(sdf.format(message.getTime()));
         frontendMessage.setRead(message.getStatus() == 1);
         switch (message.getType()) {
             // 帖子id
