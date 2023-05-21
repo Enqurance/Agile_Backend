@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.domain.Post;
 import com.example.backend.domain.Texamine;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -20,4 +21,6 @@ public interface TexamineService extends IService<Texamine> {
     int rectify(int post_id, String title, String content);
 
     Texamine getTaskByPostId(int post_id);
+
+    List<Post> getUserExaminePosts(int u_id);
 }
