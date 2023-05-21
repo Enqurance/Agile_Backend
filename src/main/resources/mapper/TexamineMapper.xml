@@ -35,13 +35,13 @@
             texamine_content = #{content,jdbcType=VARCHAR}
         where post_id = #{postId,jdbcType=NUMERIC}
     </update>
-    <select id="findAllReadyTasks" resultMap="BaseResultMap">
+    <select id="findAllReadyTasks" resultType="com.example.backend.domain.Texamine" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from texamine
-        where texamine_title != null and texamine_content != null
+        where (texamine_title is not null) and (texamine_content is not null)
     </select>
-    <select id="getAllByPostId" resultMap="BaseResultMap">
+    <select id="getAllByPostId" resultType="com.example.backend.domain.Texamine" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from texamine
