@@ -122,7 +122,7 @@ public class ReportController {
         }
 
         Map<Integer, FrontendReply> comments = new HashMap<>();
-        List<Report> commentReports = reportService.getAllTypeReports(FORUMTYPE.FLOOR);
+        List<Report> commentReports = reportService.getAllTypeReports(FORUMTYPE.COMMENT);
         for (Report report : commentReports) {
             if (comments.containsKey(report.getOId())) {
                 comments.get(report.getOId()).addReason(report.getReason());
