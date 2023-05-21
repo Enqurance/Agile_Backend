@@ -74,6 +74,10 @@
         u_id = #{user_id,jdbcType=NUMERIC}
         OR p_visibility = #{visibility,jdbcType=NUMERIC}
     </select>
+    <select id="getMyAllPin" resultType="com.example.backend.domain.Pin" resultMap="BaseResultMap">
+        select * from pin
+        where u_id = #{id,jdbcType=NUMERIC}
+    </select>
     <update id="updateVisibilityById">
         update pin
         set p_visibility = #{visibility,jdbcType=NUMERIC}

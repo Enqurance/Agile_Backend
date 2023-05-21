@@ -22,6 +22,10 @@ public interface FloorMapper extends BaseMapper<Floor> {
     int findMaxId();
 
     List<Floor> getFloorsOrderTime(Integer postId);
+
+    List<Floor> getFloorIdByPostId(Integer postId);
+
+    List<Floor> getMyAllFloor(Integer id);
 }
 
 

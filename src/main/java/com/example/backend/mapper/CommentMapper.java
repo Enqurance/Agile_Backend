@@ -23,6 +23,10 @@ public interface CommentMapper extends BaseMapper<Comment> {
     int findMaxId();
 
     List<Comment> getCommentsOrderTime(Integer floorId);
+
+    int deleteCommentByFloorId(Integer floorId);
+
+    List<Comment> getMyAllComment(Integer id);
 }
 
 

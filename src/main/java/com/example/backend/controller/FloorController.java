@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.domain.Floor;
 import com.example.backend.domain.Post;
 import com.example.backend.result.CommonResult;
+import com.example.backend.service.CommentService;
 import com.example.backend.service.FloorService;
 import com.example.backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class FloorController {
     PostService postService;
     @Autowired
     FloorService floorService;
+    @Autowired
+    CommentService commentService;
 
     @RequestMapping("/addFloor")
     public CommonResult addFloor(@RequestParam(name = "id") Integer id,
@@ -63,10 +66,13 @@ public class FloorController {
 
     @DeleteMapping("/deleteFloor/{floor_id}")
     public CommonResult deleteFloor(@PathVariable(value = "floor_id", required = false) Integer floor_id) {
-        int ret = floorService.deleteFloorById(floor_id);
-        if (ret == 0)
+        int retComment = commentService.deleteCommentByFloorId(floor_id);
+        if (retComment == 0)
+            return CommonResult.failed("对应floor关联comment删除失败");
+        int retFloor = floorService.deleteFloorById(floor_id);
+        if (retFloor == 0)
             return CommonResult.failed("对应floor删除失败或floor不存在");
         else
-            return CommonResult.success("对应floor删除成功");
+            return CommonResult.success("floor楼层删除成功");
     }
 }

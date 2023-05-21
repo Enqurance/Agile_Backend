@@ -30,4 +30,6 @@ public interface PinService extends IService<Pin> {
     int pinPublic(int p_id);
 
     int switchPos(Pin pin);
+
+    List<Pin> getMyAllPin(Integer id);
 }

@@ -44,6 +44,16 @@ public class FloorServiceImpl extends ServiceImpl<FloorMapper, Floor>
     public List<Floor> getFloorsOrderTime(Integer postId) {
         return floorMapper.getFloorsOrderTime(postId);
     }
+
+    @Override
+    public List<Floor> getFloorIdByPostId(Integer postId) {
+        return floorMapper.getFloorIdByPostId(postId);
+    }
+
+    @Override
+    public List<Floor> getMyAllFloor(Integer id) {
+        return floorMapper.getMyAllFloor(id);
+    }
 }
 
 

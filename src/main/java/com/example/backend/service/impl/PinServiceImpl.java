@@ -69,6 +69,11 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
     public int switchPos(Pin pin) {
         return pinMapper.switchPos(pin.getId(), pin.getLnglat());
     }
+
+    @Override
+    public List<Pin> getMyAllPin(Integer id) {
+        return pinMapper.getMyAllPin(id);
+    }
 }
 
 

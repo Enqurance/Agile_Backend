@@ -81,4 +81,8 @@
         and post_id in (select post_id
         from texamine)
     </select>
+    <select id="getMyAllPost" resultType="com.example.backend.domain.Post" resultMap="BaseResultMap">
+        select * from post
+        where user_id = #{id}
+    </select>
 </mapper>

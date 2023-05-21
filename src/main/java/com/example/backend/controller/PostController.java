@@ -1,9 +1,12 @@
 package com.example.backend.controller;
 
+import com.example.backend.domain.Floor;
 import com.example.backend.domain.Post;
 import com.example.backend.entity.PostDetail;
 import com.example.backend.entity.message.PostSearch;
 import com.example.backend.result.CommonResult;
+import com.example.backend.service.CommentService;
+import com.example.backend.service.FloorService;
 import com.example.backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,10 @@ import java.util.*;
 public class PostController {
     @Autowired
     PostService postService;
+    @Autowired
+    FloorService floorService;
+    @Autowired
+    CommentService commentService;
 
     @RequestMapping("/addPost")
     public CommonResult addPost(@RequestParam(name = "id") Integer id,
@@ -104,6 +111,14 @@ public class PostController {
 
     @DeleteMapping("/deletePost/{post_id}")
     public CommonResult deletePost(@PathVariable(value = "post_id", required = false) Integer post_id) {
+        List<Floor> floors = floorService.getFloorIdByPostId(post_id);
+        for (Floor floor : floors) {
+            int floorId = floor.getId();
+            commentService.deleteCommentByFloorId(floorId);
+            int retFloor = floorService.deleteFloorById(floorId);
+            if (retFloor == 0)
+                return CommonResult.failed("id = " + floorId + "的floor删除失败");
+        }
         int ret = postService.deletePostById(post_id);
         if (ret == 0)
             return CommonResult.failed("对应post删除失败或post不存在");
