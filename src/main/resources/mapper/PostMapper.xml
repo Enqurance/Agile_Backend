@@ -40,6 +40,11 @@
         set post_title=#{title}, post_content=#{content}, post_tag=#{tag}, pin_id_str=#{pinIdStr}
         where post_id = #{id}
     </update>
+    <update id="setFloorNum">
+        update post
+        set post_floor_num=#{layers}
+        where post_id = #{postId}
+    </update>
     <select id="getPostById" resultType="com.example.backend.domain.Post" resultMap="BaseResultMap">
         select * from post where 1 = 0
         <if test='id > 0'>
@@ -65,4 +70,7 @@
     <insert id="setPostVisById">
         update post set post_visibility=#{visibility} where post_id = #{id}
     </insert>
+    <select id="findMaxId" resultType="java.lang.Integer">
+        select max(post_id) from post
+    </select>
 </mapper>

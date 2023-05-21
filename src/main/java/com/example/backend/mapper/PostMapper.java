@@ -28,6 +28,10 @@ public interface PostMapper extends BaseMapper<Post> {
     int deletePostById(Integer id);
 
     int setPostVisById(Integer id, Integer visibility);
+
+    int findMaxId();
+
+    int setFloorNum(Integer postId, int layers);
 }
 
 

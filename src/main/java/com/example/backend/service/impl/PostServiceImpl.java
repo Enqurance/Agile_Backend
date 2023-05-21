@@ -56,6 +56,16 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
     public int setPostVisById(Integer id, Integer visibility) {
         return postMapper.setPostVisById(id, visibility);
     }
+
+    @Override
+    public int findMaxId() {
+        return postMapper.findMaxId();
+    }
+
+    @Override
+    public int setFloorNum(Integer postId, int layers) {
+        return postMapper.setFloorNum(postId, layers);
+    }
 }
 
 

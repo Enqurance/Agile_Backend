@@ -5,7 +5,6 @@ import com.example.backend.entity.PostDetail;
 import com.example.backend.entity.message.PostSearch;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.PostService;
-import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +37,7 @@ public class PostController {
         if (ret == 0)
             return CommonResult.failed("post数据插入失败");
         else
-            return CommonResult.success("post数据插入成功");
+            return CommonResult.success(postService.findMaxId());
     }
 
     @RequestMapping("/getPosts")
@@ -50,9 +49,8 @@ public class PostController {
         OrderPostByHot(posts);
         int cnt = 0;
         List<Post> retPosts = new ArrayList<>();
-        for (int index = offset; index + cnt < posts.size() && cnt <= limit; index++) {
+        for (int index = offset; index + cnt < posts.size() && cnt < limit; cnt++) {
             retPosts.add(posts.get(index + cnt));
-            cnt++;
         }
         return CommonResult.success(retPosts);
     }

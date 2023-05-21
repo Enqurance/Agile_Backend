@@ -24,7 +24,7 @@
         values (#{id,jdbcType=NUMERIC}, #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
                 #{floorId,jdbcType=NUMERIC}, #{cuserId,jdbcType=NUMERIC}, #{ruserId,jdbcType=NUMERIC})
     </insert>
-    <select id="getCommentById" resultType="com.example.backend.domain.Comment">
+    <select id="getCommentById" resultType="com.example.backend.domain.Comment" resultMap="BaseResultMap">
         select * from comment where 1 = 0
         <if test='id > 0'>
             or comment_id = #{id}
@@ -35,4 +35,11 @@
         from comment
         where comment_id = #{id,jdbcType=NUMERIC}
     </delete>
+    <select id="findMaxId" resultType="java.lang.Integer">
+        select max(comment_id) from comment
+    </select>
+    <select id="getCommentsOrderTime" resultType="com.example.backend.domain.Comment" resultMap="BaseResultMap">
+        select * from comment where floor_id = #{floorId}
+        order by create_time asc
+    </select>
 </mapper>

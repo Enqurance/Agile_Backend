@@ -3,6 +3,8 @@ package com.example.backend.service;
 import com.example.backend.domain.Floor;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author Sisyphus
 * @description 针对表【floor】的数据库操作Service
@@ -14,4 +16,8 @@ public interface FloorService extends IService<Floor> {
     Floor getFloorById(Integer id);
 
     int deleteFloorById(Integer id);
+
+    int findMaxId();
+
+    List<Floor> getFloorsOrderTime(Integer postId);
 }

@@ -2,10 +2,13 @@ package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Comment;
+import com.example.backend.domain.Floor;
 import com.example.backend.service.CommentService;
 import com.example.backend.mapper.CommentMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author Sisyphus
@@ -31,6 +34,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     @Override
     public int deleteCommentById(Integer id) {
         return commentMapper.deleteById(id);
+    }
+
+    @Override
+    public int findMaxId() {
+        return commentMapper.findMaxId();
+    }
+
+    @Override
+    public List<Comment> getCommentsOrderTime(Integer floorId) {
+        return commentMapper.getCommentsOrderTime(floorId);
     }
 }
 
