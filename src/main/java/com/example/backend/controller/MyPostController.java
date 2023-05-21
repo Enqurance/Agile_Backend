@@ -31,7 +31,7 @@ public class MyPostController {
             boolean state = false;
             if (post.getVisibility() == 1)
                 state = true;
-            MyPost myPost = new MyPost(id, post.getTitle(), post.getContent(), post.getFloorNum(), state);
+            MyPost myPost = new MyPost(post.getId(), post.getTitle(), post.getContent(), post.getFloorNum(), state);
             myPosts.add(myPost);
         }
         return CommonResult.success(myPosts);
