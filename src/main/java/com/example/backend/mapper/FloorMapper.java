@@ -26,6 +26,8 @@ public interface FloorMapper extends BaseMapper<Floor> {
     List<Floor> getFloorIdByPostId(Integer postId);
 
     List<Floor> getMyAllFloor(Integer id);
+
+    int deleteByPostId(@Param("postId") Integer postId);
 }
 
 

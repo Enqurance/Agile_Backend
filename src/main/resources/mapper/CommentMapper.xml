@@ -51,4 +51,11 @@
         select * from comment
         where cuser_id = #{id,jdbcType=NUMERIC}
     </select>
+    <select id="getAllByFloorId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where
+        floor_id = #{floorId,jdbcType=NUMERIC}
+    </select>
 </mapper>

@@ -2,8 +2,11 @@ package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Floor;
-import com.example.backend.service.FloorService;
+import com.example.backend.entity.FORUMTYPE;
 import com.example.backend.mapper.FloorMapper;
+import com.example.backend.service.CommentService;
+import com.example.backend.service.FloorService;
+import com.example.backend.service.ReportService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,12 @@ public class FloorServiceImpl extends ServiceImpl<FloorMapper, Floor>
     @Resource
     FloorMapper floorMapper;
 
+    @Resource
+    private CommentService commentService;
+
+    @Resource
+    private ReportService reportService;
+
     @Override
     public int addFloor(Floor floor) {
         return floorMapper.insertFloor(floor);
@@ -32,6 +41,12 @@ public class FloorServiceImpl extends ServiceImpl<FloorMapper, Floor>
 
     @Override
     public int deleteFloorById(Integer id) {
+        // 删除所属评论
+        commentService.getAllCommentByFloorId(id).forEach(
+                comment -> commentService.deleteCommentById(comment.getId())
+        );
+        // 删除所属举报内容
+        reportService.finishReport(id, FORUMTYPE.FLOOR);
         return floorMapper.deleteById(id);
     }
 
