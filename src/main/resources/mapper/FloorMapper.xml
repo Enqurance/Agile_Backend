@@ -50,4 +50,9 @@
         select * from floor
         where user_id = #{id,jdbcType=NUMERIC}
     </select>
+    <delete id="deleteByPostId">
+        delete
+        from floor
+        where post_id = #{postId,jdbcType=NUMERIC}
+    </delete>
 </mapper>

@@ -2,10 +2,12 @@ package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Comment;
-import com.example.backend.domain.Floor;
-import com.example.backend.service.CommentService;
+import com.example.backend.entity.FORUMTYPE;
 import com.example.backend.mapper.CommentMapper;
+import com.example.backend.service.CommentService;
+import com.example.backend.service.ReportService;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +23,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     @Resource
     CommentMapper commentMapper;
 
+    @Autowired
+    private ReportService reportService;
+
     @Override
     public int addComment(Comment comment) {
         return commentMapper.insertComment(comment);
@@ -33,13 +38,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
 
     @Override
     public int deleteCommentById(Integer id) {
+        reportService.finishReport(id, FORUMTYPE.COMMENT);
         return commentMapper.deleteById(id);
     }
 
-    @Override
-    public int deleteCommentByFloorId(Integer floorId) {
-        return commentMapper.deleteCommentByFloorId(floorId);
-    }
+//    @Override
+//    public int deleteCommentByFloorId(Integer floorId) {
+//        return commentMapper.deleteCommentByFloorId(floorId);
+//    }
 
     @Override
     public int findMaxId() {
@@ -55,6 +61,12 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     public List<Comment> getMyAllComment(Integer id) {
         return commentMapper.getMyAllComment(id);
     }
+
+    @Override
+    public List<Comment> getAllCommentByFloorId(int floor_id) {
+        return commentMapper.getAllByFloorId(floor_id);
+    }
+
 }
 
 

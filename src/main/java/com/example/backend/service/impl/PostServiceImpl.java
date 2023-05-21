@@ -2,24 +2,36 @@ package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Post;
-import com.example.backend.service.PostService;
+import com.example.backend.entity.FORUMTYPE;
 import com.example.backend.mapper.PostMapper;
-import com.google.gson.JsonObject;
+import com.example.backend.service.FloorService;
+import com.example.backend.service.PostService;
+import com.example.backend.service.ReportService;
+import com.example.backend.service.TexamineService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
-* @author Sisyphus
-* @description 针对表【post】的数据库操作Service实现
-* @createDate 2023-05-11 23:35:30
-*/
+ * @author Sisyphus
+ * @description 针对表【post】的数据库操作Service实现
+ * @createDate 2023-05-11 23:35:30
+ */
 @Service
 public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
-    implements PostService{
+        implements PostService {
     @Resource
     PostMapper postMapper;
+
+    @Resource
+    private FloorService floorService;
+
+    @Resource
+    private ReportService reportService;
+
+    @Resource
+    private TexamineService texamineService;
 
     @Override
     public int addPost(Post post) {
@@ -49,6 +61,15 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
 
     @Override
     public int deletePostById(Integer id) {
+        // 删除所属楼层
+        floorService.getFloorIdByPostId(id).forEach(
+                floor -> floorService.deleteFloorById(floor.getId())
+        );
+        // 删除举报
+        reportService.finishReport(id, FORUMTYPE.POST);
+        // 删除整改
+        texamineService.finishTaskExamine(id);
+
         return postMapper.deletePostById(id);
     }
 

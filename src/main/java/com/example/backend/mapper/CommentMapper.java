@@ -2,7 +2,6 @@ package com.example.backend.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.backend.domain.Comment;
-import com.example.backend.domain.Floor;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -27,6 +26,8 @@ public interface CommentMapper extends BaseMapper<Comment> {
     int deleteCommentByFloorId(Integer floorId);
 
     List<Comment> getMyAllComment(Integer id);
+
+    List<Comment> getAllByFloorId(@Param("floorId") Integer floorId);
 }
 
 
