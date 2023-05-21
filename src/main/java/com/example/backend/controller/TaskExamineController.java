@@ -64,12 +64,11 @@ public class TaskExamineController {
             case 1 -> // 需要重新整改，将表里内容清空
                     texamineService.rectify(post_id, null, null);
             case 2 -> {
-                // 删除该帖子
-
+                // 刪除整改任务
                 if (texamineService.finishTaskExamine(post_id) != 1) {
                     throw new RuntimeException("删除失败，请检查服务器");
                 }
-
+                // 删除该帖子
                 if (postService.deletePostById(post_id) != 1) {
                     throw new RuntimeException("删除失败，请检查服务器");
                 }

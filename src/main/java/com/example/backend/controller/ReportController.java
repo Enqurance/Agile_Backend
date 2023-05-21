@@ -57,7 +57,7 @@ public class ReportController {
                 posts.put(report.getOId(), frontendReportPost);
             }
         }
-        return CommonResult.success(posts.keySet());
+        return CommonResult.success(posts.values());
     }
 
     @PostMapping("/examine/report/result_of_report_post/{o_id}")
