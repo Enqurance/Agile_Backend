@@ -239,7 +239,7 @@ public class TitleGenerator {
                 .toArray(Integer[]::new);
         return MESSTYPE.NOTICE.getType() +
                 "您的帖子" +
-                postService.getPostById(paras[0]).getContent() +
+                postService.getPostById(paras[0]).getTitle() +
                 "被成功举报，" +
                 (paras[1] == 1 ? "请完成修改后提交申请" : "已被删除");
     }
