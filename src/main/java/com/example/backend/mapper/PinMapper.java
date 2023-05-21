@@ -33,6 +33,8 @@ public interface PinMapper extends BaseMapper<Pin> {
                              @Param("id") Integer id);
 
     int switchPos(Integer pinId, String lnglat);
+
+    List<Pin> getMyAllPin(Integer id);
 }
 
 

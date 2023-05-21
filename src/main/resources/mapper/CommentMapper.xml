@@ -35,11 +35,20 @@
         from comment
         where comment_id = #{id,jdbcType=NUMERIC}
     </delete>
+    <delete id="deleteCommentByFloorId">
+        delete
+        from comment
+        where floor_id = #{floorId,jdbcType=NUMERIC}
+    </delete>
     <select id="findMaxId" resultType="java.lang.Integer">
         select max(comment_id) from comment
     </select>
     <select id="getCommentsOrderTime" resultType="com.example.backend.domain.Comment" resultMap="BaseResultMap">
         select * from comment where floor_id = #{floorId}
         order by create_time asc
+    </select>
+    <select id="getMyAllComment" resultType="com.example.backend.domain.Comment" resultMap="BaseResultMap">
+        select * from comment
+        where cuser_id = #{id,jdbcType=NUMERIC}
     </select>
 </mapper>

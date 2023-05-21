@@ -37,6 +37,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     }
 
     @Override
+    public int deleteCommentByFloorId(Integer floorId) {
+        return commentMapper.deleteCommentByFloorId(floorId);
+    }
+
+    @Override
     public int findMaxId() {
         return commentMapper.findMaxId();
     }
@@ -44,6 +49,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     @Override
     public List<Comment> getCommentsOrderTime(Integer floorId) {
         return commentMapper.getCommentsOrderTime(floorId);
+    }
+
+    @Override
+    public List<Comment> getMyAllComment(Integer id) {
+        return commentMapper.getMyAllComment(id);
     }
 }
 

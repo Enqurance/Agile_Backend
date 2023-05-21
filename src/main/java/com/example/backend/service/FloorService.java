@@ -20,4 +20,8 @@ public interface FloorService extends IService<Floor> {
     int findMaxId();
 
     List<Floor> getFloorsOrderTime(Integer postId);
+
+    List<Floor> getFloorIdByPostId(Integer postId);
+
+    List<Floor> getMyAllFloor(Integer id);
 }

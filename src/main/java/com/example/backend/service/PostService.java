@@ -29,4 +29,6 @@ public interface PostService extends IService<Post> {
     int findMaxId();
 
     int setFloorNum(Integer postId, int layers);
+
+    List<Post> getMyAllPost(Integer id);
 }

@@ -1,6 +1,8 @@
 package com.example.backend.controller;
 
 import cn.hutool.json.JSONObject;
+import com.example.backend.domain.Post;
+import com.example.backend.entity.MyPost;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.PostService;
 import com.example.backend.service.TexamineService;
@@ -21,12 +23,18 @@ public class MyPostController {
 
     @GetMapping("/getMyAllPost")
     public CommonResult getMyAllPost(@RequestParam(name = "id") Integer id) {
-        return null;
-    }
-
-    @RequestMapping("/deletePostById")
-    public CommonResult deletePostById(@RequestParam(name = "id") Integer id) {
-        return null;
+        List<Post> posts = postService.getMyAllPost(id);
+        if (posts.size() == 0)
+            return CommonResult.failed("此用户没有创建帖子");
+        List<MyPost> myPosts = new ArrayList<>();
+        for (Post post : posts) {
+            boolean state = false;
+            if (post.getVisibility() == 1)
+                state = true;
+            MyPost myPost = new MyPost(id, post.getTitle(), post.getContent(), post.getFloorNum(), state);
+            myPosts.add(myPost);
+        }
+        return CommonResult.success(myPosts);
     }
 
     @PostMapping("/changePostById")

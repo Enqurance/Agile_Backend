@@ -66,6 +66,11 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
     public int setFloorNum(Integer postId, int layers) {
         return postMapper.setFloorNum(postId, layers);
     }
+
+    @Override
+    public List<Post> getMyAllPost(Integer id) {
+        return postMapper.getMyAllPost(id);
+    }
 }
 
 

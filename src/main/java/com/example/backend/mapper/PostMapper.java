@@ -32,6 +32,8 @@ public interface PostMapper extends BaseMapper<Post> {
     int setFloorNum(Integer postId, int layers);
 
     List<Post> getUserExaminePosts(@Param("u_id") int u_id);
+
+    List<Post> getMyAllPost(Integer id);
 }
 
 

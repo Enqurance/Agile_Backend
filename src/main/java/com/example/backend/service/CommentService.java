@@ -18,7 +18,11 @@ public interface CommentService extends IService<Comment> {
 
     int deleteCommentById(Integer id);
 
+    int deleteCommentByFloorId(Integer floorId);
+
     int findMaxId();
 
     List<Comment> getCommentsOrderTime(Integer floorId);
+
+    List<Comment> getMyAllComment(Integer id);
 }

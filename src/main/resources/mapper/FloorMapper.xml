@@ -39,7 +39,15 @@
         select max(floor_id) from floor
     </select>
     <select id="getFloorsOrderTime" resultType="com.example.backend.domain.Floor" resultMap="BaseResultMap">
-        select * from floor where post_id = #{postId}
+        select * from floor where post_id = #{postId,jdbcType=NUMERIC}
         order by create_time asc
+    </select>
+    <select id="getFloorIdByPostId" resultType="com.example.backend.domain.Floor" resultMap="BaseResultMap">
+        select floor_id from floor
+        where post_id = #{postId,jdbcType=NUMERIC}
+    </select>
+    <select id="getMyAllFloor" resultType="com.example.backend.domain.Floor" resultMap="BaseResultMap">
+        select * from floor
+        where user_id = #{id,jdbcType=NUMERIC}
     </select>
 </mapper>
