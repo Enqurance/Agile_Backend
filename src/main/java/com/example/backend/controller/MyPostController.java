@@ -50,6 +50,9 @@ public class MyPostController {
             jsonObject.putOpt("id", post.getId());
             jsonObject.putOpt("title", post.getTitle());
             jsonObject.putOpt("content", post.getContent());
+
+            jsonObject.putOpt("reason", texamineService.getTaskByPostId(post.getId()).getBasis());
+
             results.add(jsonObject);
         });
         return CommonResult.success(results);
