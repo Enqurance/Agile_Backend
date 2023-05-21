@@ -80,7 +80,9 @@ public class ReportController {
             case 0 -> accept = false;
             case 1 -> {
                 // 往texamine表中加入该任务
-                texamineService.newTaskExamine(o_id, basis);
+                if (texamineService.newTaskExamine(o_id, basis) != 1) {
+                    throw new RuntimeException("插入失败，请检查服务器");
+                }
                 // 修改该帖子的可见性
                 postService.setPostVisById(o_id, 0);
             }

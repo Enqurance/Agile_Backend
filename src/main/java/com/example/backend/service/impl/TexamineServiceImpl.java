@@ -1,7 +1,9 @@
 package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.backend.domain.Post;
 import com.example.backend.domain.Texamine;
+import com.example.backend.mapper.PostMapper;
 import com.example.backend.service.TexamineService;
 import com.example.backend.mapper.TexamineMapper;
 import jakarta.annotation.Resource;
@@ -19,6 +21,9 @@ public class TexamineServiceImpl extends ServiceImpl<TexamineMapper, Texamine>
         implements TexamineService {
     @Resource
     private TexamineMapper texamineMapper;
+
+    @Resource
+    private PostMapper postMapper;
 
     @Override
     public int newTaskExamine(int post_id, String basis) {
@@ -46,6 +51,11 @@ public class TexamineServiceImpl extends ServiceImpl<TexamineMapper, Texamine>
     @Override
     public Texamine getTaskByPostId(int post_id) {
         return texamineMapper.getAllByPostId(post_id).get(0);
+    }
+
+    @Override
+    public List<Post> getUserExaminePosts(int u_id) {
+        return postMapper.getUserExaminePosts(u_id);
     }
 }
 

@@ -1,12 +1,10 @@
 package com.example.backend.mapper;
 
-import com.example.backend.domain.Pin;
-import com.example.backend.domain.Post;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.google.gson.JsonObject;
+import com.example.backend.domain.Post;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 /**
 * @author Sisyphus
@@ -32,6 +30,8 @@ public interface PostMapper extends BaseMapper<Post> {
     int findMaxId();
 
     int setFloorNum(Integer postId, int layers);
+
+    List<Post> getUserExaminePosts(@Param("u_id") int u_id);
 }
 
 

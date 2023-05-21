@@ -57,12 +57,19 @@ public class TaskExamineController {
                 post.setContent(texamine.getContent());
                 post.setVisibility(1);
                 postService.updatePost(post);
-
+                if (texamineService.finishTaskExamine(post_id) != 1) {
+                    throw new RuntimeException("删除失败，请检查服务器");
+                }
             }
             case 1 -> // 需要重新整改，将表里内容清空
                     texamineService.rectify(post_id, null, null);
-            case 2 -> // 删除该帖子
-                    postService.deletePostById(post_id);
+            case 2 -> {
+                // 删除该帖子
+                postService.deletePostById(post_id);
+                if (texamineService.finishTaskExamine(post_id) != 1) {
+                    throw new RuntimeException("删除失败，请检查服务器");
+                }
+            }
         }
 
         // 给用户发送整改结果消息

@@ -73,4 +73,12 @@
     <select id="findMaxId" resultType="java.lang.Integer">
         select max(post_id) from post
     </select>
+    <select id="getUserExaminePosts" resultType="com.example.backend.domain.Post" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from post
+        where user_id = #{u_id}
+        and post_id in (select post_id
+        from texamine)
+    </select>
 </mapper>
