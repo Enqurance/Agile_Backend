@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Param;
 import com.example.backend.domain.Floor;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
 * @author Sisyphus
 * @description 针对表【floor】的数据库操作Mapper
@@ -16,6 +18,10 @@ public interface FloorMapper extends BaseMapper<Floor> {
     Floor getFloorById(Integer id);
 
     int deleteById(@Param("id") Integer id);
+
+    int findMaxId();
+
+    List<Floor> getFloorsOrderTime(Integer postId);
 }
 
 

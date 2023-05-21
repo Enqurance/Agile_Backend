@@ -2,7 +2,10 @@ package com.example.backend.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.backend.domain.Comment;
+import com.example.backend.domain.Floor;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author Sisyphus
@@ -16,6 +19,10 @@ public interface CommentMapper extends BaseMapper<Comment> {
     Comment getCommentById(Integer id);
 
     int deleteById(@Param("id") Integer id);
+
+    int findMaxId();
+
+    List<Comment> getCommentsOrderTime(Integer floorId);
 }
 
 

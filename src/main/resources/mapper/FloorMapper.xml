@@ -24,7 +24,7 @@
         values (#{id,jdbcType=NUMERIC}, #{content,jdbcType=VARCHAR}, #{layers,jdbcType=NUMERIC},
                 #{createTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=NUMERIC}, #{postId,jdbcType=NUMERIC})
     </insert>
-    <select id="getFloorById" resultType="com.example.backend.domain.Floor">
+    <select id="getFloorById" resultType="com.example.backend.domain.Floor" resultMap="BaseResultMap">
         select * from floor where 1 = 0
         <if test='id > 0'>
             or floor_id = #{id}
@@ -35,4 +35,11 @@
         from floor
         where floor_id = #{id,jdbcType=NUMERIC}
     </delete>
+    <select id="findMaxId" resultType="java.lang.Integer">
+        select max(floor_id) from floor
+    </select>
+    <select id="getFloorsOrderTime" resultType="com.example.backend.domain.Floor" resultMap="BaseResultMap">
+        select * from floor where post_id = #{postId}
+        order by create_time asc
+    </select>
 </mapper>

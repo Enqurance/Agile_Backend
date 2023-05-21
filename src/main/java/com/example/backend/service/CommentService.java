@@ -2,6 +2,9 @@ package com.example.backend.service;
 
 import com.example.backend.domain.Comment;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.backend.domain.Floor;
+
+import java.util.List;
 
 /**
 * @author Sisyphus
@@ -14,4 +17,8 @@ public interface CommentService extends IService<Comment> {
     Comment getCommentById(Integer id);
 
     int deleteCommentById(Integer id);
+
+    int findMaxId();
+
+    List<Comment> getCommentsOrderTime(Integer floorId);
 }

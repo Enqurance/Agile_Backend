@@ -7,6 +7,8 @@ import com.example.backend.mapper.FloorMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author Sisyphus
 * @description 针对表【floor】的数据库操作Service实现
@@ -31,6 +33,16 @@ public class FloorServiceImpl extends ServiceImpl<FloorMapper, Floor>
     @Override
     public int deleteFloorById(Integer id) {
         return floorMapper.deleteById(id);
+    }
+
+    @Override
+    public int findMaxId() {
+        return floorMapper.findMaxId();
+    }
+
+    @Override
+    public List<Floor> getFloorsOrderTime(Integer postId) {
+        return floorMapper.getFloorsOrderTime(postId);
     }
 }
 
