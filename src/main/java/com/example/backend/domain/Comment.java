@@ -44,6 +44,8 @@ public class Comment implements Serializable {
      */
     private Integer ruserId;
 
+    private Integer is_auth;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -73,6 +75,10 @@ public class Comment implements Serializable {
         return ruserId;
     }
 
+    public Integer getIs_auth() {
+        return is_auth;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -95,6 +101,10 @@ public class Comment implements Serializable {
 
     public void setRuserId(Integer ruserId) {
         this.ruserId = ruserId;
+    }
+
+    public void setIs_auth(Integer is_auth) {
+        this.is_auth = is_auth;
     }
 
     @Override
