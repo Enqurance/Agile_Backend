@@ -77,31 +77,35 @@ public class TitleGenerator {
         TitleGenerator.commentService = commentService;
     }
 
+    private static String surroundInfo(String info) {
+        return "<" + info + ">";
+    }
+
     private static String likeTitle(Message message) {
         Integer[] paras = Arrays.stream(message.getPara().split(";"))
                 .map(Integer::parseInt)
                 .toArray(Integer[]::new);
 
         return MESSTYPE.NOTICE.getType() +
-                userService.findUserById(paras[1]).get(0).getName() +
+                surroundInfo(userService.findUserById(paras[1]).get(0).getName()) +
                 "点赞了你的帖子" +
-                postService.getPostById(paras[0]).getTitle();
+                surroundInfo(postService.getPostById(paras[0]).getTitle());
     }
 
     private static String replyTitle(Message message) {
         return MESSTYPE.NOTICE.getType() +
-                userService.findUserById(Integer.parseInt(
+                surroundInfo(userService.findUserById(Integer.parseInt(
                         message.getPara().split(";")[1]
-                )).get(0).getName() +
+                )).get(0).getName()) +
                 "回复了你";
     }
 
     private static String pinApplySuccessTitle(Message message) {
         return MESSTYPE.NOTICE.getType() +
                 "地图钉" +
-                pinService.getPinById(Integer.parseInt(
+                surroundInfo(pinService.getPinById(Integer.parseInt(
                         message.getPara()
-                )).getName() +
+                )).getName()) +
                 "成功发起公开申请，请等待审核";
     }
 
@@ -112,16 +116,16 @@ public class TitleGenerator {
 
         return MESSTYPE.NOTICE.getType() +
                 "您的帖子" +
-                postService.getPostById(paras[0]).getTitle() +
+                surroundInfo(postService.getPostById(paras[0]).getTitle()) +
                 "发布成功";
     }
 
     private static String pinTaskTitle(Message message) {
         return MESSTYPE.APPLY.getType() +
                 "地图钉" +
-                pinService.getPinById(Integer.parseInt(
+                surroundInfo(pinService.getPinById(Integer.parseInt(
                         message.getPara()
-                )).getName() +
+                )).getName()) +
                 "申请公开";
     }
 
@@ -132,7 +136,7 @@ public class TitleGenerator {
 
         return MESSTYPE.REPORT.getType() +
                 "帖子" +
-                postService.getPostById(paras[0]).getTitle() +
+                surroundInfo(postService.getPostById(paras[0]).getTitle()) +
                 "被举报";
     }
 
@@ -143,7 +147,7 @@ public class TitleGenerator {
 
         return MESSTYPE.REPORT.getType() +
                 "楼层" +
-                floorService.getFloorById(paras[0]).getContent() +
+                surroundInfo(floorService.getFloorById(paras[0]).getContent()) +
                 "被举报";
     }
 
@@ -154,7 +158,7 @@ public class TitleGenerator {
 
         return MESSTYPE.REPORT.getType() +
                 "评论" +
-                commentService.getCommentById(paras[0]).getContent() +
+                surroundInfo(commentService.getCommentById(paras[0]).getContent()) +
                 "被举报";
     }
 
@@ -165,16 +169,16 @@ public class TitleGenerator {
 
         return MESSTYPE.APPLY.getType() +
                 "帖子" +
-                postService.getPostById(paras[0]).getTitle() +
+                surroundInfo(postService.getPostById(paras[0]).getTitle()) +
                 "申请发布";
     }
 
     private static String pinApplyResultTitle(Message message) {
         return MESSTYPE.NOTICE.getType() +
                 "您的地图钉" +
-                pinService.getPinById(Integer.parseInt(
+                surroundInfo(pinService.getPinById(Integer.parseInt(
                         message.getPara()
-                )).getName() +
+                )).getName()) +
                 "申请" +
                 message.getPara().split(";")[1];
     }
@@ -186,7 +190,7 @@ public class TitleGenerator {
 
         return MESSTYPE.NOTICE.getType() +
                 "您对帖子" +
-                postService.getPostById(paras[0]).getTitle() +
+                surroundInfo(postService.getPostById(paras[0]).getTitle()) +
                 "的举报" +
                 (paras[1] == 1 ? "成功" : "失败");
     }
@@ -198,7 +202,7 @@ public class TitleGenerator {
 
         return MESSTYPE.NOTICE.getType() +
                 "您对楼层" +
-                floorService.getFloorById(paras[0]).getContent() +
+                surroundInfo(floorService.getFloorById(paras[0]).getContent()) +
                 "的举报" +
                 (paras[1] == 1 ? "成功" : "失败");
     }
@@ -210,7 +214,7 @@ public class TitleGenerator {
 
         return MESSTYPE.NOTICE.getType() +
                 "您对评论" +
-                commentService.getCommentById(paras[0]).getContent() +
+                surroundInfo(commentService.getCommentById(paras[0]).getContent()) +
                 "的举报" +
                 (paras[1] == 1 ? "成功" : "失败");
     }
@@ -218,7 +222,7 @@ public class TitleGenerator {
     private static String pinFeedbackSuccessTitle(Message message) {
         return MESSTYPE.FEEDBACK.getType() +
                 "地图钉" +
-                pinService.getPinById(Integer.parseInt(message.getPara())).getName() +
+                surroundInfo(pinService.getPinById(Integer.parseInt(message.getPara())).getName()) +
                 "反馈成功，请等待审核";
     }
 
@@ -229,7 +233,7 @@ public class TitleGenerator {
 
         return MESSTYPE.NOTICE.getType() +
                 "您对地图钉" +
-                pinService.getPinById(paras[0]).getName() +
+                surroundInfo(pinService.getPinById(paras[0]).getName()) +
                 "反馈已完成审核";
     }
 
@@ -239,7 +243,7 @@ public class TitleGenerator {
                 .toArray(Integer[]::new);
         return MESSTYPE.NOTICE.getType() +
                 "您的帖子" +
-                postService.getPostById(paras[0]).getTitle() +
+                surroundInfo(postService.getPostById(paras[0]).getTitle()) +
                 "被成功举报，" +
                 (paras[1] == 1 ? "请完成修改后提交申请" : "已被删除");
     }
@@ -247,14 +251,14 @@ public class TitleGenerator {
     private static String userFloorReportTitle(Message message) {
         return MESSTYPE.NOTICE.getType() +
                 "您的楼层" +
-                floorService.getFloorById(Integer.parseInt(message.getPara())).getContent() +
+                surroundInfo(floorService.getFloorById(Integer.parseInt(message.getPara())).getContent()) +
                 "被成功举报，已被删除";
     }
 
     private static String userCommentReportTitle(Message message) {
         return MESSTYPE.NOTICE.getType() +
                 "您的评论" +
-                commentService.getCommentById(Integer.parseInt(message.getPara())).getContent() +
+                surroundInfo(commentService.getCommentById(Integer.parseInt(message.getPara())).getContent()) +
                 "被成功举报，已被删除";
     }
 
@@ -264,9 +268,9 @@ public class TitleGenerator {
                 .toArray(Integer[]::new);
         StringBuilder sb = new StringBuilder(
                 MESSTYPE.NOTICE.getType() +
-                "您的帖子" +
-                postService.getPostById(paras[0]) +
-                "整改");
+                        "您的帖子" +
+                        surroundInfo(postService.getPostById(paras[0]).getTitle()) +
+                        "整改");
 
         if (paras[1] == 0) {
             sb.append("通过");
