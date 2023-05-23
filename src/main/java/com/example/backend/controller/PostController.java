@@ -62,7 +62,7 @@ public class PostController {
         for (int index = offset; index + cnt < posts.size() && cnt < limit; cnt++) {
             retPosts.add(posts.get(index + cnt));
         }
-        ListPosts listPosts = new ListPosts(retPosts, retPosts.size());
+        ListPosts listPosts = new ListPosts(retPosts, posts.size());
         return CommonResult.success(listPosts);
     }
 
@@ -84,7 +84,7 @@ public class PostController {
             retPosts.add(posts.get(index + cnt));
             cnt++;
         }
-        ListPosts listPosts = new ListPosts(retPosts, retPosts.size());
+        ListPosts listPosts = new ListPosts(retPosts, posts.size());
         return CommonResult.success(listPosts);
     }
 
