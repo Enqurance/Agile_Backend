@@ -12,8 +12,8 @@
 <!--        <appender-ref ref="DEBUG_FILE" />-->
 <!--    </root>-->
 
-    <root level="DEBUG">
-        <appender-ref ref="DEBUG_FILE" />
+    <root level="INFO">
+        <appender-ref ref="INFO_FILE" />
     </root>
 
     <!-- 1. 日志格式和颜色渲染 -->
