@@ -73,7 +73,7 @@ public class FloorController {
                 floor.setIs_auth(0);
             retFloors.add(floor);
         }
-        ListFloors listFloors = new ListFloors(retFloors, retFloors.size());
+        ListFloors listFloors = new ListFloors(retFloors, floors.size());
         return CommonResult.success(listFloors);
     }
 

@@ -63,7 +63,7 @@ public class CommentController {
                 comment.setIs_auth(0);
             retComments.add(comment);
         }
-        ListComments listComments = new ListComments(retComments, retComments.size());
+        ListComments listComments = new ListComments(retComments, comments.size());
         return CommonResult.success(listComments);
     }
 
