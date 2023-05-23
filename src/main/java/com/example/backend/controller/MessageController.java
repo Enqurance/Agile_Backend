@@ -62,9 +62,16 @@ public class MessageController {
     @PostMapping("/readMessageById")
     public CommonResult readMessage(@RequestBody JSONObject object) {
         int m_id = object.getInt("m_id");
-        int result = messageService.readMessage(m_id);
-        if (result != 1) {
-            return CommonResult.failed();
+        if (messageService.readMessage(m_id) != 1) {
+            throw new RuntimeException("删除消息失败");
+        }
+        return CommonResult.success(null);
+    }
+
+    @DeleteMapping("/deleteMessage/{m_id}")
+    public CommonResult deleteMessage(@PathVariable Integer m_id) {
+        if (messageService.deleteMessage(m_id) != 1) {
+            throw new RuntimeException("删除消息失败");
         }
         return CommonResult.success(null);
     }
