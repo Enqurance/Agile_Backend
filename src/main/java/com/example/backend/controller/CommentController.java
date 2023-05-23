@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.domain.Comment;
 import com.example.backend.domain.Floor;
 import com.example.backend.domain.Post;
+import com.example.backend.entity.ListComments;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
 import com.example.backend.service.FloorService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/forum/comment")
@@ -44,7 +46,8 @@ public class CommentController {
     }
 
     @RequestMapping("/getComments")
-    public CommonResult getComments(@RequestParam(value = "floor_id") Integer floor_id,
+    public CommonResult getComments(@RequestParam(name = "id") Integer id,
+                                    @RequestParam(value = "floor_id") Integer floor_id,
                                     @RequestParam(value = "offset") Integer offset,
                                     @RequestParam(value = "limit") Integer limit) {
         List<Comment> comments = commentService.getCommentsOrderTime(floor_id);
@@ -53,9 +56,15 @@ public class CommentController {
         int cnt = 0;
         List<Comment> retComments = new ArrayList<>();
         for (int index = offset; index + cnt < comments.size() && cnt < limit; cnt++) {
-            retComments.add(comments.get(index + cnt));
+            Comment comment = comments.get(index + cnt);
+            if (Objects.equals(comment.getCuserId(), id))
+                comment.setIs_auth(1);
+            else
+                comment.setIs_auth(0);
+            retComments.add(comment);
         }
-        return CommonResult.success(retComments);
+        ListComments listComments = new ListComments(retComments, retComments.size());
+        return CommonResult.success(listComments);
     }
 
     @DeleteMapping("/deleteComment/{comment_id}")

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -44,6 +45,10 @@ public class Floor implements Serializable {
      */
     private Integer postId;
 
+    private Integer is_auth;
+
+    private Comment comment_cases;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -73,6 +78,14 @@ public class Floor implements Serializable {
         return postId;
     }
 
+    public Integer getIs_auth() {
+        return is_auth;
+    }
+
+    public Comment getComment_cases() {
+        return comment_cases;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -95,6 +108,14 @@ public class Floor implements Serializable {
 
     public void setPostId(Integer postId) {
         this.postId = postId;
+    }
+
+    public void setIs_auth(Integer is_auth) {
+        this.is_auth = is_auth;
+    }
+
+    public void setComment_cases(Comment comment_cases) {
+        this.comment_cases = comment_cases;
     }
 
     @Override

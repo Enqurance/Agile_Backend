@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.domain.Post;
+import com.example.backend.entity.ListPosts;
 import com.example.backend.entity.PostDetail;
 import com.example.backend.entity.message.PostSearch;
 import com.example.backend.result.CommonResult;
@@ -61,7 +62,8 @@ public class PostController {
         for (int index = offset; index + cnt < posts.size() && cnt < limit; cnt++) {
             retPosts.add(posts.get(index + cnt));
         }
-        return CommonResult.success(retPosts);
+        ListPosts listPosts = new ListPosts(retPosts, retPosts.size());
+        return CommonResult.success(listPosts);
     }
 
     private void OrderPostByHot(List<Post> posts) {
@@ -82,7 +84,8 @@ public class PostController {
             retPosts.add(posts.get(index + cnt));
             cnt++;
         }
-        return CommonResult.success(retPosts);
+        ListPosts listPosts = new ListPosts(retPosts, retPosts.size());
+        return CommonResult.success(listPosts);
     }
 
     @RequestMapping("/searchPosts")

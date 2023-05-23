@@ -1,7 +1,9 @@
 package com.example.backend.controller;
 
+import com.example.backend.domain.Comment;
 import com.example.backend.domain.Floor;
 import com.example.backend.domain.Post;
+import com.example.backend.entity.ListFloors;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
 import com.example.backend.service.FloorService;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/forum/floor")
@@ -50,7 +53,8 @@ public class FloorController {
     }
 
     @RequestMapping("/getFloors")
-    public CommonResult getFloors(@RequestParam(value = "post_id") Integer post_id,
+    public CommonResult getFloors(@RequestParam(name = "id") Integer id,
+                                  @RequestParam(value = "post_id") Integer post_id,
                                   @RequestParam(value = "offset") Integer offset,
                                   @RequestParam(value = "limit") Integer limit) {
         List<Floor> floors = floorService.getFloorsOrderTime(post_id);
@@ -59,9 +63,18 @@ public class FloorController {
         int cnt = 0;
         List<Floor> retFloors = new ArrayList<>();
         for (int index = offset; index + cnt < floors.size() && cnt < limit; cnt++) {
-            retFloors.add(floors.get(index + cnt));
+            Floor floor = floors.get(index + cnt);
+            List<Comment> comments = commentService.getCommentsOrderTime(floor.getId());
+            if (comments.size() != 0)
+                floor.setComment_cases(comments.get(0));
+            if (Objects.equals(floor.getUserId(), id))
+                floor.setIs_auth(1);
+            else
+                floor.setIs_auth(0);
+            retFloors.add(floor);
         }
-        return CommonResult.success(retFloors);
+        ListFloors listFloors = new ListFloors(retFloors, retFloors.size());
+        return CommonResult.success(listFloors);
     }
 
     @DeleteMapping("/deleteFloor/{floor_id}")
