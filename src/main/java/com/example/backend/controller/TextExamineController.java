@@ -1,13 +1,14 @@
 package com.example.backend.controller;
 
 import cn.hutool.json.JSONObject;
-import com.example.backend.entity.message.PinApplyResultMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.ExamineService;
-import com.example.backend.utils.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
@@ -18,7 +19,7 @@ public class TextExamineController {
 
     @PostMapping("/getExamineReturn")
     public CommonResult getExamineReturn(@RequestBody JSONObject object) {
-        log.info(String.valueOf(object));
+        log.info(object.toString());
         return CommonResult.success("success");
     }
 }
