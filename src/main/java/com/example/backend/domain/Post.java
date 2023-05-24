@@ -69,6 +69,8 @@ public class Post implements Serializable {
      */
     private Integer userId;
 
+    private Integer is_auth;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -118,6 +120,10 @@ public class Post implements Serializable {
         return userId;
     }
 
+    public Integer getIs_auth() {
+        return is_auth;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -160,6 +166,10 @@ public class Post implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public void setIs_auth(Integer is_auth) {
+        this.is_auth = is_auth;
     }
 
     @Override

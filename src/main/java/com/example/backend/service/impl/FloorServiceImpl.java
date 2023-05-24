@@ -5,6 +5,7 @@ import com.example.backend.domain.Floor;
 import com.example.backend.entity.FORUMTYPE;
 import com.example.backend.mapper.FloorMapper;
 import com.example.backend.service.CommentService;
+import com.example.backend.service.ExamineService;
 import com.example.backend.service.FloorService;
 import com.example.backend.service.ReportService;
 import jakarta.annotation.Resource;
@@ -29,6 +30,9 @@ public class FloorServiceImpl extends ServiceImpl<FloorMapper, Floor>
     @Resource
     private ReportService reportService;
 
+    @Resource
+    private ExamineService examineService;
+
     @Override
     public int addFloor(Floor floor) {
         return floorMapper.insertFloor(floor);
@@ -41,6 +45,7 @@ public class FloorServiceImpl extends ServiceImpl<FloorMapper, Floor>
 
     @Override
     public int deleteFloorById(Integer id) {
+        examineService.delete("floor", id.toString());
         // 删除所属评论
         commentService.getAllCommentByFloorId(id).forEach(
                 comment -> commentService.deleteCommentById(comment.getId())

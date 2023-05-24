@@ -2,7 +2,6 @@ package com.example.backend.controller;
 
 import com.example.backend.domain.Post;
 import com.example.backend.entity.ListPosts;
-import com.example.backend.entity.PostDetail;
 import com.example.backend.entity.message.PostSearch;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
@@ -51,7 +50,8 @@ public class PostController {
             return CommonResult.failed("post数据插入失败");
         } else {
             Integer postId = postService.findMaxId();
-            examineService.upload("post", post.getContent(), postId.toString());
+            examineService.upload("post", post.getTitle() + ";"
+                    + post.getContent(), postId.toString());
             return CommonResult.success(postId);
         }
     }
@@ -116,8 +116,8 @@ public class PostController {
         int is_auth = 0;
         if (Objects.equals(id, post.getId()))
             is_auth = 1;
-        PostDetail postDetail = new PostDetail(post, is_auth);
-        return CommonResult.success(postDetail);
+        post.setIs_auth(is_auth);
+        return CommonResult.success(post);
     }
 
     @DeleteMapping("/deletePost/{post_id}")

@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Post;
 import com.example.backend.entity.FORUMTYPE;
 import com.example.backend.mapper.PostMapper;
-import com.example.backend.service.FloorService;
-import com.example.backend.service.PostService;
-import com.example.backend.service.ReportService;
-import com.example.backend.service.TexamineService;
+import com.example.backend.service.*;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +29,9 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
 
     @Resource
     private TexamineService texamineService;
+
+    @Resource
+    private ExamineService examineService;
 
     @Override
     public int addPost(Post post) {
@@ -61,6 +61,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
 
     @Override
     public int deletePostById(Integer id) {
+        examineService.delete("post", id.toString());
         // 删除所属楼层
         floorService.getFloorIdByPostId(id).forEach(
                 floor -> floorService.deleteFloorById(floor.getId())
