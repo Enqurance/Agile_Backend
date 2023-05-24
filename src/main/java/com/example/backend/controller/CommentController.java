@@ -52,7 +52,7 @@ public class CommentController {
     }
 
     @RequestMapping("/getComments")
-    public CommonResult getComments(@RequestParam(name = "id") Integer id,
+    public CommonResult getComments(@RequestParam(name = "id", required = false) Integer id,
                                     @RequestParam(value = "floor_id") Integer floor_id,
                                     @RequestParam(value = "offset") Integer offset,
                                     @RequestParam(value = "limit") Integer limit) {

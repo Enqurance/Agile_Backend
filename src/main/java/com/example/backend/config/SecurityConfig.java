@@ -31,7 +31,10 @@ public class SecurityConfig {
                 // 设置白名单，对应路径放行
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**", "/map/pin_search", "/map/getUserAllBriefPin",
-                        "/map/pin/getPinInfoById", "/map/pin/getAllPublicPin", "/forum/**", "/TextExamine/**")
+                        "/map/pin/getPinInfoById", "/map/pin/getAllPublicPin",
+                        "/TextExamine/**", "/forum/post/getPosts", "/forum/post/getPostsByTag",
+                        "/forum/post/searchPosts", "/forum/post/getPostDetail",
+                        "/forum/floor/getFloors" ,"/forum/comment/getComments")
                 .permitAll()
                 // 保护剩余请求
                 .anyRequest()
