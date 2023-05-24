@@ -6,6 +6,7 @@ import com.example.backend.entity.PostDetail;
 import com.example.backend.entity.message.PostSearch;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
+import com.example.backend.service.ExamineService;
 import com.example.backend.service.FloorService;
 import com.example.backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/forum/post")
 public class PostController {
+    @Autowired
+    ExamineService examineService;
     @Autowired
     PostService postService;
     @Autowired
@@ -44,10 +47,12 @@ public class PostController {
         post.setCreateTime(new Date());
         post.setUserId(id);
         int ret = postService.addPost(post);
-        if (ret == 0)
+        if (ret == 0) {
             return CommonResult.failed("post数据插入失败");
-        else
+        } else {
+            examineService.upload("post", post.getContent(), post.getId().toString());
             return CommonResult.success(postService.findMaxId());
+        }
     }
 
     @RequestMapping("/getPosts")

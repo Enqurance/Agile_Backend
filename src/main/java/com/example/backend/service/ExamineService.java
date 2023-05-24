@@ -10,5 +10,7 @@ import com.google.gson.JsonObject;
 * @createDate 2023-05-23 21:33:18
 */
 public interface ExamineService extends IService<Examine> {
-    int examineText(JsonObject jsonObject);
+    void upload(String prefix, String context, String id);
+
+    void delete(String prefix, String id);
 }
