@@ -33,7 +33,7 @@ public class TextExamineController {
         if (result.equals("1")) {
             String url = data.getStr("url");
             String[] prefix = url.replace("https://agile-pic-1313874439.cos.ap-beijing.myqcloud.com/forumText/",
-                    "").replace(".txt", "").split("//");
+                    "").replace(".txt", "").split("/");
             examineService.delete(prefix[0], prefix[1]);
             switch (prefix[0]) {
                 case "post" -> postService.deletePostById(Integer.valueOf(prefix[1]));

@@ -5,6 +5,7 @@ import com.example.backend.domain.Comment;
 import com.example.backend.entity.FORUMTYPE;
 import com.example.backend.mapper.CommentMapper;
 import com.example.backend.service.CommentService;
+import com.example.backend.service.ExamineService;
 import com.example.backend.service.ReportService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     @Resource
     CommentMapper commentMapper;
 
-    @Autowired
+    @Resource
     private ReportService reportService;
+
+    @Resource
+    private ExamineService examineService;
 
     @Override
     public int addComment(Comment comment) {
@@ -38,6 +42,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
 
     @Override
     public int deleteCommentById(Integer id) {
+        examineService.delete("comment", id.toString());
         reportService.finishReport(id, FORUMTYPE.COMMENT);
         return commentMapper.deleteById(id);
     }
