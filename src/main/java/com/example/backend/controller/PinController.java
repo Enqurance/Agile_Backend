@@ -148,6 +148,24 @@ public class PinController {
         return CommonResult.success(briefInfos);
     }
 
+    @GetMapping("/pin/getAllPublicPin")
+    public CommonResult getAllPublicPin() {
+        PublicPins publicPins = new PublicPins();
+        for (int type = 1; type <= 7; type++) {
+            List<Pin> pins = pinService.getAllPublicPin(type);
+            switch (type) {
+                case 1 -> publicPins.setTag1(pins);
+                case 2 -> publicPins.setTag2(pins);
+                case 3 -> publicPins.setTag3(pins);
+                case 4 -> publicPins.setTag4(pins);
+                case 5 -> publicPins.setTag5(pins);
+                case 6 -> publicPins.setTag6(pins);
+                case 7 -> publicPins.setTag7(pins);
+            }
+        }
+        return CommonResult.success(publicPins);
+    }
+
     @PreAuthorize("hasAuthority('USER')")
     @RequestMapping("/switchPos")
     public CommonResult switchPos(@RequestBody Pin pin) {

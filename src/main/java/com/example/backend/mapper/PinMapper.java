@@ -35,6 +35,8 @@ public interface PinMapper extends BaseMapper<Pin> {
     int switchPos(Integer pinId, String lnglat);
 
     List<Pin> getMyAllPin(Integer id);
+
+    List<Pin> getPublicPinByType(Integer type);
 }
 
 

@@ -45,8 +45,9 @@ public class CommentController {
         if (ret == 0) {
             return CommonResult.failed("comment数据插入失败");
         } else {
-            examineService.upload("comment", comment.getContent(), comment.getId().toString());
-            return CommonResult.success(commentService.findMaxId());
+            Integer commentId = commentService.findMaxId();
+            examineService.upload("comment", comment.getContent(), commentId.toString());
+            return CommonResult.success(commentId);
         }
     }
 

@@ -74,6 +74,11 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
     public List<Pin> getMyAllPin(Integer id) {
         return pinMapper.getMyAllPin(id);
     }
+
+    @Override
+    public List<Pin> getAllPublicPin(Integer type) {
+        return pinMapper.getPublicPinByType(type);
+    }
 }
 
 

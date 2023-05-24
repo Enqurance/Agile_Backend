@@ -50,8 +50,9 @@ public class PostController {
         if (ret == 0) {
             return CommonResult.failed("post数据插入失败");
         } else {
-            examineService.upload("post", post.getContent(), post.getId().toString());
-            return CommonResult.success(postService.findMaxId());
+            Integer postId = postService.findMaxId();
+            examineService.upload("post", post.getContent(), postId.toString());
+            return CommonResult.success(postId);
         }
     }
 

@@ -52,8 +52,9 @@ public class FloorController {
         if (ret == 0) {
             return CommonResult.failed("floor数据插入失败");
         } else {
-            examineService.upload("floor", floor.getContent(), floor.getId().toString());
-            return CommonResult.success(floorService.findMaxId());
+            Integer floorId = floorService.findMaxId();
+            examineService.upload("floor", floor.getContent(), floorId.toString());
+            return CommonResult.success(floorId);
         }
     }
 
