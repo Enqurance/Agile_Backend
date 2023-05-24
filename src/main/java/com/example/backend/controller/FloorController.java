@@ -59,7 +59,7 @@ public class FloorController {
     }
 
     @RequestMapping("/getFloors")
-    public CommonResult getFloors(@RequestParam(name = "id") Integer id,
+    public CommonResult getFloors(@RequestParam(name = "id", required = false) Integer id,
                                   @RequestParam(value = "post_id") Integer post_id,
                                   @RequestParam(value = "offset") Integer offset,
                                   @RequestParam(value = "limit") Integer limit) {

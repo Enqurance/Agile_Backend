@@ -108,13 +108,13 @@ public class PostController {
     }
 
     @RequestMapping("/getPostDetail")
-    public CommonResult getPostDetail(@RequestParam(name = "id") Integer id,
+    public CommonResult getPostDetail(@RequestParam(name = "id", required = false) Integer id,
                                       @RequestParam(value = "post_id") Integer post_id) {
         Post post = postService.getPostById(post_id);
         if (post == null)
             return CommonResult.failed("不存在对应id的post");
         int is_auth = 0;
-        if (Objects.equals(id, post.getId()))
+        if (Objects.equals(id, post.getUserId()))
             is_auth = 1;
         post.setIs_auth(is_auth);
         return CommonResult.success(post);
