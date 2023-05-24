@@ -6,6 +6,7 @@ import com.example.backend.domain.Post;
 import com.example.backend.entity.ListComments;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
+import com.example.backend.service.ExamineService;
 import com.example.backend.service.FloorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,8 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/forum/comment")
 public class CommentController {
+    @Autowired
+    ExamineService examineService;
     @Autowired
     FloorService floorService;
     @Autowired
@@ -39,10 +42,12 @@ public class CommentController {
         comment.setCreateTime(new Date());
 
         int ret = commentService.addComment(comment);
-        if (ret == 0)
+        if (ret == 0) {
             return CommonResult.failed("comment数据插入失败");
-        else
+        } else {
+            examineService.upload("comment", comment.getContent(), comment.getId().toString());
             return CommonResult.success(commentService.findMaxId());
+        }
     }
 
     @RequestMapping("/getComments")

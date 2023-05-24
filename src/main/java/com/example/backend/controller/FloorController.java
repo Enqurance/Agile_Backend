@@ -6,6 +6,7 @@ import com.example.backend.domain.Post;
 import com.example.backend.entity.ListFloors;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
+import com.example.backend.service.ExamineService;
 import com.example.backend.service.FloorService;
 import com.example.backend.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/forum/floor")
 public class FloorController {
+    @Autowired
+    ExamineService examineService;
     @Autowired
     PostService postService;
     @Autowired
@@ -46,10 +49,12 @@ public class FloorController {
         floor.setLayers(layers);
 
         int ret = floorService.addFloor(floor);
-        if (ret == 0)
+        if (ret == 0) {
             return CommonResult.failed("floor数据插入失败");
-        else
+        } else {
+            examineService.upload("floor", floor.getContent(), floor.getId().toString());
             return CommonResult.success(floorService.findMaxId());
+        }
     }
 
     @RequestMapping("/getFloors")
