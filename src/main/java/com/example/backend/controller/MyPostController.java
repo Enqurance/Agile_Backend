@@ -3,9 +3,11 @@ package com.example.backend.controller;
 import cn.hutool.json.JSONObject;
 import com.example.backend.domain.Post;
 import com.example.backend.entity.MyPost;
+import com.example.backend.entity.message.ExaminePostMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.PostService;
 import com.example.backend.service.TexamineService;
+import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +30,7 @@ public class MyPostController {
             return CommonResult.failed("此用户没有创建帖子");
         List<MyPost> myPosts = new ArrayList<>();
         for (Post post : posts) {
-            boolean state = false;
-            if (post.getVisibility() == 1)
-                state = true;
+            boolean state = post.getVisibility() == 1;
             MyPost myPost = new MyPost(post.getId(), post.getTitle(), post.getContent(), post.getFloorNum(), state);
             myPosts.add(myPost);
         }
@@ -46,6 +46,9 @@ public class MyPostController {
         if (texamineService.rectify(post_id, title, content) != 1) {
             throw new RuntimeException("整改帖子失败，请检查服务器");
         }
+
+        // 给管理员发送整改帖子任务消息
+        MessageUtil.newMessage(new ExaminePostMessage(texamineService.getTaskByPostId(post_id).getId()));
 
         return CommonResult.success(null);
     }

@@ -1,4 +1,4 @@
-package com.example.backend.entity.message;
+package com.example.backend.entity;
 
 import lombok.Data;
 

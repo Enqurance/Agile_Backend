@@ -3,7 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.domain.Post;
 import com.example.backend.entity.ListPosts;
 import com.example.backend.entity.message.PostReleaseSuccessMessage;
-import com.example.backend.entity.message.PostSearch;
+import com.example.backend.entity.PostSearch;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
 import com.example.backend.service.ExamineService;
