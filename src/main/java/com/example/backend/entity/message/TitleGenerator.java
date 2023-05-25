@@ -44,9 +44,10 @@ public class TitleGenerator {
             case 14 -> title = pinFeedbackSuccessTitle(message);
             case 15 -> title = pinFeedbackResultTitle(message);
             case 16 -> title = userPostReportTitle(message);
-            case 17 -> title = userFloorReportTitle(message);
-            case 18 -> title = userCommentReportTitle(message);
-            case 19 -> title = rectifyResultMessage(message);
+            case 17 -> title = userFloorReportTitle();
+            case 18 -> title = userCommentReportTitle();
+            case 19 -> title = rectifyResultTitle(message);
+            case 20 -> title = violationMessageTitle(message);
             default -> title = "错误的消息种类";
         }
         return title;
@@ -328,17 +329,17 @@ public class TitleGenerator {
 
     }
 
-    private static String userFloorReportTitle(Message message) {
+    private static String userFloorReportTitle() {
         return MESSTYPE.NOTICE.getType() +
                 "您的楼层被成功举报，已被删除";
     }
 
-    private static String userCommentReportTitle(Message message) {
+    private static String userCommentReportTitle() {
         return MESSTYPE.NOTICE.getType() +
                 "您的评论被成功举报，已被删除";
     }
 
-    private static String rectifyResultMessage(Message message) {
+    private static String rectifyResultTitle(Message message) {
         Integer[] paras = Arrays.stream(message.getPara().split(";"))
                 .map(Integer::parseInt)
                 .toArray(Integer[]::new);
@@ -365,6 +366,12 @@ public class TitleGenerator {
         } catch (Exception e) {
             return "您整改的帖子已删除";
         }
+    }
 
+    private static String violationMessageTitle(Message message) {
+        return MESSTYPE.WARING.getType() +
+                "您发布的" +
+                message.getPara() +
+                "疑似存在违规内容，已删除";
     }
 }

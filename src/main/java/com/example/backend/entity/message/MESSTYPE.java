@@ -10,7 +10,8 @@ public enum MESSTYPE {
     NOTICE("通知"),
     APPLY("申请"),
     REPORT("举报"),
-    FEEDBACK("反馈");
+    FEEDBACK("反馈"),
+    WARING("警告");
 
     private final String type;
 

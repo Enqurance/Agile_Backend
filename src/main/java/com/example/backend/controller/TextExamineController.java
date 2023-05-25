@@ -1,11 +1,13 @@
 package com.example.backend.controller;
 
 import cn.hutool.json.JSONObject;
+import com.example.backend.entity.message.ViolationMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
 import com.example.backend.service.ExamineService;
 import com.example.backend.service.FloorService;
 import com.example.backend.service.PostService;
+import com.example.backend.utils.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,9 +38,27 @@ public class TextExamineController {
                     "").replace(".txt", "").split("/");
             examineService.delete(prefix[0], prefix[1]);
             switch (prefix[0]) {
-                case "post" -> postService.deletePostById(Integer.valueOf(prefix[1]));
-                case "floor" -> floorService.deleteFloorById(Integer.valueOf(prefix[1]));
-                case "comment" -> commentService.deleteCommentById(Integer.valueOf(prefix[1]));
+                case "post" -> {
+                    MessageUtil.newMessage(new ViolationMessage(
+                            "帖子",
+                            postService.getPostById(Integer.valueOf(prefix[1])).getUserId()
+                    ));
+                    postService.deletePostById(Integer.valueOf(prefix[1]));
+                }
+                case "floor" -> {
+                    MessageUtil.newMessage(new ViolationMessage(
+                            "楼层",
+                            floorService.getFloorById(Integer.valueOf(prefix[1])).getUserId()
+                    ));
+                    floorService.deleteFloorById(Integer.valueOf(prefix[1]));
+                }
+                case "comment" -> {
+                    MessageUtil.newMessage(new ViolationMessage(
+                            "评论",
+                            commentService.getCommentById(Integer.valueOf(prefix[1])).getCuserId()
+                    ));
+                    commentService.deleteCommentById(Integer.valueOf(prefix[1]));
+                }
             }
             return CommonResult.success("id = " + prefix[1] + "的" + prefix[0] + "包含敏感信息");
         }
