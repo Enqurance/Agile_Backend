@@ -36,6 +36,8 @@ public interface PostMapper extends BaseMapper<Post> {
     List<Post> getMyAllPost(Integer id);
 
     int setPostThumb(Integer postId, Integer thumbNum);
+
+    int addVisitById(@Param("id") Integer id);
 }
 
 

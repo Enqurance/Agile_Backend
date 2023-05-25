@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.domain.Post;
 import com.example.backend.entity.ListPosts;
+import com.example.backend.entity.message.LikeMessage;
 import com.example.backend.entity.message.PostReleaseSuccessMessage;
 import com.example.backend.entity.PostSearch;
 import com.example.backend.result.CommonResult;
@@ -10,6 +11,7 @@ import com.example.backend.service.ExamineService;
 import com.example.backend.service.FloorService;
 import com.example.backend.service.PostService;
 import com.example.backend.utils.MessageUtil;
+import com.example.backend.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,9 @@ public class PostController {
     FloorService floorService;
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @RequestMapping("/addPost")
     public CommonResult addPost(@RequestParam(name = "id") Integer id,
@@ -122,6 +127,15 @@ public class PostController {
         if (Objects.equals(id, post.getUserId()))
             is_auth = 1;
         post.setIs_auth(is_auth);
+
+        // 每个用户对每个帖子的访问量30s刷新一次，redis里键值格式为"u_id;post_id"
+        if (id != null) {
+            if (redisUtil.get("visit: " + id + ";" + post_id) == null) {
+                redisUtil.set("visit: " + id + ";" + post_id, "1", 30);
+                postService.addVisit(post_id);
+            }
+        }
+
         return CommonResult.success(post);
     }
 
@@ -159,6 +173,8 @@ public class PostController {
         if (ret == 0) {
             return CommonResult.success("用户取消点赞帖子");
         } else {
+            MessageUtil.newMessage(new LikeMessage(post_id, id, postService.getPostById(post_id).getUserId()));
+
             return CommonResult.success("用户点赞帖子成功");
         }
     }
