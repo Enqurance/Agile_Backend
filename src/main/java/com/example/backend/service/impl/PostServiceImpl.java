@@ -120,6 +120,11 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
             return 0;
         }
     }
+
+    @Override
+    public int addVisit(int post_id) {
+        return postMapper.addVisitById(post_id);
+    }
 }
 
 

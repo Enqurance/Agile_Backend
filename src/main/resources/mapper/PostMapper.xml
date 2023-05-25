@@ -90,4 +90,9 @@
         select * from post
         where user_id = #{id}
     </select>
+    <update id="addVisitById">
+        update post
+        set post_visit = post_visit + 1
+        where post_id = #{id,jdbcType=NUMERIC}
+    </update>
 </mapper>

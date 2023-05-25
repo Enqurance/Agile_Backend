@@ -34,4 +34,6 @@ public interface PostService extends IService<Post> {
     int setPostThumb(Integer post_id, Integer thumbNum);
 
     int addLike(Integer user_id, Integer post_id);
+
+    int addVisit(int post_id);
 }
