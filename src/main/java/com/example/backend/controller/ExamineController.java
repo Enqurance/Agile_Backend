@@ -101,15 +101,16 @@ public class ExamineController {
         List<Integer> feedback_id_list = object.getJSONArray("feedback_id_list").toList(Integer.class);
         String info = object.getStr("info");
 
-        if (tfeedbackService.finishFeedbacks(feedback_id_list, info) != 1) {
-            throw new RuntimeException("完成反馈失败");
-        }
-
         // 给发起反馈的用户发送消息
         for (Integer feedback_id : feedback_id_list) {
             MessageUtil.newMessage(new PinFeedbackResultMessage(info, p_id,
                     tfeedbackService.findFeedbackById(feedback_id).getUId()));
         }
+
+        if (tfeedbackService.finishFeedbacks(feedback_id_list, info) != 1) {
+            throw new RuntimeException("完成反馈失败");
+        }
+
         return CommonResult.success(null);
     }
 }
