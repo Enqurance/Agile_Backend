@@ -50,7 +50,7 @@ public class CommentController {
             examineService.upload("comment", comment.getContent(), commentId.toString());
 
             MessageUtil.newMessage(new ReplyMessage(content, floor_id, id,
-                    floorService.getFloorById(floor_id).getUserId()));
+                    rcomment_id == 0 ? floorService.getFloorById(floor_id).getUserId() : rcomment_id));
 
             return CommonResult.success(commentId);
         }
