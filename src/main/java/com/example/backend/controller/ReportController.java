@@ -91,8 +91,10 @@ public class ReportController {
         }
 
         // 给帖子作者发送帖子待整改消息
-        MessageUtil.newMessage(new UserPostReportMessage(o_id, result, basis,
-                postService.getPostById(o_id).getUserId()));
+        if (result != 0) {
+            MessageUtil.newMessage(new UserPostReportMessage(o_id, result, basis,
+                    postService.getPostById(o_id).getUserId()));
+        }
 
         // 给所有举报者发送举报结果消息
         for (Integer u_id : u_ids) {
@@ -193,6 +195,8 @@ public class ReportController {
 
         reportService.newReport(reason, post_id, FORUMTYPE.POST, id);
 
+        MessageUtil.newMessage(new PostReportMessage(reason, post_id, id));
+
         return CommonResult.success(null);
     }
 
@@ -204,6 +208,12 @@ public class ReportController {
         int type = jsonObject.getInt("type");
 
         reportService.newReport(reason, o_id, type == 0 ? FORUMTYPE.FLOOR : FORUMTYPE.COMMENT, id);
+
+        if (type == 0) {
+            MessageUtil.newMessage(new FloorReportMessage(reason, o_id, id));
+        } else {
+            MessageUtil.newMessage(new CommentReportMessage(reason, o_id, id));
+        }
 
         return CommonResult.success(null);
     }
