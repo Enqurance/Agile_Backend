@@ -151,4 +151,15 @@ public class PostController {
         else
             return CommonResult.success("对应post更新成功");
     }
+
+    @GetMapping("/addLike/{post_id}")
+    public CommonResult addLike(@RequestParam(required = false, name = "id") Integer id,
+                                @PathVariable(value = "post_id") Integer post_id) {
+        int ret = postService.addLike(id, post_id);
+        if (ret == 0) {
+            return CommonResult.success("用户取消点赞帖子");
+        } else {
+            return CommonResult.success("用户点赞帖子成功");
+        }
+    }
 }

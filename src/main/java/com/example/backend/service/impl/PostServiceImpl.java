@@ -2,6 +2,7 @@ package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Post;
+import com.example.backend.domain.Userthumb;
 import com.example.backend.entity.FORUMTYPE;
 import com.example.backend.mapper.PostMapper;
 import com.example.backend.service.*;
@@ -32,6 +33,9 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
 
     @Resource
     private ExamineService examineService;
+
+    @Resource
+    private UserthumbService userthumbService;
 
     @Override
     public int addPost(Post post) {
@@ -75,8 +79,8 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
     }
 
     @Override
-    public int setPostVisById(Integer id, Integer visibility) {
-        return postMapper.setPostVisById(id, visibility);
+    public void setPostVisById(Integer id, Integer visibility) {
+        postMapper.setPostVisById(id, visibility);
     }
 
     @Override
@@ -92,6 +96,29 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
     @Override
     public List<Post> getMyAllPost(Integer id) {
         return postMapper.getMyAllPost(id);
+    }
+
+    @Override
+    public int setPostThumb(Integer post_id, Integer thumbNum) {
+        return postMapper.setPostThumb(post_id, thumbNum);
+    }
+
+    @Override
+    public int addLike(Integer user_id, Integer post_id) {
+        Userthumb userthumb = userthumbService.getThumbById(user_id, post_id);
+        Post post = this.getPostById(post_id);
+        if (userthumb == null) {
+            Userthumb userthumbNew = new Userthumb();
+            userthumbNew.setUserId(user_id);
+            userthumbNew.setPostId(post_id);
+            userthumbService.insertThumb(userthumbNew);
+            this.setPostThumb(post_id, post.getThumbsUp() + 1);
+            return 1;
+        } else {
+            userthumbService.deleteThumbById(user_id, post_id);
+            this.setPostThumb(post_id, post.getThumbsUp() - 1);
+            return 0;
+        }
     }
 }
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.UserthumbMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Userthumb">
+            <id property="id" column="thumb_id" jdbcType="INTEGER"/>
+            <result property="postId" column="post_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        thumb_id,post_id,user_id
+    </sql>
+    <insert id="insertThumb">
+        insert into userthumb
+        (thumb_id,post_id,user_id)
+        values (#{id,jdbcType=NUMERIC}, #{postId,jdbcType=NUMERIC}, #{userId,jdbcType=NUMERIC})
+    </insert>
+    <delete id="deleteThumbById">
+        delete from userthumb where
+        user_id = #{userId,jdbcType=NUMERIC} and post_id = #{postId,jdbcType=NUMERIC}
+    </delete>
+    <select id="getThumbById" resultType="com.example.backend.domain.Userthumb" resultMap="BaseResultMap">
+        select * from userthumb
+        where user_id = #{userId,jdbcType=NUMERIC}
+        and post_id = #{postId,jdbcType=NUMERIC}
+    </select>
+
+</mapper>

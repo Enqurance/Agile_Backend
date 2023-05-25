@@ -45,6 +45,11 @@
         set post_floor_num=#{layers}
         where post_id = #{postId}
     </update>
+    <update id="setPostThumb">
+        update post
+        set post_thumbs_up=#{thumbNum}
+        where post_id = #{postId}
+    </update>
     <select id="getPostById" resultType="com.example.backend.domain.Post" resultMap="BaseResultMap">
         select * from post where 1 = 0
         <if test='id > 0'>
