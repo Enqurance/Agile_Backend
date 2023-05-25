@@ -34,6 +34,8 @@ public interface PostMapper extends BaseMapper<Post> {
     List<Post> getUserExaminePosts(@Param("u_id") int u_id);
 
     List<Post> getMyAllPost(Integer id);
+
+    int setPostThumb(Integer postId, Integer thumbNum);
 }
 
 

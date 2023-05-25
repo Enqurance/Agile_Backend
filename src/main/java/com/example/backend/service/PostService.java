@@ -2,7 +2,6 @@ package com.example.backend.service;
 
 import com.example.backend.domain.Post;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -24,11 +23,15 @@ public interface PostService extends IService<Post> {
 
     int deletePostById(Integer id);
 
-    int setPostVisById(Integer id, Integer visibility);
+    void setPostVisById(Integer id, Integer visibility);
 
     int findMaxId();
 
     int setFloorNum(Integer postId, int layers);
 
     List<Post> getMyAllPost(Integer id);
+
+    int setPostThumb(Integer post_id, Integer thumbNum);
+
+    int addLike(Integer user_id, Integer post_id);
 }
