@@ -2,12 +2,13 @@ package com.example.backend.controller;
 
 import com.example.backend.domain.Comment;
 import com.example.backend.domain.Floor;
-import com.example.backend.domain.Post;
 import com.example.backend.entity.ListComments;
+import com.example.backend.entity.message.ReplyMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
 import com.example.backend.service.ExamineService;
 import com.example.backend.service.FloorService;
+import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +48,10 @@ public class CommentController {
         } else {
             Integer commentId = commentService.findMaxId();
             examineService.upload("comment", comment.getContent(), commentId.toString());
+
+            MessageUtil.newMessage(new ReplyMessage(content, floor_id, id,
+                    floorService.getFloorById(floor_id).getUserId()));
+
             return CommonResult.success(commentId);
         }
     }

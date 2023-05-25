@@ -4,11 +4,13 @@ import com.example.backend.domain.Comment;
 import com.example.backend.domain.Floor;
 import com.example.backend.domain.Post;
 import com.example.backend.entity.ListFloors;
+import com.example.backend.entity.message.ReplyMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
 import com.example.backend.service.ExamineService;
 import com.example.backend.service.FloorService;
 import com.example.backend.service.PostService;
+import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,8 +54,13 @@ public class FloorController {
         if (ret == 0) {
             return CommonResult.failed("floor数据插入失败");
         } else {
-            Integer floorId = floorService.findMaxId();
-            examineService.upload("floor", floor.getContent(), floorId.toString());
+            int floorId = floorService.findMaxId();
+            examineService.upload("floor", floor.getContent(), Integer.toString(floorId));
+
+            // 给帖子用户发送被回复消息
+            MessageUtil.newMessage(new ReplyMessage(content, floorId, id,
+                    postService.getPostById(post_id).getUserId()));
+
             return CommonResult.success(floorId);
         }
     }

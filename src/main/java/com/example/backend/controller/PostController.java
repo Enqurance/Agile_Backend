@@ -2,12 +2,14 @@ package com.example.backend.controller;
 
 import com.example.backend.domain.Post;
 import com.example.backend.entity.ListPosts;
+import com.example.backend.entity.message.PostReleaseSuccessMessage;
 import com.example.backend.entity.message.PostSearch;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
 import com.example.backend.service.ExamineService;
 import com.example.backend.service.FloorService;
 import com.example.backend.service.PostService;
+import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,9 +51,12 @@ public class PostController {
         if (ret == 0) {
             return CommonResult.failed("post数据插入失败");
         } else {
-            Integer postId = postService.findMaxId();
+            int postId = postService.findMaxId();
             examineService.upload("post", post.getTitle() + ";"
-                    + post.getContent(), postId.toString());
+                    + post.getContent(), Integer.toString(postId));
+
+            MessageUtil.newMessage(new PostReleaseSuccessMessage(postId, id));
+
             return CommonResult.success(postId);
         }
     }
