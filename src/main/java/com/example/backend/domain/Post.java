@@ -62,6 +62,8 @@ public class Post implements Serializable {
      */
     private String pinIdStr;
 
+    private String pinNameStr;
+
     private Date createTime;
 
     /**
@@ -70,6 +72,8 @@ public class Post implements Serializable {
     private Integer userId;
 
     private Integer is_auth;
+
+    private Integer has_thumb;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -124,6 +128,14 @@ public class Post implements Serializable {
         return is_auth;
     }
 
+    public String getPinNameStr() {
+        return pinNameStr;
+    }
+
+    public Integer getHas_thumb() {
+        return has_thumb;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -170,6 +182,14 @@ public class Post implements Serializable {
 
     public void setIs_auth(Integer is_auth) {
         this.is_auth = is_auth;
+    }
+
+    public void setPinNameStr(String pinNameStr) {
+        this.pinNameStr = pinNameStr;
+    }
+
+    public void setHas_thumb(Integer has_thumb) {
+        this.has_thumb = has_thumb;
     }
 
     @Override
