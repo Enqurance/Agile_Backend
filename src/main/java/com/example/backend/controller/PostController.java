@@ -1,15 +1,13 @@
 package com.example.backend.controller;
 
 import com.example.backend.domain.Post;
+import com.example.backend.domain.Userthumb;
 import com.example.backend.entity.ListPosts;
 import com.example.backend.entity.message.LikeMessage;
 import com.example.backend.entity.message.PostReleaseSuccessMessage;
 import com.example.backend.entity.PostSearch;
 import com.example.backend.result.CommonResult;
-import com.example.backend.service.CommentService;
-import com.example.backend.service.ExamineService;
-import com.example.backend.service.FloorService;
-import com.example.backend.service.PostService;
+import com.example.backend.service.*;
 import com.example.backend.utils.MessageUtil;
 import com.example.backend.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +29,10 @@ public class PostController {
     FloorService floorService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    UserthumbService userthumbService;
+    @Autowired
+    PinService pinService;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -127,6 +129,23 @@ public class PostController {
         if (Objects.equals(id, post.getUserId()))
             is_auth = 1;
         post.setIs_auth(is_auth);
+        int has_thumb = 0;
+        Userthumb userthumb = userthumbService.getThumbById(id, post_id);
+        if (userthumb != null)
+            has_thumb = 1;
+        post.setHas_thumb(has_thumb);
+        String[] pinIds = post.getPinIdStr().split(";");
+        StringBuilder sb = new StringBuilder();
+        for (String pinId : pinIds) {
+            if (pinId != null && !pinId.equals("")) {
+                String name = pinService.getPinById(Integer.valueOf(pinId)).getName();
+                sb.append(name).append(";");
+            }
+        }
+        String pinNameStr = "";
+        if (sb.length() != 0)
+            pinNameStr = sb.substring(0, sb.length() - 1);
+        post.setPinNameStr(pinNameStr);
 
         // 每个用户对每个帖子的访问量30s刷新一次，redis里键值格式为"u_id;post_id"
         if (id != null) {
