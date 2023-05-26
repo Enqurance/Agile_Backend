@@ -26,9 +26,9 @@ public class MyFloorController {
     @GetMapping("/getMyAllFloor")
     public CommonResult getMyAllFloor(@RequestParam(name = "id") Integer id) {
         List<Floor> floors = floorService.getMyAllFloor(id);
-        if (floors.size() == 0)
-            return CommonResult.success("此用户没有创建楼层");
         List<MyFloor> myFloors = new ArrayList<>();
+        if (floors.size() == 0)
+            return CommonResult.success(myFloors);
         for (Floor floor : floors) {
             boolean state = false;
             Post post = postService.getPostById(floor.getPostId());

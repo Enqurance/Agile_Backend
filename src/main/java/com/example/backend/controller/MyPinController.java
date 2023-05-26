@@ -20,8 +20,6 @@ public class MyPinController {
     @GetMapping("/getMyAllPin")
     public CommonResult getMyAllPin(@RequestParam(name = "id") Integer id) {
         List<Pin> pins = pinService.getMyAllPin(id);
-        if (pins.size() == 0)
-            return CommonResult.success("此用户没有创建私有pin");
         return CommonResult.success(pins);
     }
 }

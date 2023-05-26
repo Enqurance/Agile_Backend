@@ -31,9 +31,9 @@ public class MyCommentController {
     @GetMapping("/getMyAllComment")
     public CommonResult getMyAllComment(@RequestParam(name = "id") Integer id) {
         List<Comment> comments = commentService.getMyAllComment(id);
-        if (comments.size() == 0)
-            return CommonResult.success("此用户没有创建评论");
         List<MyComment> myComments = new ArrayList<>();
+        if (comments.size() == 0)
+            return CommonResult.success(myComments);
         for (Comment comment : comments) {
             boolean state = false;
             Floor floor = floorService.getFloorById(comment.getFloorId());
