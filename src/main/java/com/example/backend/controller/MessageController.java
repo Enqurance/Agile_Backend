@@ -38,9 +38,15 @@ public class MessageController {
         } else {
             search_id = id;
         }
-        messageService.getAllReceive(search_id).forEach(message -> messages.add(
-                FrontendMessage.trans2FrontendMessage(message)
-        ));
+        messageService.getAllReceive(search_id).forEach(message -> {
+            FrontendMessage frontendMessage;
+            try {
+                frontendMessage = FrontendMessage.trans2FrontendMessage(message);
+            } catch (Exception e) {
+                frontendMessage = new FrontendMessage(message);
+            }
+            messages.add(frontendMessage);
+        });
         return CommonResult.success(messages);
     }
 

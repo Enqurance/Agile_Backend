@@ -4,6 +4,7 @@ import com.example.backend.domain.Message;
 import com.example.backend.entity.message.TitleGenerator;
 import com.example.backend.service.CommentService;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import java.util.Arrays;
  */
 @Data
 @Component
+@NoArgsConstructor
 public class FrontendMessage {
     private int id;
 
@@ -38,6 +40,16 @@ public class FrontendMessage {
     private static CommentService commentService;
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    // 消息存在异常时调用该构造方法
+    public FrontendMessage(Message message) {
+        this.id = message.getId();
+        this.title = TitleGenerator.generateTitle(message);
+        this.content = message.getContent();
+        this.time = sdf.format(message.getTime());
+        this.read = message.getStatus() == 1;
+        // 没有任何参数
+    }
 
     public static FrontendMessage trans2FrontendMessage(Message message) {
         FrontendMessage frontendMessage = new FrontendMessage();
