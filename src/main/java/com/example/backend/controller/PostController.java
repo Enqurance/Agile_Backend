@@ -197,4 +197,22 @@ public class PostController {
             return CommonResult.success("用户点赞帖子成功");
         }
     }
+
+    @RequestMapping("/getPostsByPinId")
+    public CommonResult getPostsByPinId(@RequestParam(value = "pin_id") Integer pin_id) {
+        List<Post> posts = postService.getPostsOrderTime(-1);
+        List<Post> retPosts = new ArrayList<>();
+        for (Post post : posts) {
+            String[] ids = post.getPinIdStr().split(";");
+            for (String id : ids) {
+                if (Objects.equals(id, pin_id.toString())) {
+                    retPosts.add(post);
+                    break;
+                }
+            }
+            if (retPosts.size() >= 2)
+                break;
+        }
+        return CommonResult.success(retPosts);
+    }
 }

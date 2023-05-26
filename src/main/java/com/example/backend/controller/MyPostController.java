@@ -27,7 +27,7 @@ public class MyPostController {
     public CommonResult getMyAllPost(@RequestParam(name = "id") Integer id) {
         List<Post> posts = postService.getMyAllPost(id);
         if (posts.size() == 0)
-            return CommonResult.failed("此用户没有创建帖子");
+            return CommonResult.success("此用户没有创建帖子");
         List<MyPost> myPosts = new ArrayList<>();
         for (Post post : posts) {
             boolean state = post.getVisibility() == 1;

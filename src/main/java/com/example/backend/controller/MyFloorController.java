@@ -27,7 +27,7 @@ public class MyFloorController {
     public CommonResult getMyAllFloor(@RequestParam(name = "id") Integer id) {
         List<Floor> floors = floorService.getMyAllFloor(id);
         if (floors.size() == 0)
-            return CommonResult.failed("此用户没有创建楼层");
+            return CommonResult.success("此用户没有创建楼层");
         List<MyFloor> myFloors = new ArrayList<>();
         for (Floor floor : floors) {
             boolean state = false;
