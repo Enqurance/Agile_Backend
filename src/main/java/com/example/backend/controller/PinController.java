@@ -55,6 +55,12 @@ public class PinController {
     @PreAuthorize("hasAuthority('USER')")
     @DeleteMapping("/pin/deletePin/{pin_id}")
     public CommonResult deletePinById(@PathVariable(value = "pin_id", required = false) Integer pin_id) {
+        Pin pin = pinService.getPinById(pin_id);
+        if (pin == null)
+            return CommonResult.failed("不存在id = " + pin_id + "的pin");
+        if (pin.getVisibility() == 1)
+            return CommonResult.failed("无法通过前端删除公共pin");
+
         int photoRet = photoService.deletePhotoByPinId(pin_id);
         String msg = "";
         if (photoRet == 0)
