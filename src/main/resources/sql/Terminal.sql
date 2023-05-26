@@ -1,1 +1,1 @@
-INSERT INTO buaa_map.pin (p_id, p_name, p_lnglat, p_pos, p_brief, p_type, p_openTime, p_phone, p_visibility, u_id, f_id) VALUES (141, '妈妈驿站', '116.343442;39.98587', '', '妈妈驿站', 6, '', '', 1, 12, 165);
+INSERT INTO buaa_map.pin (p_id, p_name, p_lnglat, p_pos, p_brief, p_type, p_openTime, p_phone, p_visibility, u_id, f_id) VALUES (197, '晨读园', '116.352312;39.984184', '老主楼东侧的园地，在原来的老东门入口处。', '人不多的安静园地，有北京一号的飞机模型和北航灯光秀。是新的升旗台所在地。', 2, '全天', '', 1, 14, 222);

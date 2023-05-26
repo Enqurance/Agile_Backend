@@ -35,7 +35,8 @@ public class MyFloorController {
             if (post.getVisibility() == 1)
                 state = true;
 
-            MyFloor myFloor = new MyFloor(floor.getId(), post.getTitle(), floor.getContent(), floor.getLayers(), state);
+            MyFloor myFloor = new MyFloor(floor.getId(), post.getTitle(), floor.getContent(),
+                    floor.getLayers(), state, floor.getCreateTime());
             myFloors.add(myFloor);
         }
         return CommonResult.success(myFloors);
