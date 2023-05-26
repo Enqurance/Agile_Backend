@@ -32,7 +32,7 @@ public class MyCommentController {
     public CommonResult getMyAllComment(@RequestParam(name = "id") Integer id) {
         List<Comment> comments = commentService.getMyAllComment(id);
         if (comments.size() == 0)
-            return CommonResult.failed("此用户没有创建评论");
+            return CommonResult.success("此用户没有创建评论");
         List<MyComment> myComments = new ArrayList<>();
         for (Comment comment : comments) {
             boolean state = false;
