@@ -41,7 +41,8 @@ public class MyCommentController {
             if (post.getVisibility() == 1)
                 state = true;
 
-            MyComment myComment = new MyComment(comment.getId(), post.getTitle(), comment.getContent(), floor.getLayers(), state);
+            MyComment myComment = new MyComment(comment.getId(), post.getTitle(), comment.getContent(),
+                    floor.getLayers(), state, comment.getCreateTime());
             myComments.add(myComment);
         }
         return CommonResult.success(myComments);
