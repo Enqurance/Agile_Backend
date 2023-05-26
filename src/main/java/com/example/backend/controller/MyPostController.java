@@ -31,7 +31,8 @@ public class MyPostController {
             return CommonResult.success(myPosts);
         for (Post post : posts) {
             boolean state = post.getVisibility() == 1;
-            MyPost myPost = new MyPost(post.getId(), post.getTitle(), post.getContent(), post.getFloorNum(), state);
+            MyPost myPost = new MyPost(post.getId(), post.getTitle(), post.getContent(), post.getFloorNum(), state,
+                    post.getTag(), post.getThumbsUp(), post.getVisit(), post.getPinIdStr(), post.getCreateTime());
             myPosts.add(myPost);
         }
         return CommonResult.success(myPosts);
