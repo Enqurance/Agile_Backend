@@ -34,4 +34,6 @@ public interface PinService extends IService<Pin> {
     List<Pin> getMyAllPin(Integer id);
 
     List<Pin> getAllPublicPin(Integer type);
+
+    String getNameStrByIdStr(String pinIdStr);
 }

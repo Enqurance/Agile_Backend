@@ -79,6 +79,22 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
     public List<Pin> getAllPublicPin(Integer type) {
         return pinMapper.getPublicPinByType(type);
     }
+
+    @Override
+    public String getNameStrByIdStr(String pinIdStr) {
+        String pinNameStr = "";
+        String[] pinIds = pinIdStr.split(";");
+        StringBuilder sb = new StringBuilder();
+        for (String pinId : pinIds) {
+            if (pinId != null && !pinId.equals("")) {
+                String name = this.getPinById(Integer.valueOf(pinId)).getName();
+                sb.append(name).append(";");
+            }
+        }
+        if (sb.length() != 0)
+            pinNameStr = sb.substring(0, sb.length() - 1);
+        return pinNameStr;
+    }
 }
 
 
