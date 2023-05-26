@@ -63,7 +63,7 @@ public class CommentController {
                                     @RequestParam(value = "limit") Integer limit) {
         List<Comment> comments = commentService.getCommentsOrderTime(floor_id);
         if (comments.size() == 0)
-            return CommonResult.failed("不存在满足条件的comment");
+            return CommonResult.success("不存在满足条件的comment");
         int cnt = 0;
         List<Comment> retComments = new ArrayList<>();
         for (int index = offset; index + cnt < comments.size() && cnt < limit; cnt++) {
