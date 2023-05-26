@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@PreAuthorize("hasAuthority('USER')")
 @RequiredArgsConstructor
 public class UserController {
     private final AuthService authService;
@@ -25,8 +24,9 @@ public class UserController {
 
     private final SuggestionService suggestionService;
 
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getUserByToken")
-    public CommonResult getUserById(@RequestParam(name = "id") Integer id) {
+    public CommonResult getUserByToken(@RequestParam(name = "id") Integer id) {
         List<User> users = userService.findUserById(id);
         if (users.size() == 0) {
             throw new RuntimeException("用户不存在");
@@ -34,6 +34,19 @@ public class UserController {
         return CommonResult.success(users.get(0));
     }
 
+    @GetMapping("/getUserById/{user_id}")
+    public CommonResult getUserById(@PathVariable(value = "user_id") Integer user_id) {
+        List<User> users = userService.findUserById(user_id);
+        if (users.size() == 0) {
+            throw new RuntimeException("用户不存在");
+        }
+        User user = users.get(0);
+        user.setPassword(null);
+        user.setIcon(null);
+        return CommonResult.success(user);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/changeUserBasicByToken")
     public CommonResult changeUserById(@RequestBody User user,
                                        @RequestParam(name = "id") Integer id) {
@@ -45,6 +58,7 @@ public class UserController {
         return CommonResult.success(null);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getIcon")
     public CommonResult getIcon(@RequestParam(name = "id") Integer id) {
         List<User> users = userService.findUserById(id);
@@ -58,6 +72,7 @@ public class UserController {
             return CommonResult.success(iconUrl);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/changePasswordByToken")
     public CommonResult changePasswordById(@RequestBody Password password, @RequestParam(name = "id") Integer id) {
         String originPassword = userService.getPassword(id);
@@ -74,6 +89,7 @@ public class UserController {
         return CommonResult.success(null);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/suggestByToken")
     public CommonResult suggestByToken(@RequestParam(name = "id") Integer id,
                                        @RequestBody SuggestWrap suggestion) {

@@ -15,10 +15,11 @@ public class MyPost {
     private Integer thumbs_up;
     private Integer visit;
     private String pin_id_str;
+    private String pin_name_str;
     private Date createTime;
 
-    public MyPost(Integer id, String title, String content, Integer floor_num, Boolean post_state,
-                  Integer tag, Integer thumbs_up, Integer visit, String pin_id_str, Date createTime) {
+    public MyPost(Integer id, String title, String content, Integer floor_num, Boolean post_state, Integer tag,
+                  Integer thumbs_up, Integer visit, String pin_id_str, String pin_name_str, Date createTime) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -28,6 +29,7 @@ public class MyPost {
         this.thumbs_up = thumbs_up;
         this.visit = visit;
         this.pin_id_str = pin_id_str;
+        this.pin_name_str = pin_name_str;
         this.createTime = createTime;
     }
 }

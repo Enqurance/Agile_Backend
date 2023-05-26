@@ -134,17 +134,7 @@ public class PostController {
         if (userthumb != null)
             has_thumb = 1;
         post.setHas_thumb(has_thumb);
-        String[] pinIds = post.getPinIdStr().split(";");
-        StringBuilder sb = new StringBuilder();
-        for (String pinId : pinIds) {
-            if (pinId != null && !pinId.equals("")) {
-                String name = pinService.getPinById(Integer.valueOf(pinId)).getName();
-                sb.append(name).append(";");
-            }
-        }
-        String pinNameStr = "";
-        if (sb.length() != 0)
-            pinNameStr = sb.substring(0, sb.length() - 1);
+        String pinNameStr = pinService.getNameStrByIdStr(post.getPinIdStr());
         post.setPinNameStr(pinNameStr);
 
         // 每个用户对每个帖子的访问量30s刷新一次，redis里键值格式为"u_id;post_id"
