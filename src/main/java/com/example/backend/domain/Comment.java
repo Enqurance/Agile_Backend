@@ -44,6 +44,8 @@ public class Comment implements Serializable {
      */
     private Integer ruserId;
 
+    private String ruserName;
+
     private Integer is_auth;
 
     @TableField(exist = false)
@@ -79,6 +81,10 @@ public class Comment implements Serializable {
         return is_auth;
     }
 
+    public String getRuserName() {
+        return ruserName;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -105,6 +111,10 @@ public class Comment implements Serializable {
 
     public void setIs_auth(Integer is_auth) {
         this.is_auth = is_auth;
+    }
+
+    public void setRuserName(String ruserName) {
+        this.ruserName = ruserName;
     }
 
     @Override

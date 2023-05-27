@@ -42,7 +42,7 @@ public class MyCommentController {
                 state = true;
 
             MyComment myComment = new MyComment(comment.getId(), post.getTitle(), comment.getContent(),
-                    floor.getLayers(), state, comment.getCreateTime());
+                    floor.getLayers(), state, comment.getCreateTime(), post.getId());
             myComments.add(myComment);
         }
         return CommonResult.success(myComments);

@@ -36,7 +36,7 @@ public class MyFloorController {
                 state = true;
 
             MyFloor myFloor = new MyFloor(floor.getId(), post.getTitle(), floor.getContent(),
-                    floor.getLayers(), state, floor.getCreateTime());
+                    floor.getLayers(), state, floor.getCreateTime(), post.getId());
             myFloors.add(myFloor);
         }
         return CommonResult.success(myFloors);

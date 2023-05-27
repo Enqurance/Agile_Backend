@@ -3,13 +3,11 @@ package com.example.backend.controller;
 import com.example.backend.domain.Comment;
 import com.example.backend.domain.Floor;
 import com.example.backend.domain.Post;
+import com.example.backend.domain.User;
 import com.example.backend.entity.ListFloors;
 import com.example.backend.entity.message.ReplyMessage;
 import com.example.backend.result.CommonResult;
-import com.example.backend.service.CommentService;
-import com.example.backend.service.ExamineService;
-import com.example.backend.service.FloorService;
-import com.example.backend.service.PostService;
+import com.example.backend.service.*;
 import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +28,8 @@ public class FloorController {
     FloorService floorService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/addFloor")
     public CommonResult addFloor(@RequestParam(name = "id") Integer id,
@@ -84,6 +84,9 @@ public class FloorController {
                 floor.setIs_auth(1);
             else
                 floor.setIs_auth(0);
+            List<User> users = userService.findUserById(id);
+            if (users.size() != 0)
+                floor.setUserName(users.get(0).getName());
             retFloors.add(floor);
         }
         ListFloors listFloors = new ListFloors(retFloors, floors.size());

@@ -71,6 +71,8 @@ public class Post implements Serializable {
      */
     private Integer userId;
 
+    private String userName;
+
     private Integer is_auth;
 
     private Integer has_thumb;
@@ -136,6 +138,10 @@ public class Post implements Serializable {
         return has_thumb;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -190,6 +196,10 @@ public class Post implements Serializable {
 
     public void setHas_thumb(Integer has_thumb) {
         this.has_thumb = has_thumb;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override
