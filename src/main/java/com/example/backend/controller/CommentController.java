@@ -2,12 +2,14 @@ package com.example.backend.controller;
 
 import com.example.backend.domain.Comment;
 import com.example.backend.domain.Floor;
+import com.example.backend.domain.User;
 import com.example.backend.entity.ListComments;
 import com.example.backend.entity.message.ReplyMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.CommentService;
 import com.example.backend.service.ExamineService;
 import com.example.backend.service.FloorService;
+import com.example.backend.service.UserService;
 import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,8 @@ public class CommentController {
     FloorService floorService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/addComment")
     public CommonResult addComment(@RequestParam(name = "id") Integer id,
@@ -72,6 +76,9 @@ public class CommentController {
                 comment.setIs_auth(1);
             else
                 comment.setIs_auth(0);
+            List<User> users = userService.findUserById(id);
+            if (users.size() != 0)
+                comment.setRuserName(users.get(0).getName());
             retComments.add(comment);
         }
         ListComments listComments = new ListComments(retComments, comments.size());

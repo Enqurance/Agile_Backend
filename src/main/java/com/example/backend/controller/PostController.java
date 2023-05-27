@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.domain.Post;
+import com.example.backend.domain.User;
 import com.example.backend.domain.Userthumb;
 import com.example.backend.entity.ListPosts;
 import com.example.backend.entity.message.LikeMessage;
@@ -33,6 +34,8 @@ public class PostController {
     UserthumbService userthumbService;
     @Autowired
     PinService pinService;
+    @Autowired
+    UserService userService;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -131,6 +134,9 @@ public class PostController {
         post.setIs_auth(is_auth);
         int has_thumb = 0;
         Userthumb userthumb = userthumbService.getThumbById(id, post_id);
+        List<User> users = userService.findUserById(id);
+        if (users.size() != 0)
+            post.setUserName(users.get(0).getName());
         if (userthumb != null)
             has_thumb = 1;
         post.setHas_thumb(has_thumb);

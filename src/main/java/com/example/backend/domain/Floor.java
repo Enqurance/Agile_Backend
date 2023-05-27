@@ -40,6 +40,8 @@ public class Floor implements Serializable {
      */
     private Integer userId;
 
+    private String userName;
+
     /**
      * 楼层相关帖子id
      */
@@ -86,6 +88,10 @@ public class Floor implements Serializable {
         return comment_cases;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -116,6 +122,10 @@ public class Floor implements Serializable {
 
     public void setComment_cases(Comment comment_cases) {
         this.comment_cases = comment_cases;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override
