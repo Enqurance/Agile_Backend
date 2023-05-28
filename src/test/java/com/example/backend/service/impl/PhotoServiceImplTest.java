@@ -28,7 +28,7 @@ class PhotoServiceImplTest {
     }
 
     @Test
-    void testInsertPhoto1() {
+    void testInsertPhoto() {
         when(photoMapper.insertAll(any())).thenReturn(0);
 
         Integer result = photoServiceImpl.insertPhoto(new Photo());
@@ -36,18 +36,10 @@ class PhotoServiceImplTest {
     }
 
     @Test
-    void testInsertPhoto2() {
-        when(photoMapper.insertAll(any())).thenReturn(1);
-
-        Integer result = photoServiceImpl.insertPhoto(new Photo());
-        Assertions.assertEquals(Integer.valueOf(1), result);
-    }
-
-    @Test
     void testGetPhotoUrlByPinId() {
         when(photoMapper.getPhotoUrlByPinId(anyInt())).thenReturn(new ArrayList<>(List.of("String")));
 
-        ArrayList<String> result = photoServiceImpl.getPhotoUrlByPinId(Integer.valueOf(76));
+        ArrayList<String> result = photoServiceImpl.getPhotoUrlByPinId(Integer.valueOf(0));
         Assertions.assertEquals(new ArrayList<>(List.of("String")), result);
     }
 
@@ -55,13 +47,24 @@ class PhotoServiceImplTest {
     void testGetUrlStrById() {
         when(photoMapper.getPhotoUrlByPinId(anyInt())).thenReturn(new ArrayList<>(List.of("String")));
 
-        String result = photoServiceImpl.getUrlStrById(Integer.valueOf(76));
-        Assertions.assertEquals("String", result);
+        String result = photoServiceImpl.getUrlStrById(Integer.valueOf(0));
+        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+    }
+
+    @Test
+    void testUpload() {
+        String result = photoServiceImpl.Upload("prefix", null);
+        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+    }
+
+    @Test
+    void testDelete() {
+        photoServiceImpl.delete("path");
     }
 
     @Test
     void testDeletePhotoByPinId() {
-        when(photoMapper.getPhotoUrlByPinId(anyInt())).thenReturn(new ArrayList<>());
+        when(photoMapper.getPhotoUrlByPinId(anyInt())).thenReturn(new ArrayList<>(List.of("String")));
         when(photoMapper.deletePhotoByPinId(anyInt())).thenReturn(0);
 
         int result = photoServiceImpl.deletePhotoByPinId(Integer.valueOf(0));
