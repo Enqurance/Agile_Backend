@@ -67,7 +67,7 @@ public class CommentController {
                                     @RequestParam(value = "limit") Integer limit) {
         List<Comment> comments = commentService.getCommentsOrderTime(floor_id);
         if (comments.size() == 0)
-            return CommonResult.success("不存在满足条件的comment");
+            return CommonResult.failed("不存在满足条件的comment");
         int cnt = 0;
         List<Comment> retComments = new ArrayList<>();
         for (int index = offset; index + cnt < comments.size() && cnt < limit; cnt++) {
@@ -76,9 +76,14 @@ public class CommentController {
                 comment.setIs_auth(1);
             else
                 comment.setIs_auth(0);
-            List<User> users = userService.findUserById(id);
-            if (users.size() != 0)
-                comment.setRuserName(users.get(0).getName());
+            List<User> cusers = userService.findUserById(comment.getCuserId());
+            if (cusers.size() != 0)
+                comment.setCuserName(cusers.get(0).getName());
+            if (comment.getRuserId() != null && comment.getRuserId() != 0) {
+                List<User> rusers = userService.findUserById(comment.getRuserId());
+                if (rusers.size() != 0)
+                    comment.setRuserName(rusers.get(0).getName());
+            }
             retComments.add(comment);
         }
         ListComments listComments = new ListComments(retComments, comments.size());

@@ -39,6 +39,8 @@ public class Comment implements Serializable {
      */
     private Integer cuserId;
 
+    private String cuserName;
+
     /**
      * 回复用户id，外键，可以为空，代表没有回复
      */
@@ -81,6 +83,10 @@ public class Comment implements Serializable {
         return is_auth;
     }
 
+    public String getCuserName() {
+        return cuserName;
+    }
+
     public String getRuserName() {
         return ruserName;
     }
@@ -111,6 +117,10 @@ public class Comment implements Serializable {
 
     public void setIs_auth(Integer is_auth) {
         this.is_auth = is_auth;
+    }
+
+    public void setCuserName(String cuserName) {
+        this.cuserName = cuserName;
     }
 
     public void setRuserName(String ruserName) {
