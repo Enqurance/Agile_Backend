@@ -33,20 +33,20 @@ public class AuthServiceImpl implements AuthService {
     @Value("${info.default_description}")
     private String description;
     @Override
-    public void sendMailCode(String email) {
-        if (userService.findUserByEmail(email).size() != 0) {
-            throw new RuntimeException("邮箱已被注册");
-        }
+        public void sendMailCode(String email) {
+            if (userService.findUserByEmail(email).size() != 0) {
+                throw new RuntimeException("邮箱已被注册");
+            }
 
-        String code = redisUtil.get(email);
-        if (code == null) {
-            // 缓存中不存在验证码，则产生6位随机数
-            code = RandomUtil.randomNumbers(6);
-        }
+            String code = redisUtil.get(email);
+            if (code == null) {
+                // 缓存中不存在验证码，则产生6位随机数
+                code = RandomUtil.randomNumbers(6);
+            }
 
-        emailUtil.sendEmail(email, code);
+            emailUtil.sendEmail(email, code);
 
-        if (!redisUtil.set(email, code, expiration)) {
+            if (!redisUtil.set(email, code, expiration)) {
             throw new RuntimeException("服务器redis缓存异常");
         }
 
