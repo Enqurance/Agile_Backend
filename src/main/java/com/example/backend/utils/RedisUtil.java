@@ -1,6 +1,5 @@
 package com.example.backend.utils;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -9,8 +8,11 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtil {
 
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
+
+    public RedisUtil(RedisTemplate<String, String> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     /**
      * 读取缓存
@@ -23,14 +25,13 @@ public class RedisUtil {
      * 写入缓存
      */
     public boolean set(final String key, String value, long expiration) {
-        boolean result = false;
         try {
             redisTemplate.opsForValue().set(key, value, expiration, TimeUnit.SECONDS);
-            result = true;
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return result;
     }
 
     /**
