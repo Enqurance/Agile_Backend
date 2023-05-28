@@ -62,7 +62,7 @@ public class TaskExamineController {
                 }
             }
             case 1 -> // 需要重新整改，将表里内容清空
-                    texamineService.rectify(post_id, null, null);
+                    texamineService.rectify(post_id, null, null, basis);
             case 2 -> {
                 // 刪除整改任务
                 if (texamineService.finishTaskExamine(post_id) != 1) {
