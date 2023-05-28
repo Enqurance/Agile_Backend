@@ -17,6 +17,10 @@ public interface TexamineMapper extends BaseMapper<Texamine> {
 
     int deleteByPostId(@Param("postId") Integer postId);
 
+    int updateTitleAndContentByPostId(@Param("title") String title,
+                                      @Param("content") String content,
+                                      @Param("postId") Integer postId);
+
     int updateTitleAndContentAndBasisByPostId(@Param("title") String title,
                                               @Param("content") String content,
                                               @Param("basis") String basis,
