@@ -59,12 +59,12 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
 
     @Override
     public int readAllReceive(int u_id) {
-        return messageMapper.updateStatusByUreceiveIdAndTypeIn(1, u_id, receiveType) == 0 ? 0 : 1;
+        return messageMapper.updateStatusByUreceiveIdAndTypeIn(1, u_id, receiveType);
     }
 
     @Override
     public int readAllSend(int u_id) {
-        return messageMapper.updateStatusByUreceiveIdAndTypeIn(1, u_id, sendType) == 0 ? 0 : 1;
+        return messageMapper.updateStatusByUreceiveIdAndTypeIn(1, u_id, sendType);
     }
 
     @Override
