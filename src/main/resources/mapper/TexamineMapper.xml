@@ -48,4 +48,11 @@
         where
         post_id = #{postId,jdbcType=NUMERIC}
     </select>
+    <update id="updateTitleAndContentAndBasisByPostId">
+        update texamine
+        set texamine_title   = #{title,jdbcType=VARCHAR},
+            texamine_content = #{content,jdbcType=VARCHAR},
+            texamine_basis   = #{basis,jdbcType=VARCHAR}
+        where post_id = #{postId,jdbcType=NUMERIC}
+    </update>
 </mapper>
