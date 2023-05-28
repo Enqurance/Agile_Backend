@@ -50,6 +50,7 @@
     <select id="getMyAllComment" resultType="com.example.backend.domain.Comment" resultMap="BaseResultMap">
         select * from comment
         where cuser_id = #{id,jdbcType=NUMERIC}
+        order by create_time desc
     </select>
     <select id="getAllByFloorId" resultMap="BaseResultMap">
         select

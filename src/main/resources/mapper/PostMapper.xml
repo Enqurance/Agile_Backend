@@ -89,6 +89,7 @@
     <select id="getMyAllPost" resultType="com.example.backend.domain.Post" resultMap="BaseResultMap">
         select * from post
         where user_id = #{id}
+        order by create_time desc
     </select>
     <update id="addVisitById">
         update post
