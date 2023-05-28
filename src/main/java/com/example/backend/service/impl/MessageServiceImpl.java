@@ -7,6 +7,7 @@ import com.example.backend.service.MessageService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,12 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
 
     @Resource
     private MessageMapper messageMapper;
+
+    private static final List<Integer> sendType =
+            Arrays.asList(3, 14);
+
+    private static final List<Integer> receiveType =
+            Arrays.asList(1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20);
 
     @Override
     public int insertMessage(Message message) {
@@ -42,13 +49,34 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
 
     @Override
     public List<Message> getAllReceive(int u_id) {
-        return messageMapper.getAllReceiveByUreceiveId(u_id);
+        return messageMapper.getAllByUreceiveIdAndTypeIn(u_id, receiveType);
     }
 
     @Override
     public List<Message> getAllSend(int u_id) {
-        return messageMapper.getAllSendByUreceiveId(u_id);
+        return messageMapper.getAllByUreceiveIdAndTypeIn(u_id, sendType);
     }
+
+    @Override
+    public int readAllReceive(int u_id) {
+        return messageMapper.updateStatusByUreceiveIdAndTypeIn(1, u_id, receiveType) == 0 ? 0 : 1;
+    }
+
+    @Override
+    public int readAllSend(int u_id) {
+        return messageMapper.updateStatusByUreceiveIdAndTypeIn(1, u_id, sendType) == 0 ? 0 : 1;
+    }
+
+    @Override
+    public int deleteAllReceive(int u_id) {
+        return messageMapper.deleteByUreceiveIdAndTypeIn(u_id, receiveType);
+    }
+
+    @Override
+    public int deleteAllSend(int u_id) {
+        return messageMapper.deleteByUreceiveIdAndTypeIn(u_id, sendType);
+    }
+
 }
 
 

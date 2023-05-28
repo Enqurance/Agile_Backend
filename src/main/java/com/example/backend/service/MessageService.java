@@ -20,4 +20,12 @@ public interface MessageService extends IService<Message> {
     List<Message> getAllReceive(int u_id);
 
     List<Message> getAllSend(int u_id);
+
+    int readAllReceive(int u_id);
+
+    int readAllSend(int u_id);
+
+    int deleteAllReceive(int u_id);
+
+    int deleteAllSend(int u_id);
 }

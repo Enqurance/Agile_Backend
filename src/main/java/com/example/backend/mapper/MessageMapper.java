@@ -1,4 +1,5 @@
 package com.example.backend.mapper;
+import java.util.Collection;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -21,9 +22,15 @@ public interface MessageMapper extends BaseMapper<Message> {
     int updateStatusById(@Param("id") Integer m_id,
                          @Param("status") Integer m_status);
 
-    List<Message> getAllReceiveByUreceiveId(@Param("ureceive_id") Integer ureceive_id);
+    List<Message> getAllByUreceiveIdAndTypeIn(@Param("ureceiveId") Integer ureceiveId,
+                                              @Param("typeList") Collection<Integer> typeList);
 
-    List<Message> getAllSendByUreceiveId(@Param("ureceive_id") Integer ureceive_id);
+    int deleteByUreceiveIdAndTypeIn(@Param("ureceiveId") Integer ureceiveId,
+                                    @Param("typeList") Collection<Integer> typeList);
+
+    int updateStatusByUreceiveIdAndTypeIn(@Param("status") Integer status,
+                                          @Param("ureceiveId") Integer ureceiveId,
+                                          @Param("typeList") Collection<Integer> typeList);
 }
 
 
