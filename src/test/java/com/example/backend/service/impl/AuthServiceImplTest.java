@@ -3,6 +3,7 @@ package com.example.backend.service.impl;
 import com.example.backend.domain.RegisterInfo;
 import com.example.backend.domain.User;
 import com.example.backend.service.UserService;
+import com.example.backend.utils.EmailUtil;
 import com.example.backend.utils.RedisUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
@@ -22,7 +24,11 @@ class AuthServiceImplTest {
     @Value("${code.expiration}")
     private Long expiration;
     @Mock
+    EmailUtil emailUtil;
+    @Mock
     UserService userService;
+    @Mock
+    BCryptPasswordEncoder encoder;
 //    @MockBean
 //    RedisTemplate<String, String> redisTemplate;
 //    @Mock
