@@ -46,11 +46,37 @@ class AuthServiceImplTest {
 
     @Test
     void testSendMailCode() {
-        when(redisUtil.get(anyString())).thenReturn(null); // 使用匹配器 any()
+        when(redisUtil.get(anyString())).thenReturn(null);
         when(redisUtil.set(anyString(), anyString(), anyLong())).thenReturn(true);
         when(userService.findUserByEmail(anyString())).thenReturn(List.of());
 
         authServiceImpl.sendMailCode("email");
+    }
+
+    @Test
+    void testSendMailCodeException1() {
+        when(redisUtil.get(anyString())).thenReturn(null);
+        when(redisUtil.set(anyString(), anyString(), anyLong())).thenReturn(true);
+        when(userService.findUserByEmail(anyString())).thenReturn(List.of(new User()));
+
+        try {
+            authServiceImpl.sendMailCode("email");
+        } catch (Exception e) {
+            Assertions.assertEquals("邮箱已被注册", e.getMessage());
+        }
+    }
+
+    @Test
+    void testSendMailCodeException2() {
+        when(redisUtil.get(anyString())).thenReturn(null);
+        when(redisUtil.set(anyString(), anyString(), anyLong())).thenReturn(false);
+        when(userService.findUserByEmail(anyString())).thenReturn(List.of());
+
+        try {
+            authServiceImpl.sendMailCode("email");
+        } catch (Exception e) {
+            Assertions.assertEquals("服务器redis缓存异常", e.getMessage());
+        }
     }
 
     @Test
@@ -65,6 +91,57 @@ class AuthServiceImplTest {
         info.setPassword("password");
         boolean result = authServiceImpl.register(info);
         Assertions.assertTrue(result);
+    }
+
+    @Test
+    void testRegisterException1() {
+        when(redisUtil.get(anyString())).thenReturn("123");
+        when(redisUtil.delete(anyString())).thenReturn(true);
+        when(userService.insertUser(any())).thenReturn(1);
+        when(userService.findUserByEmail(anyString())).thenReturn(List.of(new User()));
+
+        RegisterInfo info = new RegisterInfo("123");
+        info.setEmail("email");
+        info.setPassword("password");
+        try {
+            authServiceImpl.register(info);
+        } catch (Exception e) {
+            Assertions.assertEquals("邮箱已被注册", e.getMessage());
+        }
+    }
+
+    @Test
+    void testRegisterException2() {
+        when(redisUtil.get(anyString())).thenReturn(null);
+        when(redisUtil.delete(anyString())).thenReturn(true);
+        when(userService.insertUser(any())).thenReturn(1);
+        when(userService.findUserByEmail(anyString())).thenReturn(List.of());
+
+        RegisterInfo info = new RegisterInfo("123");
+        info.setEmail("email");
+        info.setPassword("password");
+        try {
+            authServiceImpl.register(info);
+        } catch (Exception e) {
+            Assertions.assertEquals("验证码不存在", e.getMessage());
+        }
+    }
+
+    @Test
+    void testRegisterException3() {
+        when(redisUtil.get(anyString())).thenReturn("123");
+        when(redisUtil.delete(anyString())).thenReturn(true);
+        when(userService.insertUser(any())).thenReturn(1);
+        when(userService.findUserByEmail(anyString())).thenReturn(List.of());
+
+        RegisterInfo info = new RegisterInfo("1234");
+        info.setEmail("email");
+        info.setPassword("password");
+        try {
+            authServiceImpl.register(info);
+        } catch (Exception e) {
+            Assertions.assertEquals("邮箱验证码错误", e.getMessage());
+        }
     }
 
     @Test

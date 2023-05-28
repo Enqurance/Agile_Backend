@@ -2,6 +2,8 @@ package com.example.backend.service.impl;
 
 import com.example.backend.domain.Pin;
 import com.example.backend.mapper.PinMapper;
+import com.example.backend.mapper.TfeedbackMapper;
+import com.example.backend.mapper.TpinMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,12 @@ import static org.mockito.Mockito.*;
 class PinServiceImplTest {
     @Mock
     PinMapper pinMapper;
+
+    @Mock
+    TpinMapper tpinMapper;
+
+    @Mock
+    TfeedbackMapper tfeedbackMapper;
     //Field entityClass of type Class - was not mocked since Mockito doesn't mock a Final class when 'mock-maker-inline' option is not set
     //Field mapperClass of type Class - was not mocked since Mockito doesn't mock a Final class when 'mock-maker-inline' option is not set
     @InjectMocks
@@ -69,6 +77,8 @@ class PinServiceImplTest {
 
     @Test
     void testDeletePinById() {
+        when(tpinMapper.deleteByPId(anyInt())).thenReturn(1);
+        when(tfeedbackMapper.deleteByPId(anyInt())).thenReturn(1);
         when(pinMapper.deletePinById(anyInt())).thenReturn(0);
 
         int result = pinServiceImpl.deletePinById(Integer.valueOf(0));
