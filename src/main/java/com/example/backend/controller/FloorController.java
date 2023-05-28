@@ -78,13 +78,23 @@ public class FloorController {
         for (int index = offset; index + cnt < floors.size() && cnt < limit; cnt++) {
             Floor floor = floors.get(index + cnt);
             List<Comment> comments = commentService.getCommentsOrderTime(floor.getId());
-            if (comments.size() != 0)
-                floor.setComment_cases(comments.get(0));
+            if (comments.size() != 0) {
+                Comment comment = comments.get(0);
+                List<User> cusers = userService.findUserById(comment.getCuserId());
+                if (cusers.size() != 0)
+                    comment.setCuserName(cusers.get(0).getName());
+                if (comment.getRuserId() != null && comment.getRuserId() != 0) {
+                    List<User> rusers = userService.findUserById(comment.getRuserId());
+                    if (rusers.size() != 0)
+                        comment.setRuserName(rusers.get(0).getName());
+                }
+                floor.setComment_cases(comment);
+            }
             if (Objects.equals(floor.getUserId(), id))
                 floor.setIs_auth(1);
             else
                 floor.setIs_auth(0);
-            List<User> users = userService.findUserById(id);
+            List<User> users = userService.findUserById(floor.getUserId());
             if (users.size() != 0)
                 floor.setUserName(users.get(0).getName());
             retFloors.add(floor);

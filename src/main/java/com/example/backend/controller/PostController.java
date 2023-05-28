@@ -134,7 +134,7 @@ public class PostController {
         post.setIs_auth(is_auth);
         int has_thumb = 0;
         Userthumb userthumb = userthumbService.getThumbById(id, post_id);
-        List<User> users = userService.findUserById(id);
+        List<User> users = userService.findUserById(post.getUserId());
         if (users.size() != 0)
             post.setUserName(users.get(0).getName());
         if (userthumb != null)
