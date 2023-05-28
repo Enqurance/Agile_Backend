@@ -31,21 +31,18 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
 
     @Override
     public int insertPin(Pin pin) {
-        int result = pinMapper.insertAll(pin);
-        return result;
+        return pinMapper.insertAll(pin);
     }
 
     @Override
     public ArrayList<Pin> searchPin(String searchContext, Integer id) {
         String sqlText = "%" + searchContext + "%";
-        ArrayList<Pin> pins = pinMapper.searchAll(sqlText, id);
-        return pins;
+        return pinMapper.searchAll(sqlText, id);
     }
 
     @Override
     public int updatePin(Pin pin) {
-        int result = pinMapper.updateAll(pin);
-        return result;
+        return pinMapper.updateAll(pin);
     }
 
     @Override
