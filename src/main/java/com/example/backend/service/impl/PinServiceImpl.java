@@ -2,6 +2,8 @@ package com.example.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Pin;
+import com.example.backend.mapper.TfeedbackMapper;
+import com.example.backend.mapper.TpinMapper;
 import com.example.backend.service.PinService;
 import com.example.backend.mapper.PinMapper;
 import jakarta.annotation.Resource;
@@ -20,6 +22,12 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
     implements PinService{
     @Resource
     PinMapper pinMapper;
+
+    @Resource
+    private TpinMapper tpinMapper;
+
+    @Resource
+    private TfeedbackMapper tfeedbackMapper;
 
     @Override
     public int insertPin(Pin pin) {
@@ -52,6 +60,10 @@ public class PinServiceImpl extends ServiceImpl<PinMapper, Pin>
 
     @Override
     public int deletePinById(Integer id) {
+        // 先删除地图钉相关任务
+        tpinMapper.deleteByPId(id);
+        tfeedbackMapper.deleteByPId(id);
+
         return pinMapper.deletePinById(id);
     }
 
