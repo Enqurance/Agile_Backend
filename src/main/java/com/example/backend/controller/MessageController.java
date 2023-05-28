@@ -89,33 +89,25 @@ public class MessageController {
 
     @PostMapping("/readAllReceiveMessage")
     public CommonResult readAllReceive(@RequestParam(name = "id") Integer id) {
-        if (messageService.readAllReceive(id) != 1) {
-            throw new RuntimeException("全部已读失败");
-        }
+        messageService.readAllReceive(id);
         return CommonResult.success(null);
     }
 
     @PostMapping("/deleteAllReceiveMessage")
     public CommonResult deleteAllReceive(@RequestParam(name = "id") Integer id) {
-        if (messageService.deleteAllReceive(id) != 1) {
-            throw new RuntimeException("全部删除失败");
-        }
+        messageService.deleteAllReceive(id);
         return CommonResult.success(null);
     }
 
     @PostMapping("/readAllSendMessage")
     public CommonResult readAllSend(@RequestParam(name = "id") Integer id) {
-        if (messageService.readAllSend(id) != 1) {
-            throw new RuntimeException("全部已读失败");
-        }
+        messageService.readAllSend(id);
         return CommonResult.success(null);
     }
 
     @PostMapping("/deleteAllSendMessage")
     public CommonResult deleteAllSend(@RequestParam(name = "id") Integer id) {
-        if (messageService.deleteAllSend(id) != 1) {
-            throw new RuntimeException("全部删除失败");
-        }
+        messageService.deleteAllSend(id);
         return CommonResult.success(null);
     }
 }
