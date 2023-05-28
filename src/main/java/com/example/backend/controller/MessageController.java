@@ -47,6 +47,9 @@ public class MessageController {
             }
             messages.add(frontendMessage);
         });
+        messages.sort((m1, m2) ->
+                m2.getTime().compareTo(m1.getTime())
+        );
         return CommonResult.success(messages);
     }
 
@@ -62,6 +65,9 @@ public class MessageController {
         messageService.getAllSend(search_id).forEach(message -> messages.add(
                 FrontendMessage.trans2FrontendMessage(message)
         ));
+        messages.sort((m1, m2) ->
+                m2.getTime().compareTo(m1.getTime())
+        );
         return CommonResult.success(messages);
     }
 
