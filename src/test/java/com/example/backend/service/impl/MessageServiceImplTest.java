@@ -57,7 +57,7 @@ class MessageServiceImplTest {
     void testGetAllReceive() {
         Message m1 = new LikeMessage(1, 7, 0);
         Message m2 = new ReplyMessage("test", 1, 7, 0);
-        when(messageMapper.getAllReceiveByUreceiveId(0)).thenReturn(List.of(m1, m2));
+        when(messageMapper.getAllByUreceiveIdAndTypeIn(anyInt(), any())).thenReturn(List.of(m1, m2));
 
         List<Message> result = messageServiceImpl.getAllReceive(0);
         Assertions.assertEquals(List.of(m1, m2), result);
@@ -66,7 +66,7 @@ class MessageServiceImplTest {
     @Test
     void testGetAllSend() {
         Message m3 = new PinApplySuccessMessage(90, 0);
-        when(messageMapper.getAllSendByUreceiveId(0)).thenReturn(List.of(m3));
+        when(messageMapper.getAllByUreceiveIdAndTypeIn(anyInt(), any())).thenReturn(List.of(m3));
 
         List<Message> result = messageServiceImpl.getAllSend(0);
         Assertions.assertEquals(List.of(m3), result);
