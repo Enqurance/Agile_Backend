@@ -55,4 +55,9 @@
         where
         tfeedback_id = #{id,jdbcType=NUMERIC}
     </select>
+    <delete id="deleteByPId">
+        delete
+        from tfeedback
+        where p_id = #{pId,jdbcType=NUMERIC}
+    </delete>
 </mapper>
