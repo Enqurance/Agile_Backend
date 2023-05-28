@@ -49,6 +49,7 @@
     <select id="getMyAllFloor" resultType="com.example.backend.domain.Floor" resultMap="BaseResultMap">
         select * from floor
         where user_id = #{id,jdbcType=NUMERIC}
+        order by create_time desc
     </select>
     <delete id="deleteByPostId">
         delete
