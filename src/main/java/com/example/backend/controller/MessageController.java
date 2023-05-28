@@ -19,7 +19,7 @@ import java.util.List;
  * @date: 2023/5/9 15:29
  */
 @RestController()
-@RequestMapping("InfoPage/MyMessage/")
+@RequestMapping("/InfoPage/MyMessage/")
 @PreAuthorize("hasAuthority('USER')")
 public class MessageController {
     @Autowired
@@ -27,7 +27,6 @@ public class MessageController {
 
     @Autowired
     private UserService userService;
-
 
     @GetMapping("/getReceiveMessage")
     public CommonResult getReceiveMessage(@RequestParam(name = "id") Integer id) {
@@ -84,6 +83,38 @@ public class MessageController {
     public CommonResult deleteMessage(@PathVariable Integer m_id) {
         if (messageService.deleteMessage(m_id) != 1) {
             throw new RuntimeException("删除消息失败");
+        }
+        return CommonResult.success(null);
+    }
+
+    @PostMapping("/readAllReceiveMessage")
+    public CommonResult readAllReceive(@RequestParam(name = "id") Integer id) {
+        if (messageService.readAllReceive(id) != 1) {
+            throw new RuntimeException("全部已读失败");
+        }
+        return CommonResult.success(null);
+    }
+
+    @PostMapping("/deleteAllReceiveMessage")
+    public CommonResult deleteAllReceive(@RequestParam(name = "id") Integer id) {
+        if (messageService.deleteAllReceive(id) != 1) {
+            throw new RuntimeException("全部删除失败");
+        }
+        return CommonResult.success(null);
+    }
+
+    @PostMapping("/readAllSendMessage")
+    public CommonResult readAllSend(@RequestParam(name = "id") Integer id) {
+        if (messageService.readAllSend(id) != 1) {
+            throw new RuntimeException("全部已读失败");
+        }
+        return CommonResult.success(null);
+    }
+
+    @PostMapping("/deleteAllSendMessage")
+    public CommonResult deleteAllSend(@RequestParam(name = "id") Integer id) {
+        if (messageService.deleteAllSend(id) != 1) {
+            throw new RuntimeException("全部删除失败");
         }
         return CommonResult.success(null);
     }
