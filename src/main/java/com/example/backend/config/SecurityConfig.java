@@ -34,7 +34,8 @@ public class SecurityConfig {
                         "/map/pin/getPinInfoById", "/map/pin/getAllPublicPin", "/user/getUserById/{user_id}",
                         "/TextExamine/**", "/forum/post/getPosts", "/forum/post/getPostsByTag",
                         "/forum/post/searchPosts", "/forum/post/getPostDetail",
-                        "/forum/floor/getFloors" ,"/forum/comment/getComments")
+                        "/forum/floor/getFloors" ,"/forum/floor/getFloorsForLazy",
+                        "/forum/comment/getComments")
                 .permitAll()
                 // 保护剩余请求
                 .anyRequest()

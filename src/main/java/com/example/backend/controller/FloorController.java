@@ -1,10 +1,12 @@
 package com.example.backend.controller;
 
+import cn.hutool.json.JSONObject;
 import com.example.backend.domain.Comment;
 import com.example.backend.domain.Floor;
 import com.example.backend.domain.Post;
 import com.example.backend.domain.User;
 import com.example.backend.entity.ListFloors;
+import com.example.backend.entity.message.ExaminePostMessage;
 import com.example.backend.entity.message.ReplyMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.*;
@@ -12,10 +14,7 @@ import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @RestController
 @RequestMapping("/forum/floor")
@@ -109,5 +108,55 @@ public class FloorController {
             return CommonResult.failed("对应floor删除失败或floor不存在");
         else
             return CommonResult.success("floor楼层删除成功");
+    }
+
+    @PostMapping("/getFloorsForLazy")
+    public CommonResult getFloorsForLazy(@RequestParam(name = "id", required = false) Integer id,
+                                         @RequestBody JSONObject jsonObject) {
+        int post_id = jsonObject.getInt("post_id");
+        int offset_floor_id = jsonObject.getInt("offset_floor_id");
+        int limit = jsonObject.getInt("limit");
+
+        Post post = postService.getPostById(post_id);
+        if (post == null)
+            return CommonResult.failed("不存在id = " + post_id + "的post");
+        List<Floor> floors = floorService.getFloorsOrderTime(post_id);
+        List<Floor> retFloors = new ArrayList<>();
+        int cnt = 0;
+        if (offset_floor_id != 0) {
+            for (; cnt < floors.size(); cnt++) {
+                if (floors.get(cnt).getId() == offset_floor_id) {
+                    cnt++;
+                    break;
+                } else if (floors.get(cnt).getId() > offset_floor_id) {
+                    break;
+                }
+            }
+        }
+        for (int index = cnt; index < limit && index < floors.size(); index++) {
+            Floor floor = floors.get(index);
+            List<Comment> comments = commentService.getCommentsOrderTime(floor.getId());
+            if (comments.size() != 0) {
+                Comment comment = comments.get(0);
+                List<User> cusers = userService.findUserById(comment.getCuserId());
+                if (cusers.size() != 0)
+                    comment.setCuserName(cusers.get(0).getName());
+                if (comment.getRuserId() != null && comment.getRuserId() != 0) {
+                    List<User> rusers = userService.findUserById(comment.getRuserId());
+                    if (rusers.size() != 0)
+                        comment.setRuserName(rusers.get(0).getName());
+                }
+                floor.setComment_cases(comment);
+            }
+            if (Objects.equals(floor.getUserId(), id))
+                floor.setIs_auth(1);
+            else
+                floor.setIs_auth(0);
+            List<User> users = userService.findUserById(floor.getUserId());
+            if (users.size() != 0)
+                floor.setUserName(users.get(0).getName());
+            retFloors.add(floor);
+        }
+        return CommonResult.success(retFloors);
     }
 }
