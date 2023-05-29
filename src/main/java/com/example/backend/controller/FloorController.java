@@ -133,7 +133,7 @@ public class FloorController {
                 }
             }
         }
-        for (int index = cnt; index < limit && index < floors.size(); index++) {
+        for (int index = cnt; index < limit+cnt && index < floors.size(); index++) {
             Floor floor = floors.get(index);
             List<Comment> comments = commentService.getCommentsOrderTime(floor.getId());
             if (comments.size() != 0) {
