@@ -9,15 +9,18 @@ public class MyComment {
     private Integer id;
     private String title;
     private String content;
+    private Integer floor_id;
     private Integer floor;
     private Boolean post_state;
     private Date createTime;
     private Integer post_id;
 
-    public MyComment(Integer id, String title, String content, Integer floor, Boolean post_state, Date createTime, Integer post_id) {
+    public MyComment(Integer id, String title, String content, Integer floor_id,
+                     Integer floor, Boolean post_state, Date createTime, Integer post_id) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.floor_id = floor_id;
         this.floor = floor;
         this.post_state = post_state;
         this.createTime = createTime;
