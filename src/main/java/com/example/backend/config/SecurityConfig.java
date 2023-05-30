@@ -35,7 +35,7 @@ public class SecurityConfig {
                         "/TextExamine/**", "/forum/post/getPosts", "/forum/post/getPostsByTag",
                         "/forum/post/searchPosts", "/forum/post/getPostDetail",
                         "/forum/floor/getFloors" ,"/forum/floor/getFloorsForLazy",
-                        "/forum/comment/getComments")
+                        "/forum/floor/getCommentCaseByFloorIdForLazy/{floor_id}", "/forum/comment/getComments")
                 .permitAll()
                 // 保护剩余请求
                 .anyRequest()
