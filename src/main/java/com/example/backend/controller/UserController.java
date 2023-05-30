@@ -42,7 +42,6 @@ public class UserController {
         }
         User user = users.get(0);
         user.setPassword(null);
-        user.setIcon(null);
         return CommonResult.success(user);
     }
 
