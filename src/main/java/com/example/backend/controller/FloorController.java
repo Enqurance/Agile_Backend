@@ -7,6 +7,7 @@ import com.example.backend.domain.Post;
 import com.example.backend.domain.User;
 import com.example.backend.entity.ListFloors;
 import com.example.backend.entity.message.ExaminePostMessage;
+import com.example.backend.entity.message.LikeMessage;
 import com.example.backend.entity.message.ReplyMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.*;
@@ -116,24 +117,30 @@ public class FloorController {
         int post_id = jsonObject.getInt("post_id");
         int offset_floor_id = jsonObject.getInt("offset_floor_id");
         int limit = jsonObject.getInt("limit");
+        int order = jsonObject.getInt("order");
 
         Post post = postService.getPostById(post_id);
         if (post == null)
             return CommonResult.failed("不存在id = " + post_id + "的post");
         List<Floor> floors = floorService.getFloorsOrderTime(post_id);
+        if (order == 1)
+            Collections.reverse(floors);
         List<Floor> retFloors = new ArrayList<>();
         int cnt = 0;
         if (offset_floor_id != 0) {
             for (; cnt < floors.size(); cnt++) {
                 if (floors.get(cnt).getId() == offset_floor_id) {
-                    cnt++;
+                    if (order == 0)
+                        cnt++;
                     break;
-                } else if (floors.get(cnt).getId() > offset_floor_id) {
+                } else if (order == 0 && floors.get(cnt).getId() > offset_floor_id) {
+                    break;
+                } else if (order == 1 && floors.get(cnt).getId() <= offset_floor_id) {
                     break;
                 }
             }
         }
-        for (int index = cnt; index < limit+cnt && index < floors.size(); index++) {
+        for (int index = cnt; index < limit + cnt && index < floors.size(); index++) {
             Floor floor = floors.get(index);
             List<Comment> comments = commentService.getCommentsOrderTime(floor.getId());
             if (comments.size() != 0) {
@@ -157,6 +164,26 @@ public class FloorController {
                 floor.setUserName(users.get(0).getName());
             retFloors.add(floor);
         }
+        if (order == 1)
+            Collections.reverse(retFloors);
         return CommonResult.success(retFloors);
+    }
+
+    @GetMapping("/getCommentCaseByFloorIdForLazy/{floor_id}")
+    public CommonResult getCommentCaseByFloorIdForLazy(@PathVariable(value = "floor_id") Integer floor_id) {
+        List<Comment> comments = commentService.getCommentsOrderTime(floor_id);
+        if (comments.size() != 0) {
+            Comment comment = comments.get(0);
+            List<User> cusers = userService.findUserById(comment.getCuserId());
+            if (cusers.size() != 0)
+                comment.setCuserName(cusers.get(0).getName());
+            if (comment.getRuserId() != null && comment.getRuserId() != 0) {
+                List<User> rusers = userService.findUserById(comment.getRuserId());
+                if (rusers.size() != 0)
+                    comment.setRuserName(rusers.get(0).getName());
+            }
+            return CommonResult.success(comment);
+        }
+        return CommonResult.failed("id = " + floor_id + "的楼层不存在评论");
     }
 }
