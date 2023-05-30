@@ -27,6 +27,8 @@ public class FrontendReply {
 
     private int layer;
 
+    private int floor_id;
+
     private int post_id;
 
     private List<String> reasons = new ArrayList<>();
@@ -36,6 +38,7 @@ public class FrontendReply {
         this.content = floor.getContent();
         this.type = 0;
         this.layer = floor.getLayers();
+        this.floor_id = floor.getId();
         this.post_id = floor.getPostId();
     }
 
@@ -44,6 +47,7 @@ public class FrontendReply {
         this.content = comment.getContent();
         this.type = 1;
         this.layer = floor.getLayers();
+        this.floor_id = floor.getId();
         this.post_id = floor.getPostId();
     }
 
