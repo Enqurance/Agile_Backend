@@ -44,8 +44,8 @@ public class PostController {
     private RedisUtil redisUtil;
 
     @RequestMapping("/addPost")
-    public CommonResult addPost(@RequestBody JSONObject object) {
-        int id = object.getInt("id");
+    public CommonResult addPost(@RequestParam(name = "id") Integer id,
+                                @RequestBody JSONObject object) {
         int tag = object.getInt("tag");
         String pinIdStr = object.getStr("pinIdStr");
         String title = object.getStr("title");
