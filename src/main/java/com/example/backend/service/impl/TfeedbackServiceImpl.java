@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.Tfeedback;
 import com.example.backend.mapper.TfeedbackMapper;
 import com.example.backend.service.TfeedbackService;
+import com.example.backend.utils.RedisUtil;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +22,33 @@ public class TfeedbackServiceImpl extends ServiceImpl<TfeedbackMapper, Tfeedback
     @Resource
     private TfeedbackMapper tfeedbackMapper;
 
+    @Resource
+    private RedisUtil redisUtil;
+
+    @Value("${times.feedback}")
+    private int maxTimes;
+
+    private static String feedbackKey(int id) {
+        return "feedback: " + id;
+    }
+
     @Override
     public int newFeedback(String title, String content, int p_id, int u_id) {
         if (tfeedbackMapper.findAllByPIdAndUId(p_id, u_id).size() != 0) {
             throw new RuntimeException("已提交过反馈申请，请等待管理员审核~");
+        }
+
+        String times;
+        if ((times = redisUtil.get(feedbackKey(u_id))) == null) {
+            // 为该用户添加最大举报次数，设置为第二天过期
+            redisUtil.set(feedbackKey(u_id), String.valueOf(maxTimes - 1), RedisUtil.getNowToNextDaySeconds());
+        } else {
+            int t = Integer.parseInt(times);
+            if (t > 0) {
+                redisUtil.getAndSet(feedbackKey(u_id), String.valueOf(t - 1));
+            } else {
+                throw new RuntimeException("今日反馈地图钉次数已用完");
+            }
         }
 
         Tfeedback tfeedback = new Tfeedback();
