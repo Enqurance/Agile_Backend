@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import cn.hutool.json.JSONObject;
+import com.example.backend.domain.Message;
 import com.example.backend.entity.FrontendMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.MessageService;
@@ -109,5 +110,29 @@ public class MessageController {
     public CommonResult deleteAllSend(@RequestParam(name = "id") Integer id) {
         messageService.deleteAllSend(id);
         return CommonResult.success(null);
+    }
+
+    @GetMapping("/checkUnreadMessage")
+    public CommonResult checkUnread(@RequestParam(name = "id") Integer id) {
+        int search_id;
+        if (userService.getType(id) == 1) {
+            search_id = 0;
+        } else {
+            search_id = id;
+        }
+
+        for (Message message : messageService.getAllSend(search_id)) {
+            if (message.getStatus() == 0) {
+                return CommonResult.success(true);
+            }
+        }
+
+        for (Message message : messageService.getAllReceive(search_id)) {
+            if (message.getStatus() == 0) {
+                return CommonResult.success(true);
+            }
+        }
+
+        return CommonResult.success(false);
     }
 }
