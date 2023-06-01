@@ -11,7 +11,7 @@ import java.util.List;
 * @createDate 2023-05-12 10:50:37
 */
 public interface TpinService extends IService<Tpin> {
-    int insertTask(int p_id);
+    int insertTask(int p_id, int u_id);
 
     int deleteTask(int id);
 

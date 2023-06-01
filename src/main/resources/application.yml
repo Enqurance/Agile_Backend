@@ -71,3 +71,9 @@ jwt:
 logging:
   file:
     path: ${user.dir}/logs/
+
+# 用户每日各任务最大次数
+times:
+  report: 10
+  feedback: 5
+  apply: 3

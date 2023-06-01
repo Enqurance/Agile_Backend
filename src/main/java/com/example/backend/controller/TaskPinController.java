@@ -32,7 +32,7 @@ public class TaskPinController {
     @GetMapping("/examine/apply_for_public/{p_id}")
     public CommonResult applyPublic(@PathVariable Integer p_id,
                                     @RequestParam Integer id) {
-        int result = tpinService.insertTask(p_id);
+        int result = tpinService.insertTask(p_id, id);
         if (result != 1) {
             return CommonResult.failed("地图钉申请公开失败，请联系管理员");
         }
