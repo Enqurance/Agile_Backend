@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import cn.hutool.json.JSONObject;
 import com.example.backend.domain.Post;
 import com.example.backend.domain.User;
 import com.example.backend.domain.Userthumb;
@@ -11,6 +12,7 @@ import com.example.backend.result.CommonResult;
 import com.example.backend.service.*;
 import com.example.backend.utils.MessageUtil;
 import com.example.backend.utils.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @RestController
 @RequestMapping("/forum/post")
 public class PostController {
@@ -41,11 +44,13 @@ public class PostController {
     private RedisUtil redisUtil;
 
     @RequestMapping("/addPost")
-    public CommonResult addPost(@RequestParam(name = "id") Integer id,
-                                @RequestParam(value = "tag") Integer tag,
-                                @RequestParam(value = "pinIdStr") String pinIdStr,
-                                @RequestParam(value = "title") String title,
-                                @RequestParam(value = "content") String content) {
+    public CommonResult addPost(@RequestBody JSONObject object) {
+        int id = object.getInt("id");
+        int tag = object.getInt("tag");
+        String pinIdStr = object.getStr("pinIdStr");
+        String title = object.getStr("title");
+        String content = object.getStr("content");
+        log.info(object.toString());
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
