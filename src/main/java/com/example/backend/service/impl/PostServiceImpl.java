@@ -66,6 +66,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
     @Override
     public int deletePostById(Integer id) {
         examineService.delete("post", id.toString());
+        userthumbService.deleteThumbByPostId(id);
         // 删除所属楼层
         floorService.getFloorIdByPostId(id).forEach(
                 floor -> floorService.deleteFloorById(floor.getId())

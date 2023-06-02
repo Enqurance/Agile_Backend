@@ -22,6 +22,9 @@
         delete from userthumb where
         user_id = #{userId,jdbcType=NUMERIC} and post_id = #{postId,jdbcType=NUMERIC}
     </delete>
+    <delete id="deleteThumbByPostId">
+        delete from userthumb where post_id = #{postId,jdbcType=NUMERIC}
+    </delete>
     <select id="getThumbById" resultType="com.example.backend.domain.Userthumb" resultMap="BaseResultMap">
         select * from userthumb
         where user_id = #{userId,jdbcType=NUMERIC}

@@ -14,4 +14,6 @@ public interface UserthumbService extends IService<Userthumb> {
     int insertThumb(Userthumb userthumb);
 
     int deleteThumbById(Integer user_id, Integer post_id);
+
+    int deleteThumbByPostId(Integer post_id);
 }

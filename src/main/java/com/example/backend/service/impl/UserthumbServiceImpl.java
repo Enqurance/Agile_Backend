@@ -32,6 +32,11 @@ public class UserthumbServiceImpl extends ServiceImpl<UserthumbMapper, Userthumb
     public int deleteThumbById(Integer user_id, Integer post_id) {
         return userthumbMapper.deleteThumbById(user_id, post_id);
     }
+
+    @Override
+    public int deleteThumbByPostId(Integer post_id) {
+        return userthumbMapper.deleteThumbByPostId(post_id);
+    }
 }
 
 
