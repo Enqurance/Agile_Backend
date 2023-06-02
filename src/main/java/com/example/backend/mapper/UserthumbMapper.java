@@ -16,6 +16,8 @@ public interface UserthumbMapper extends BaseMapper<Userthumb> {
     int insertThumb(Userthumb userthumb);
 
     int deleteThumbById(Integer userId, Integer postId);
+
+    int deleteThumbByPostId(Integer postId);
 }
 
 
