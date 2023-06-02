@@ -46,7 +46,7 @@ public class ReportServiceImpl extends ServiceImpl<ReportMapper, Report>
         } else {
             int t = Integer.parseInt(times);
             if (t > 0) {
-                redisUtil.getAndSet(reportKey(u_id), String.valueOf(t - 1));
+                redisUtil.update(reportKey(u_id), String.valueOf(t - 1));
             } else {
                 throw new RuntimeException("今日举报次数已用完");
             }

@@ -37,9 +37,9 @@ public class RedisUtil {
     /**
      * 更新缓存
      */
-    public boolean getAndSet(final String key, String value) {
+    public boolean update(final String key, String value) {
         try {
-            redisTemplate.opsForValue().getAndSet(key, value);
+            redisTemplate.opsForValue().set(key, value, 0);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,6 +69,7 @@ public class RedisUtil {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.MILLISECOND, 0);
 
-        return (cal.getTimeInMillis() - System.currentTimeMillis()) / 1000;
+//        return (cal.getTimeInMillis() - System.currentTimeMillis()) / 1000;
+        return 60L;
     }
 }
