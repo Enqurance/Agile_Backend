@@ -45,7 +45,7 @@ public class TpinServiceImpl extends ServiceImpl<TpinMapper, Tpin>
         } else {
             int t = Integer.parseInt(times);
             if (t > 0) {
-                redisUtil.getAndSet(applyKey(u_id), String.valueOf(t - 1));
+                redisUtil.update(applyKey(u_id), String.valueOf(t - 1));
             } else {
                 throw new RuntimeException("今日申请地图钉公开次数已用完");
             }

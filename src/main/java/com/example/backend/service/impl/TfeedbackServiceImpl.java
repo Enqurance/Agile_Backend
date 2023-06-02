@@ -45,7 +45,7 @@ public class TfeedbackServiceImpl extends ServiceImpl<TfeedbackMapper, Tfeedback
         } else {
             int t = Integer.parseInt(times);
             if (t > 0) {
-                redisUtil.getAndSet(feedbackKey(u_id), String.valueOf(t - 1));
+                redisUtil.update(feedbackKey(u_id), String.valueOf(t - 1));
             } else {
                 throw new RuntimeException("今日反馈地图钉次数已用完");
             }
