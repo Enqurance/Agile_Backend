@@ -1,14 +1,3 @@
-server:
-  port: 8443
-  ssl:
-    enabled: true
-    key-store: classpath:buaamapforum.cn.jks
-    key-store-type: JKS
-    key-store-password: ENC(AFimlFPLVzi0KrUhTGH14/lbochjLvNf9Da61U2OTxQqcttKZ/2GFaRzBeRofj9H)
-
-condition:
-  http2https: true
-
 http:
   port: 8080
 
