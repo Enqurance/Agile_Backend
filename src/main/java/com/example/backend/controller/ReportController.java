@@ -13,6 +13,7 @@ import com.example.backend.result.CommonResult;
 import com.example.backend.service.*;
 import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class ReportController {
     @Autowired
     private TexamineService texamineService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/examine/report/get_posts")
     public CommonResult getReportPosts() {
         Map<Integer, FrontendReportPost> posts = new HashMap<>();
@@ -60,6 +62,7 @@ public class ReportController {
         return CommonResult.success(posts.values());
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/examine/report/result_of_report_post/{o_id}")
     public CommonResult finishReportPost(@PathVariable Integer o_id,
                                          @RequestBody JSONObject jsonObject) {
@@ -108,6 +111,7 @@ public class ReportController {
         return CommonResult.success(null);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/examine/report/get_replies")
     public CommonResult getReportFloorsAndComment() {
         Map<Integer, FrontendReply> floors = new HashMap<>();
@@ -142,6 +146,7 @@ public class ReportController {
         return CommonResult.success(replies);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/examine/report/result_of_report_reply/{type}/{o_id}")
     public CommonResult finishReportFloorOrComment(@PathVariable Integer type,
                                                    @PathVariable Integer o_id,
@@ -188,7 +193,7 @@ public class ReportController {
     }
 
     @PostMapping("/forum/report/reportPost")
-    public CommonResult newPostReport(@RequestParam int id,
+    public CommonResult newPostReport(@RequestParam(value = "id") int id,
                                       @RequestBody JSONObject jsonObject) {
         int post_id = jsonObject.getInt("id");
         String reason = jsonObject.getStr("reason");
@@ -201,7 +206,7 @@ public class ReportController {
     }
 
     @PostMapping("/forum/report/reportReply")
-    public CommonResult newFloorOrCommentReport(@RequestParam int id,
+    public CommonResult newFloorOrCommentReport(@RequestParam(value = "id") int id,
                                                 @RequestBody JSONObject jsonObject) {
         int o_id = jsonObject.getInt("id");
         String reason = jsonObject.getStr("reason");

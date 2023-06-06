@@ -43,8 +43,14 @@ public class MyPostController {
     }
 
     @PostMapping("/changePostById")
-    public CommonResult submitRectify(@RequestBody JSONObject jsonObject) {
+    public CommonResult submitRectify(@RequestBody JSONObject jsonObject,
+                                      @RequestParam(value = "id") Integer id) {
         int post_id = jsonObject.getInt("post_id");
+
+        if (!postService.getPostById(post_id).getUserId().equals(id)) {
+            throw new RuntimeException("不要尝试修改他人的帖子~");
+        }
+
         String title = jsonObject.getStr("new_title");
         String content = jsonObject.getStr("new_content");
 

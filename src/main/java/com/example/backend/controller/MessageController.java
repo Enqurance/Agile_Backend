@@ -72,17 +72,33 @@ public class MessageController {
     }
 
     @PostMapping("/readMessageById")
-    public CommonResult readMessage(@RequestBody JSONObject object) {
+    public CommonResult readMessage(@RequestBody JSONObject object,
+                                    @RequestParam(value = "id") Integer id) {
         int m_id = object.getInt("m_id");
-        if (messageService.readMessage(m_id) != 1) {
-            throw new RuntimeException("删除消息失败");
+        int ret;
+        if (userService.getType(id) == 1) {
+            ret = messageService.readMessage(m_id);
+        } else {
+            ret = messageService.readMessageAndCheckUser(m_id, id);
+        }
+
+        if (ret != 1) {
+            throw new RuntimeException("已读消息失败");
         }
         return CommonResult.success(null);
     }
 
     @DeleteMapping("/deleteMessage/{m_id}")
-    public CommonResult deleteMessage(@PathVariable Integer m_id) {
-        if (messageService.deleteMessage(m_id) != 1) {
+    public CommonResult deleteMessage(@PathVariable Integer m_id,
+                                      @RequestParam(value = "id") Integer id) {
+        int ret;
+        if (userService.getType(id) == 1) {
+            ret = messageService.deleteMessage(m_id);
+        } else {
+            ret = messageService.deleteMessageAndCheckUser(m_id, id);
+        }
+
+        if (ret != 1) {
             throw new RuntimeException("删除消息失败");
         }
         return CommonResult.success(null);
@@ -91,24 +107,40 @@ public class MessageController {
     @PostMapping("/readAllReceiveMessage")
     public CommonResult readAllReceive(@RequestParam(name = "id") Integer id) {
         messageService.readAllReceive(id);
+
+        if (userService.getType(id) == 1) {
+            messageService.readAllReceive(0);
+        }
         return CommonResult.success(null);
     }
 
     @PostMapping("/deleteAllReceiveMessage")
     public CommonResult deleteAllReceive(@RequestParam(name = "id") Integer id) {
         messageService.deleteAllReceive(id);
+
+        if (userService.getType(id) == 1) {
+            messageService.deleteAllReceive(0);
+        }
         return CommonResult.success(null);
     }
 
     @PostMapping("/readAllSendMessage")
     public CommonResult readAllSend(@RequestParam(name = "id") Integer id) {
         messageService.readAllSend(id);
+
+        if (userService.getType(id) == 1) {
+            messageService.readAllSend(0);
+        }
         return CommonResult.success(null);
     }
 
     @PostMapping("/deleteAllSendMessage")
     public CommonResult deleteAllSend(@RequestParam(name = "id") Integer id) {
         messageService.deleteAllSend(id);
+
+        if (userService.getType(id) == 1) {
+            messageService.deleteAllSend(0);
+        }
         return CommonResult.success(null);
     }
 

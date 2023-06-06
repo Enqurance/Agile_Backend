@@ -15,7 +15,11 @@ public interface MessageService extends IService<Message> {
 
     int deleteMessage(int m_id);
 
+    int deleteMessageAndCheckUser(int m_id, int u_id);
+
     int readMessage(int m_id);
+
+    int readMessageAndCheckUser(int m_id, int u_id);
 
     List<Message> getAllReceive(int u_id);
 

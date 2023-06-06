@@ -68,4 +68,16 @@
             #{item,jdbcType=NUMERIC}
         </foreach>
     </select>
+    <delete id="deleteByIdAndUreceiveId">
+        delete
+        from message
+        where m_id = #{id,jdbcType=NUMERIC}
+          AND ureceive_id = #{ureceiveId,jdbcType=NUMERIC}
+    </delete>
+    <update id="updateStatusByIdAndUreceiveId">
+        update message
+        set m_status = #{status,jdbcType=NUMERIC}
+        where m_id = #{id,jdbcType=NUMERIC}
+          AND ureceive_id = #{ureceiveId,jdbcType=NUMERIC}
+    </update>
 </mapper>

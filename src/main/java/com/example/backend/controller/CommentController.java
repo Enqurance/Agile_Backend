@@ -91,7 +91,12 @@ public class CommentController {
     }
 
     @DeleteMapping("/deleteComment/{comment_id}")
-    public CommonResult deleteComment(@PathVariable(value = "comment_id", required = false) Integer comment_id) {
+    public CommonResult deleteComment(@PathVariable(value = "comment_id") Integer comment_id,
+                                      @RequestParam(value = "id") Integer id) {
+        if (!commentService.getCommentById(comment_id).getCuserId().equals(id)) {
+            throw new RuntimeException("不要尝试删除他人的评论~");
+        }
+
         int ret = commentService.deleteCommentById(comment_id);
         if (ret == 0)
             return CommonResult.failed("对应comment删除失败或comment不存在");

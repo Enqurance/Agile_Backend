@@ -19,8 +19,15 @@ public interface MessageMapper extends BaseMapper<Message> {
 
     int deleteById(@Param("id") Integer m_id);
 
+    int deleteByIdAndUreceiveId(@Param("id") Integer id,
+                                @Param("ureceiveId") Integer ureceiveId);
+
     int updateStatusById(@Param("id") Integer m_id,
                          @Param("status") Integer m_status);
+
+    int updateStatusByIdAndUreceiveId(@Param("status") Integer status,
+                                      @Param("id") Integer id,
+                                      @Param("ureceiveId") Integer ureceiveId);
 
     List<Message> getAllByUreceiveIdAndTypeIn(@Param("ureceiveId") Integer ureceiveId,
                                               @Param("typeList") Collection<Integer> typeList);

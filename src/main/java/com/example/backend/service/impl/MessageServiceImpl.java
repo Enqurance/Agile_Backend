@@ -43,8 +43,18 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
     }
 
     @Override
+    public int deleteMessageAndCheckUser(int m_id, int u_id) {
+        return messageMapper.deleteByIdAndUreceiveId(m_id, u_id);
+    }
+
+    @Override
     public int readMessage(int m_id) {
         return messageMapper.updateStatusById(m_id, 1);
+    }
+
+    @Override
+    public int readMessageAndCheckUser(int m_id, int u_id) {
+        return messageMapper.updateStatusByIdAndUreceiveId(1, m_id, u_id);
     }
 
     @Override
