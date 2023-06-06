@@ -160,7 +160,12 @@ public class PostController {
     }
 
     @DeleteMapping("/deletePost/{post_id}")
-    public CommonResult deletePost(@PathVariable(value = "post_id", required = false) Integer post_id) {
+    public CommonResult deletePost(@PathVariable(value = "post_id") Integer post_id,
+                                   @RequestParam(value = "id") Integer id) {
+        if (!postService.getPostById(post_id).getUserId().equals(id)) {
+            throw new RuntimeException("不要尝试删除他人的帖子~");
+        }
+
         if (postService.deletePostById(post_id) == 0)
             return CommonResult.failed("对应post删除失败或post不存在");
         else
@@ -172,7 +177,12 @@ public class PostController {
                                    @RequestParam(value = "tag") Integer tag,
                                    @RequestParam(value = "pinIdStr") String pinIdStr,
                                    @RequestParam(value = "title") String title,
-                                   @RequestParam(value = "content") String content) {
+                                   @RequestParam(value = "content") String content,
+                                   @RequestParam(value = "id") Integer id) {
+        if (!postService.getPostById(post_id).getUserId().equals(id)) {
+            throw new RuntimeException("不要尝试修改他人的帖子~");
+        }
+
         Post post = new Post();
         post.setId(post_id);
         post.setTitle(title);
@@ -187,10 +197,9 @@ public class PostController {
     }
 
     @GetMapping("/addLike/{post_id}")
-    public CommonResult addLike(@RequestParam(required = false, name = "id") Integer id,
+    public CommonResult addLike(@RequestParam(name = "id") Integer id,
                                 @PathVariable(value = "post_id") Integer post_id) {
-        int ret = postService.addLike(id, post_id);
-        if (ret == 0) {
+        if (postService.addLike(id, post_id) == 0) {
             return CommonResult.success("用户取消点赞帖子");
         } else {
             MessageUtil.newMessage(new LikeMessage(post_id, id, postService.getPostById(post_id).getUserId()));

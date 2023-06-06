@@ -6,8 +6,6 @@ import com.example.backend.domain.Floor;
 import com.example.backend.domain.Post;
 import com.example.backend.domain.User;
 import com.example.backend.entity.ListFloors;
-import com.example.backend.entity.message.ExaminePostMessage;
-import com.example.backend.entity.message.LikeMessage;
 import com.example.backend.entity.message.ReplyMessage;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.*;
@@ -104,7 +102,12 @@ public class FloorController {
     }
 
     @DeleteMapping("/deleteFloor/{floor_id}")
-    public CommonResult deleteFloor(@PathVariable(value = "floor_id", required = false) Integer floor_id) {
+    public CommonResult deleteFloor(@PathVariable(value = "floor_id") Integer floor_id,
+                                    @RequestParam(value = "id") Integer id) {
+        if (!floorService.getFloorById(floor_id).getUserId().equals(id)) {
+            throw new RuntimeException("不要尝试删除他人的楼层~");
+        }
+
         if (floorService.deleteFloorById(floor_id) == 0)
             return CommonResult.failed("对应floor删除失败或floor不存在");
         else

@@ -1,14 +1,14 @@
 package com.example.backend.controller;
 
-import com.example.backend.domain.User;
 import com.example.backend.domain.Suggestion;
+import com.example.backend.domain.User;
 import com.example.backend.entity.Password;
 import com.example.backend.entity.SuggestWrap;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.AuthService;
 import com.example.backend.service.SuggestionService;
 import com.example.backend.service.UserService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,13 +16,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@RequiredArgsConstructor
 public class UserController {
-    private final AuthService authService;
+    @Autowired
+    private AuthService authService;
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    private final SuggestionService suggestionService;
+    @Autowired
+    private SuggestionService suggestionService;
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getUserByToken")
@@ -73,7 +75,8 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/changePasswordByToken")
-    public CommonResult changePasswordById(@RequestBody Password password, @RequestParam(name = "id") Integer id) {
+    public CommonResult changePasswordById(@RequestBody Password password,
+                                           @RequestParam(name = "id") Integer id) {
         String originPassword = userService.getPassword(id);
 
         if (!authService.encryptCorrect(password.getPassword(), originPassword)) {

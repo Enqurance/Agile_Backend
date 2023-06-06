@@ -10,6 +10,7 @@ import com.example.backend.service.PostService;
 import com.example.backend.service.TexamineService;
 import com.example.backend.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.List;
  * @date: 2023/5/20 10:56
  */
 @RestController
+@PreAuthorize("hasAuthority('ADMIN')")
 public class TaskExamineController {
     @Autowired
     private TexamineService texamineService;
