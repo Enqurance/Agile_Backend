@@ -45,7 +45,9 @@
         select * from pin where 1 = 0
         <if test='searchContext != "null" and searchContext != ""'>
             or p_name like #{searchContext} and p_visibility = 1
+            or p_brief like #{searchContext} and p_visibility = 1
             or p_name like #{searchContext} and u_id = #{id}
+            or p_brief like #{searchContext} and u_id = #{id}
         </if>
     </select>
     <select id="getPinById" resultType="com.example.backend.domain.Pin" resultMap="BaseResultMap">

@@ -67,6 +67,7 @@
         select * from post where 1 = 0
         <if test='context != "null" and context != ""'>
             or post_title like #{context} and post_visibility = 1
+            or post_content like #{context} and post_visibility = 1
         </if>
     </select>
     <delete id="deletePostById">
