@@ -2,7 +2,6 @@ package com.example.backend.service.impl;
 
 import com.example.backend.domain.Tpin;
 import com.example.backend.mapper.TpinMapper;
-import org.apache.ibatis.logging.Log;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +31,7 @@ class TpinServiceImplTest {
         when(tpinMapper.insertAll(any())).thenReturn(0);
         when(tpinMapper.findAllByPId(anyInt())).thenReturn(List.of());
 
-        int result = tpinServiceImpl.insertTask(0);
+        int result = tpinServiceImpl.insertTask(0, 0);
         Assertions.assertEquals(0, result);
     }
 
