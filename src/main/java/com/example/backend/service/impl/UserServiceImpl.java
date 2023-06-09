@@ -59,10 +59,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public int updatePassword(String password, Integer id) {
-        if (!RexUtil.passwordCheck(password)) {
-            throw new RuntimeException("密码格式错误");
-        }
-
         return userMapper.updatePasswordById(password, id);
     }
 

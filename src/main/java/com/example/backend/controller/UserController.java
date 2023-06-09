@@ -8,6 +8,7 @@ import com.example.backend.result.CommonResult;
 import com.example.backend.service.AuthService;
 import com.example.backend.service.SuggestionService;
 import com.example.backend.service.UserService;
+import com.example.backend.utils.RexUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -81,6 +82,10 @@ public class UserController {
 
         if (!authService.encryptCorrect(password.getPassword(), originPassword)) {
             return CommonResult.failed("密码错误");
+        }
+
+        if (!RexUtil.passwordCheck(password.getNewPassword())) {
+            return CommonResult.failed("密码格式错误");
         }
 
         int result = userService.updatePassword(
