@@ -8,6 +8,7 @@ import com.example.backend.entity.*;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -30,15 +31,13 @@ public class PinController {
     @Autowired
     ForumService forumService;
 
+    @PreAuthorize("hasAuthority('USER')")
     @RequestMapping("/pin/addPinByCoords")
-    public CommonResult addPinByCoords(@RequestBody Pin pin, @RequestParam(name = "id") Integer id) {
-        List<User> users = userService.findUserById(id);
-        if (users.size() == 0)
-            return CommonResult.failed("不存在id = " + id + "的user");
-        if (users.get(0).getType() == 0)
-            pin.setVisibility(0);
-        else if (users.get(0).getType() == 1)
-            pin.setVisibility(1);
+    public CommonResult addPinByCoords(@RequestBody Pin pin,
+                                       @RequestParam(name = "id") Integer id) {
+        User user = userService.findUserById(id).get(0);
+        // pin的可见性由后端设定
+        pin.setVisibility(user.getType());
         pin.setUser_id(id);
         Forum forum = new Forum();
         forumService.insertForum(forum);
@@ -50,8 +49,20 @@ public class PinController {
             return CommonResult.success(pinService.findMaxId());
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @DeleteMapping("/pin/deletePin/{pin_id}")
-    public CommonResult deletePinById(@PathVariable(value = "pin_id", required = false) Integer pin_id) {
+    public CommonResult deletePinById(@PathVariable(value = "pin_id") Integer pin_id,
+                                      @RequestParam(value = "id") Integer id) {
+        Pin pin = pinService.getPinById(pin_id);
+        if (pin == null)
+            return CommonResult.failed("不存在id = " + pin_id + "的pin");
+        if (pin.getVisibility() == 1)
+            return CommonResult.failed("无法删除公共pin");
+
+        if (!pin.getUser_id().equals(id)) {
+            throw new RuntimeException("不要尝试删除他人的地图钉~");
+        }
+
         int photoRet = photoService.deletePhotoByPinId(pin_id);
         String msg = "";
         if (photoRet == 0)
@@ -102,17 +113,21 @@ public class PinController {
         return CommonResult.success(pinGroup);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @RequestMapping("/pin/changePinInfoById")
-    public CommonResult changePinInfoById(@RequestBody Pin pin, @RequestParam(name = "id") Integer id) {
-        List<User> users = userService.findUserById(id);
-        if (users.size() == 0)
-            return CommonResult.failed("不存在id = " + id + "的user");
-        if (users.get(0).getType() == 0)
-            pin.setVisibility(0);
-        else if (users.get(0).getType() == 1)
-            pin.setVisibility(1);
-        int ret = pinService.updatePin(pin);
-        if (ret == 1)
+    public CommonResult changePinInfoById(@RequestBody Pin pin,
+                                          @RequestParam(name = "id") Integer id) {
+        User user = userService.findUserById(id).get(0);
+
+        if (user.getType() != 1 &&
+                !pinService.getPinById(pin.getId()).getUser_id().equals(id)) {
+            throw new RuntimeException("不要尝试修改他人的地图钉~");
+        }
+
+        // pin的可见性由后端设定
+        pin.setVisibility(user.getType());
+
+        if (pinService.updatePin(pin) == 1)
             return CommonResult.success(null);
         else
             return CommonResult.failed("数据库不存在id = " + pin.getId() + "的pin");
@@ -142,5 +157,37 @@ public class PinController {
             ));
         }
         return CommonResult.success(briefInfos);
+    }
+
+    @GetMapping("/pin/getAllPublicPin")
+    public CommonResult getAllPublicPin() {
+        PublicPins publicPins = new PublicPins();
+        for (int type = 1; type <= 7; type++) {
+            List<Pin> pins = pinService.getAllPublicPin(type);
+            switch (type) {
+                case 1 -> publicPins.setTag1(pins);
+                case 2 -> publicPins.setTag2(pins);
+                case 3 -> publicPins.setTag3(pins);
+                case 4 -> publicPins.setTag4(pins);
+                case 5 -> publicPins.setTag5(pins);
+                case 6 -> publicPins.setTag6(pins);
+                case 7 -> publicPins.setTag7(pins);
+            }
+        }
+        return CommonResult.success(publicPins);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @RequestMapping("/switchPos")
+    public CommonResult switchPos(@RequestBody Pin pin,
+                                  @RequestParam(value = "id") Integer id) {
+        if (!pinService.getPinById(pin.getId()).getUser_id().equals(id)) {
+            throw new RuntimeException("不要尝试修改他人的地图钉~");
+        }
+
+        if (pinService.switchPos(pin) == 0)
+            return CommonResult.failed("修改pin位置失败");
+        else
+            return CommonResult.success("修改pin位置成功");
     }
 }

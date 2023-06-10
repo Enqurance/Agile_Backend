@@ -57,16 +57,4 @@ public class AuthController {
 //        return CommonResult.success(token);
         return CommonResult.success(authService.login(user));
     }
-
-    @GetMapping("/encrypt")
-    public void encrypt(@RequestParam(name = "str") String str) {
-//        return CommonResult.success(authService.encryptString(str));
-//        System.out.println(stringEncryptor.encrypt("AKIDugGdlgceePwDPTWUFxUuELBlqqdBVcXU"));
-
-    }
-
-    @GetMapping("/test")
-    public String test() {
-        return "test";
-    }
 }

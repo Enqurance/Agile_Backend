@@ -10,5 +10,5 @@ public class PinBriefInfo {
     private String name;
     private Integer type;
     private Integer visibility;
-    Double[] lnglat;
+    private Double[] lnglat;
 }

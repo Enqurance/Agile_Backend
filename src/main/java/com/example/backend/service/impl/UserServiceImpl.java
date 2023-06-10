@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.backend.domain.User;
 import com.example.backend.service.UserService;
 import com.example.backend.mapper.UserMapper;
+import com.example.backend.utils.RexUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public int updateBasicInfo(User user) {
+        if (!RexUtil.usernameCheck(user.getName())) {
+            throw new RuntimeException("用户名格式错误");
+        }
+
         return userMapper.updateNameAndCampusAndGradeAndGenderAndDescriptionById(
                 user.getName(),
                 user.getCampus(),
@@ -64,6 +69,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             throw new RuntimeException("用户不存在，请联系管理员");
         }
         return users.get(0).getPassword();
+    }
+
+    @Override
+    public int getType(Integer id) {
+        return userMapper.getTypeById(id).get(0).getType();
     }
 }
 

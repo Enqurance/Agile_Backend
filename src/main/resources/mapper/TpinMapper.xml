@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.TpinMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Tpin">
+            <id property="id" column="tpin_id" jdbcType="INTEGER"/>
+            <result property="pId" column="p_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        tpin_id,p_id
+    </sql>
+    <insert id="insertAll">
+        insert into tpin
+            (tpin_id, p_id)
+        values (#{id,jdbcType=NUMERIC}, #{pId,jdbcType=NUMERIC})
+
+    </insert>
+    <delete id="deleteById">
+        delete
+        from tpin
+        where tpin_id = #{id,jdbcType=NUMERIC}
+    </delete>
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tpin
+    </select>
+    <select id="findAllByPId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tpin
+        where
+        p_id = #{pId,jdbcType=NUMERIC}
+    </select>
+    <delete id="deleteByPId">
+        delete
+        from tpin
+        where p_id = #{pId,jdbcType=NUMERIC}
+    </delete>
+</mapper>

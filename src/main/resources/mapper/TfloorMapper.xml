@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.TfloorMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Tfloor">
+            <id property="id" column="tfloor_id" jdbcType="INTEGER"/>
+            <result property="floorId" column="floor_id" jdbcType="INTEGER"/>
+            <result property="reason" column="tfloor_reason" jdbcType="VARCHAR"/>
+            <result property="uId" column="u_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        tfloor_id,floor_id,tfloor_reason,
+        u_id
+    </sql>
+    <insert id="insertAll">
+        insert into tfloor
+        (tfloor_id, floor_id, tfloor_reason,
+         u_id)
+        values (#{id,jdbcType=NUMERIC}, #{floorId,jdbcType=NUMERIC}, #{reason,jdbcType=VARCHAR},
+                #{uId,jdbcType=VARCHAR})
+
+    </insert>
+    <delete id="deleteById">
+        delete
+        from tfloor
+        where tfloor_id = #{id,jdbcType=NUMERIC}
+    </delete>
+    <select id="findAllByFloorId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tfloor
+        where
+        floor_id = #{floorId,jdbcType=NUMERIC}
+    </select>
+    <update id="updateReasonAndUIdByFloorId">
+        update tfloor
+        set tfloor_reason = #{reason,jdbcType=VARCHAR},
+            u_id          = #{uId,jdbcType=VARCHAR}
+        where floor_id = #{floorId,jdbcType=NUMERIC}
+    </update>
+</mapper>

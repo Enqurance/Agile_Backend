@@ -1,14 +1,15 @@
 package com.example.backend.controller;
 
-import com.example.backend.domain.User;
 import com.example.backend.domain.Suggestion;
+import com.example.backend.domain.User;
 import com.example.backend.entity.Password;
 import com.example.backend.entity.SuggestWrap;
 import com.example.backend.result.CommonResult;
 import com.example.backend.service.AuthService;
 import com.example.backend.service.SuggestionService;
 import com.example.backend.service.UserService;
-import lombok.RequiredArgsConstructor;
+import com.example.backend.utils.RexUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,17 +17,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@PreAuthorize("hasAuthority('USER')")
-@RequiredArgsConstructor
 public class UserController {
-    private final AuthService authService;
+    @Autowired
+    private AuthService authService;
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    private final SuggestionService suggestionService;
+    @Autowired
+    private SuggestionService suggestionService;
 
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getUserByToken")
-    public CommonResult getUserById(@RequestParam(name = "id") Integer id) {
+    public CommonResult getUserByToken(@RequestParam(name = "id") Integer id) {
         List<User> users = userService.findUserById(id);
         if (users.size() == 0) {
             throw new RuntimeException("用户不存在");
@@ -34,6 +37,18 @@ public class UserController {
         return CommonResult.success(users.get(0));
     }
 
+    @GetMapping("/getUserById/{user_id}")
+    public CommonResult getUserById(@PathVariable(value = "user_id") Integer user_id) {
+        List<User> users = userService.findUserById(user_id);
+        if (users.size() == 0) {
+            throw new RuntimeException("用户不存在");
+        }
+        User user = users.get(0);
+        user.setPassword(null);
+        return CommonResult.success(user);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/changeUserBasicByToken")
     public CommonResult changeUserById(@RequestBody User user,
                                        @RequestParam(name = "id") Integer id) {
@@ -45,6 +60,7 @@ public class UserController {
         return CommonResult.success(null);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getIcon")
     public CommonResult getIcon(@RequestParam(name = "id") Integer id) {
         List<User> users = userService.findUserById(id);
@@ -58,12 +74,18 @@ public class UserController {
             return CommonResult.success(iconUrl);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/changePasswordByToken")
-    public CommonResult changePasswordById(@RequestBody Password password, @RequestParam(name = "id") Integer id) {
+    public CommonResult changePasswordById(@RequestBody Password password,
+                                           @RequestParam(name = "id") Integer id) {
         String originPassword = userService.getPassword(id);
 
         if (!authService.encryptCorrect(password.getPassword(), originPassword)) {
             return CommonResult.failed("密码错误");
+        }
+
+        if (!RexUtil.passwordCheck(password.getNewPassword())) {
+            return CommonResult.failed("密码格式错误");
         }
 
         int result = userService.updatePassword(
@@ -74,6 +96,7 @@ public class UserController {
         return CommonResult.success(null);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/suggestByToken")
     public CommonResult suggestByToken(@RequestParam(name = "id") Integer id,
                                        @RequestBody SuggestWrap suggestion) {

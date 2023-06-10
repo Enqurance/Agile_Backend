@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.TexamineMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Texamine">
+            <id property="id" column="texamine_id" jdbcType="INTEGER"/>
+            <result property="postId" column="post_id" jdbcType="INTEGER"/>
+            <result property="title" column="texamine_title" jdbcType="VARCHAR"/>
+            <result property="content" column="texamine_content" jdbcType="VARCHAR"/>
+            <result property="basis" column="texamine_basis" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        texamine_id,post_id,texamine_title,
+        texamine_content,texamine_basis
+    </sql>
+    <insert id="insertAll">
+        insert into texamine
+        (texamine_id, post_id, texamine_title,
+         texamine_content, texamine_basis)
+        values (#{id,jdbcType=NUMERIC}, #{postId,jdbcType=NUMERIC}, #{title,jdbcType=VARCHAR},
+                #{content,jdbcType=VARCHAR}, #{basis,jdbcType=VARCHAR})
+
+    </insert>
+    <delete id="deleteByPostId">
+        delete
+        from texamine
+        where post_id = #{postId,jdbcType=NUMERIC}
+    </delete>
+    <update id="updateTitleAndContentByPostId">
+        update texamine
+        set texamine_title   = #{title,jdbcType=VARCHAR},
+            texamine_content = #{content,jdbcType=VARCHAR}
+        where post_id = #{postId,jdbcType=NUMERIC}
+    </update>
+    <select id="findAllReadyTasks" resultType="com.example.backend.domain.Texamine" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from texamine
+        where (texamine_title is not null) and (texamine_content is not null)
+    </select>
+    <select id="getAllByPostId" resultType="com.example.backend.domain.Texamine" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from texamine
+        where
+        post_id = #{postId,jdbcType=NUMERIC}
+    </select>
+    <update id="updateTitleAndContentAndBasisByPostId">
+        update texamine
+        set texamine_title   = #{title,jdbcType=VARCHAR},
+            texamine_content = #{content,jdbcType=VARCHAR},
+            texamine_basis   = #{basis,jdbcType=VARCHAR}
+        where post_id = #{postId,jdbcType=NUMERIC}
+    </update>
+</mapper>

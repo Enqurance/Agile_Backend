@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.TreportMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Treport">
+            <id property="id" column="treport_id" jdbcType="INTEGER"/>
+            <result property="oId" column="o_id" jdbcType="INTEGER"/>
+            <result property="type" column="treport_type" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        treport_id,o_id,treport_type
+    </sql>
+    <insert id="insertAll">
+        insert into treport
+            (treport_id, o_id, treport_type)
+        values (#{id,jdbcType=NUMERIC}, #{oId,jdbcType=NUMERIC}, #{type,jdbcType=NUMERIC})
+
+    </insert>
+    <delete id="deleteById">
+        delete
+        from treport
+        where treport_id = #{id,jdbcType=NUMERIC}
+    </delete>
+    <select id="findAllByOIdAndType" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from treport
+        where
+        o_id = #{oId,jdbcType=NUMERIC}
+        AND treport_type = #{type,jdbcType=NUMERIC}
+    </select>
+</mapper>

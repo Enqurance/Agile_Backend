@@ -9,6 +9,7 @@ import com.example.backend.service.UserService;
 import com.example.backend.utils.EmailUtil;
 import com.example.backend.utils.JwtUtil;
 import com.example.backend.utils.RedisUtil;
+import com.example.backend.utils.RexUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +33,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Value("${info.default_description}")
     private String description;
+
     @Override
     public void sendMailCode(String email) {
         if (userService.findUserByEmail(email).size() != 0) {
@@ -54,6 +56,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean register(RegisterInfo info) {
+        if (!RexUtil.usernameCheck(info.getName())) {
+            throw new RuntimeException("用户名格式错误");
+        }
+
+        if (!RexUtil.passwordCheck(info.getPassword())) {
+            throw new RuntimeException("密码格式错误");
+        }
+
         if (userService.findUserByEmail(info.getEmail()).size() != 0) {
             throw new RuntimeException("邮箱已被注册");
         }

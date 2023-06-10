@@ -44,10 +44,10 @@
     <select id="searchAll" resultType="com.example.backend.domain.Pin" resultMap="BaseResultMap">
         select * from pin where 1 = 0
         <if test='searchContext != "null" and searchContext != ""'>
-            or p_name like '%${searchContext}%' and p_visibility = 1
-            or p_brief like '%${searchContext}%' and p_visibility = 1
-            or p_name like '%${searchContext}%' and u_id = #{id}
-            or p_brief like '%${searchContext}%' and u_id = #{id}
+            or p_name like #{searchContext} and p_visibility = 1
+            or p_brief like #{searchContext} and p_visibility = 1
+            or p_name like #{searchContext} and u_id = #{id}
+            or p_brief like #{searchContext} and u_id = #{id}
         </if>
     </select>
     <select id="getPinById" resultType="com.example.backend.domain.Pin" resultMap="BaseResultMap">
@@ -74,4 +74,22 @@
         u_id = #{user_id,jdbcType=NUMERIC}
         OR p_visibility = #{visibility,jdbcType=NUMERIC}
     </select>
+    <select id="getMyAllPin" resultType="com.example.backend.domain.Pin" resultMap="BaseResultMap">
+        select * from pin
+        where u_id = #{id,jdbcType=NUMERIC}
+    </select>
+    <select id="getPublicPinByType" resultType="com.example.backend.domain.Pin" resultMap="BaseResultMap">
+        select p_id,p_name from pin
+        where p_type = #{type,jdbcType=NUMERIC} and p_visibility = 1
+    </select>
+    <update id="updateVisibilityById">
+        update pin
+        set p_visibility = #{visibility,jdbcType=NUMERIC}
+        where p_id = #{id,jdbcType=NUMERIC}
+    </update>
+    <update id="switchPos">
+        update pin
+        set p_lnglat = #{lnglat,jdbcType=VARCHAR}
+        where p_id = #{pinId,jdbcType=NUMERIC}
+    </update>
 </mapper>

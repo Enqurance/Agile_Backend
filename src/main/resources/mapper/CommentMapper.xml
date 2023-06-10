@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.CommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Comment">
+            <id property="id" column="comment_id" jdbcType="INTEGER"/>
+            <result property="content" column="c_content" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="floorId" column="floor_id" jdbcType="INTEGER"/>
+            <result property="cuserId" column="cuser_id" jdbcType="INTEGER"/>
+            <result property="ruserId" column="ruser_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        comment_id,c_content,create_time,
+        floor_id,cuser_id,ruser_id
+    </sql>
+    <insert id="insertComment">
+        insert into comment
+        (comment_id,c_content,create_time,
+         floor_id,cuser_id,ruser_id)
+        values (#{id,jdbcType=NUMERIC}, #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+                #{floorId,jdbcType=NUMERIC}, #{cuserId,jdbcType=NUMERIC}, #{ruserId,jdbcType=NUMERIC})
+    </insert>
+    <select id="getCommentById" resultType="com.example.backend.domain.Comment" resultMap="BaseResultMap">
+        select * from comment where 1 = 0
+        <if test='id > 0'>
+            or comment_id = #{id}
+        </if>
+    </select>
+    <delete id="deleteById">
+        delete
+        from comment
+        where comment_id = #{id,jdbcType=NUMERIC}
+    </delete>
+    <delete id="deleteCommentByFloorId">
+        delete
+        from comment
+        where floor_id = #{floorId,jdbcType=NUMERIC}
+    </delete>
+    <select id="findMaxId" resultType="java.lang.Integer">
+        select max(comment_id) from comment
+    </select>
+    <select id="getCommentsOrderTime" resultType="com.example.backend.domain.Comment" resultMap="BaseResultMap">
+        select * from comment where floor_id = #{floorId}
+        order by create_time asc
+    </select>
+    <select id="getMyAllComment" resultType="com.example.backend.domain.Comment" resultMap="BaseResultMap">
+        select * from comment
+        where cuser_id = #{id,jdbcType=NUMERIC}
+        order by create_time desc
+    </select>
+    <select id="getAllByFloorId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where
+        floor_id = #{floorId,jdbcType=NUMERIC}
+    </select>
+</mapper>

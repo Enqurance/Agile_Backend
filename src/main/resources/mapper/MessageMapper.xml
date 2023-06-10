@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.MessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.backend.domain.Message">
+            <id property="id" column="m_id" jdbcType="INTEGER"/>
+            <result property="content" column="m_content" jdbcType="VARCHAR"/>
+            <result property="status" column="m_status" jdbcType="TINYINT"/>
+            <result property="para" column="m_para" jdbcType="VARCHAR"/>
+            <result property="type" column="m_type" jdbcType="SMALLINT"/>
+            <result property="ureceiveId" column="ureceive_id" jdbcType="INTEGER"/>
+            <result property="time" column="m_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        m_id,m_content,m_status,
+        m_para,m_type,ureceive_id,
+        m_time
+    </sql>
+    <insert id="insertAll">
+        insert into message
+        (m_id, m_content, m_status,
+         m_para, m_type, ureceive_id,
+         m_time)
+        values (#{id,jdbcType=NUMERIC}, #{content,jdbcType=VARCHAR}, #{status,jdbcType=NUMERIC},
+                #{para,jdbcType=VARCHAR}, #{type,jdbcType=NUMERIC}, #{ureceiveId,jdbcType=NUMERIC},
+                #{time,jdbcType=TIMESTAMP})
+
+    </insert>
+    <update id="updateStatusById">
+        update message
+        set m_status = #{status,jdbcType=NUMERIC}
+        where m_id = #{id,jdbcType=NUMERIC}
+    </update>
+    <delete id="deleteById">
+        delete from message where m_id = #{id,jdbcType=NUMERIC}
+    </delete>
+
+    <delete id="deleteByUreceiveIdAndTypeIn">
+        delete from message
+        where
+        ureceive_id = #{ureceiveId,jdbcType=NUMERIC}
+        AND m_type in
+        <foreach collection="typeList" item="item" open="(" close=")" separator=",">
+            #{item,jdbcType=NUMERIC}
+        </foreach>
+    </delete>
+    <update id="updateStatusByUreceiveIdAndTypeIn">
+        update message
+        set m_status = #{status,jdbcType=NUMERIC}
+        where
+        ureceive_id = #{ureceiveId,jdbcType=NUMERIC}
+        AND m_type in
+        <foreach collection="typeList" item="item" open="(" close=")" separator=",">
+            #{item,jdbcType=NUMERIC}
+        </foreach>
+    </update>
+    <select id="getAllByUreceiveIdAndTypeIn" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from message
+        where
+        ureceive_id = #{ureceiveId,jdbcType=NUMERIC}
+        AND m_type in
+        <foreach collection="typeList" item="item" open="(" close=")" separator=",">
+            #{item,jdbcType=NUMERIC}
+        </foreach>
+    </select>
+    <delete id="deleteByIdAndUreceiveId">
+        delete
+        from message
+        where m_id = #{id,jdbcType=NUMERIC}
+          AND ureceive_id = #{ureceiveId,jdbcType=NUMERIC}
+    </delete>
+    <update id="updateStatusByIdAndUreceiveId">
+        update message
+        set m_status = #{status,jdbcType=NUMERIC}
+        where m_id = #{id,jdbcType=NUMERIC}
+          AND ureceive_id = #{ureceiveId,jdbcType=NUMERIC}
+    </update>
+</mapper>

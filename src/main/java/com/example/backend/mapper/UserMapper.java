@@ -33,6 +33,8 @@ public interface UserMapper extends BaseMapper<User> {
     int updatePasswordById(@Param("password") String password, @Param("id") Integer id);
 
     List<User> getPasswordById(@Param("id") Integer id);
+
+    List<User> getTypeById(@Param("id") Integer id);
 }
 
 
