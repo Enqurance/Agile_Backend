@@ -119,7 +119,8 @@ public class PinController {
                                           @RequestParam(name = "id") Integer id) {
         User user = userService.findUserById(id).get(0);
 
-        if (!pinService.getPinById(pin.getId()).getUser_id().equals(id)) {
+        if (user.getType() != 1 &&
+                !pinService.getPinById(pin.getId()).getUser_id().equals(id)) {
             throw new RuntimeException("不要尝试修改他人的地图钉~");
         }
 
